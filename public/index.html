@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="MasterApp" ng-controller="homeController" ng-strict-di>
+<head>
+    <meta charset="utf-8">
+    <base href="/">
+    <title>HTR LOAN</title>
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css" />
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <!-- endbower -->
+
+    <!-- inject:css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endinject -->
+    <style type="text/css">
+        [ng\:cloak], [ng-cloak], .ng-cloak {
+            display: none !important;
+        }
+    </style>
+</head>
+<body layout="row" ng-cloak class="ng-cloak">
+
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
+            md-component-id="left"
+            md-is-locked-open="$mdMedia('gt-sm')" ng-show="isLogin">
+
+    <header class="nav-header">
+        <a ng-href="{{'/'}}" class="docs-logo">
+            <img src="img/icons/data_chain.svg" alt=""/>
+
+            <h1 class="docs-logotype md-heading">华泰然车辆管理</h1>
+        </a>
+    </header>
+
+    <ul class="skip-links">
+        <li class="md-whiteframe-z2">
+            <md-button ng-click="focusMainContent($event)" href="#">Skip to content</md-button>
+        </li>
+    </ul>
+
+    <md-content flex role="navigation">
+        <ul class="docs-menu">
+            <li ng-repeat="section in menu.sections" class="parent-list-item {{section.className || ''}}"
+                ng-class="{'parentActive' : isSectionSelected(section)}">
+                <h2 class="menu-heading md-subhead" ng-if="section.type === 'heading'"
+                    id="heading_{{ section.name | nospace }}">
+                    {{section.name}}
+                </h2>
+                <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
+
+                <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
+
+                <ul ng-if="section.children" class="menu-nested-list">
+                    <li ng-repeat="child in section.children" ng-class="{'childActive' : isSectionSelected(child)}">
+                        <menu-link section="child" ng-if="child.type === 'link'"></menu-link>
+
+                        <menu-toggle section="child" ng-if="child.type === 'toggle'"></menu-toggle>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </md-content>
+</md-sidenav>
+
+<div layout="column" tabIndex="-1" role="main" flex>
+    <md-toolbar class="md-whiteframe-glow-z1 site-content-toolbar" ng-show="isLogin">
+
+        <div class="md-toolbar-tools docs-toolbar-tools" ng-click="openMenu()" tabIndex="-1">
+            <md-button class="md-icon-button" hide-gt-sm aria-label="Toggle Menu">
+                <md-icon md-svg-src="img/icons/ic_menu_24px.svg"></md-icon>
+            </md-button>
+            <div layout="row" flex class="fill-height">
+                <h2 class="md-toolbar-item md-breadcrumb md-headline">
+            <span ng-if="menu.currentPage.name !== menu.currentSection.name">
+              <span hide-sm hide-md>{{menu.currentSection.name}}</span>
+              <span class="docs-menu-separator-icon" hide-sm hide-md style="transform: translate3d(0, 1px, 0)">
+                <span class="md-visually-hidden">-</span>
+                <md-icon
+                        aria-hidden="true"
+                        md-svg-src="img/icons/ic_chevron_right_24px.svg"
+                        style="margin-top: -2px"></md-icon>
+              </span>
+            </span>
+                    <span class="md-breadcrumb-page">{{menu.currentPage | humanizeDoc}}</span>
+                </h2>
+
+                <span flex></span> <!-- use up the empty space -->
+            </div>
+        </div>
+    </md-toolbar>
+    <md-content ng-view md-scroll-y flex layout-padding></md-content>
+</div>
+
+<!-- bower:js -->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-aria/angular-aria.js"></script>
+<script src="bower_components/angular-messages/angular-messages.js"></script>
+<script src="bower_components/angular-material/angular-material.js"></script>
+<!-- endbower -->
+<!-- inject:js -->
+<script src="scripts/app.route.js"></script>
+<script src="scripts/app.modules.js"></script>
+<script src="scripts/controllers/home.controller.js"></script>
+<script src="scripts/controllers/login.controller.js"></script>
+<script src="scripts/controllers/test.controller.js"></script>
+<script src="scripts/directives/home.directive.js"></script>
+<script src="scripts/filters/home.filter.js"></script>
+<script src="scripts/services/auth.service.js"></script>
+<script src="scripts/services/home.service.js"></script>
+<!-- endinject -->
+</body>
+</html>

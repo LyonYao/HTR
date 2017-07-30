@@ -1,0 +1,23 @@
+<!-- Using Angular Material 6.1 + Jade Templates-->
+<div layout="column" layout-align="center center" layout-fill="layout-fill">
+    <div class="loginBox md-whiteframe-z1" layout="column">
+        <md-toolbar>
+            <h2 class="md-toolbar-tools"><span>Login</span></h2>
+        </md-toolbar>
+        <md-content class="md-padding" layout="column">
+            <md-input-container>
+                <label>user name</label>
+                <input type="user" id="username" name="username" ng-model="credentials.username"/>
+            </md-input-container>
+            <md-input-container>
+                <label>Password</label>
+                <input type="password" id="password" name="password" ng-model="credentials.password"/>
+            </md-input-container>
+            <div layout="row" layout-align="center center" style="padding-top:20px">
+                <md-button class="md-raised md-primary" ng-click="login()">Login</md-button>
+                <div flex="flex"></div>
+                <md-button href="" md-no-ink="md-no-ink">Forgot Password</md-button>
+            </div>
+        </md-content>
+    </div>
+</div>
