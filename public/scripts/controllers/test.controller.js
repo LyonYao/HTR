@@ -3,8 +3,8 @@
  */
 (function () {
     'use strict';
-    angular.module('MasterApp.test')
-        .controller('testController', ['$scope','$mdSidenav','$timeout', function ($scope) {
+
+    test.controller('testController', ['$scope','$mdSidenav','$timeout', function ($scope) {
             var canvas = document.getElementById("cas");
             var ctx = canvas.getContext("2d");
 

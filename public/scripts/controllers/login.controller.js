@@ -3,8 +3,8 @@
  */
 (function () {
     'use strict';
-    angular.module('MasterApp.login')
-        .controller('loginController', ['$scope', 'auth', function ($scope, auth) {
+
+    login.controller('loginController', ['$scope', 'auth', function ($scope, auth) {
             var self = this;
             self.authenticated = function() {
                 return auth.authenticated;

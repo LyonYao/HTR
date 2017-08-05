@@ -1,31 +1,26 @@
 package com.htr.loan.domain;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
-import java.util.Set;
+import java.util.Collection;
 
 @Entity
-public class User {
+@EntityListeners(AuditingEntityListener.class)
+public class User extends BaseDomain {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
     private String email;
-    private String userName;
+    private String userAccount;
     private String password;
-    private int active;
+    private String userName;
+    private String phoneNumber;
+    private String sex;
+    @OneToMany(cascade = CascadeType.MERGE)
+    private Collection<Department> departments;
+    private String station;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Set<Role> roles;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private Collection<Role> roles;
 
     public String getEmail() {
         return email;
@@ -35,12 +30,12 @@ public class User {
         this.email = email;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUserAccount() {
+        return userAccount;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserAccount(String userAccount) {
+        this.userAccount = userAccount;
     }
 
     public String getPassword() {
@@ -51,19 +46,51 @@ public class User {
         this.password = password;
     }
 
-    public int getActive() {
-        return active;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setActive(int active) {
-        this.active = active;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public Set<Role> getRoles() {
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public Collection<Department> getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(Collection<Department> departments) {
+        this.departments = departments;
+    }
+
+    public String getStation() {
+        return station;
+    }
+
+    public void setStation(String station) {
+        this.station = station;
+    }
+
+    public Collection<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
 }

@@ -11,7 +11,7 @@ gulp.task('default',['devIndex'], function() {
 });
 
 var paths = {
-    js: ['./scripts/app.route.js', './scripts/app.modules.js', './scripts/**/*.js'],
+    js: ['./scripts/app.modules.js', './scripts/app.route.js', './scripts/**/*.js'],
     css: ['./styles/**/*.css'],
     templates: './scripts/templates.js',
     buildjs: ['./build/**/*.js'],

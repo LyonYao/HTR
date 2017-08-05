@@ -2,14 +2,7 @@
     'use strict';
 
 // Declare app level module which depends on views, and components
-    angular.module('MasterApp', [
-        'ngRoute',
-        'ngMaterial',
-        'MasterApp.test',
-        'MasterApp.auth',
-        'MasterApp.login'
-    ]).
-    config(['$routeProvider','$mdThemingProvider','$locationProvider','$mdIconProvider', '$httpProvider',
+    app.config(['$routeProvider','$mdThemingProvider','$locationProvider','$mdIconProvider', '$httpProvider',
         function ($routeProvider, $mdThemingProvider, $locationProvider, $mdIconProvider, $httpProvider) {
 
         $locationProvider.html5Mode(true);

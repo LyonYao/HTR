@@ -4,8 +4,7 @@
 (function () {
     'use strict';
 
-    angular.module('MasterApp')
-        .value('valueList',{})
+    app.value('valueList',{})
         .factory('menu', [
             '$location',
             '$rootScope',

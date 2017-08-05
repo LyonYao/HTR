@@ -4,8 +4,7 @@
 (function () {
     'use strict';
 
-    angular.module('MasterApp')
-        .directive('menuLink', function () {
+    app.directive('menuLink', function () {
             return {
                 scope: {
                     section: '='

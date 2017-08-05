@@ -1,8 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('MasterApp.auth')
-		.factory('auth',[
+    app.factory('auth',[
             '$rootScope',
             '$http',
             '$location',
@@ -23,10 +22,10 @@
                         authorization: "Basic " + btoa(credentials.username + ":" + credentials.password)
                     } : {};
 
-                    $http.get('user', {
+                    $http.get('loginUser', {
                         headers: headers
                     }).then(function (response) {
-                        if (response.data.name) {
+                        if (response.data.userAccount) {
                             auth.authenticated = true;
                             $rootScope.$broadcast('changeLogin', true);
                         } else {

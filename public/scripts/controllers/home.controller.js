@@ -4,8 +4,7 @@
 (function() {
     'use strict';
 
-    angular.module('MasterApp')
-        .controller('homeController',[
+    app.controller('homeController',[
             '$scope',
             '$timeout',
             '$mdDialog',
