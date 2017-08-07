@@ -1,5 +1,6 @@
 package com.htr.loan.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import java.util.Collection;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(value = {"parentRes"})
 public class Resource extends BaseDomain {
     private String resourceName; //资源名称
     private String resourceType; //资源类型
@@ -18,6 +20,9 @@ public class Resource extends BaseDomain {
 
     @OneToMany(cascade = CascadeType.MERGE)
     private Collection<Resource> childrenRes;
+
+    @Transient
+    private boolean selected;
 
     public String getResourceName() {
         return resourceName;
@@ -57,5 +62,13 @@ public class Resource extends BaseDomain {
 
     public void setChildrenRes(Collection<Resource> childrenRes) {
         this.childrenRes = childrenRes;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

@@ -12,7 +12,9 @@
             'menu',
             'auth',
             '$location',
-            '$rootScope', function ($scope,$timeout, $mdDialog, $mdSidenav, menu, auth, $location, $rootScope) {
+            '$rootScope',
+            '$http',
+        function ($scope,$timeout, $mdDialog, $mdSidenav, menu, auth, $location, $rootScope, $http) {
 
                 var self = this;
 
@@ -26,6 +28,9 @@
 
                 $scope.$on('changeLogin', function (event, isLogin) {
                     $scope.isLogin = isLogin;
+                    if(isLogin){
+                        loadMenuData();
+                    }
                 });
 
                 $rootScope.$on('$locationChangeSuccess', openPage);
@@ -119,6 +124,39 @@
 
                 function toggleOpen(section) {
                     menu.toggleSelectSection(section);
+                }
+
+                function loadMenuData(){
+                    var sections = [];
+                    $http.get('/resource/currentRes').then(function(responseData){
+                        angular.forEach(responseData.data, function(res){
+                            if(res.selected){
+                                var section = {};
+                                section.name = res.resourceName;
+                                if(res.childrenRes.length == 0){
+                                    section.type = 'link';
+                                    section.url = res.resPath;
+                                } else {
+                                    section.type = 'toggle';
+                                    var pages = [];
+                                    angular.forEach(res.childrenRes, function (childRes) {
+                                        if(childRes.selected){
+                                            var page = {};
+                                            page.name = childRes.resourceName;
+                                            page.url = childRes.resPath;
+                                            page.type = 'link';
+                                            pages.push(page);
+                                        }
+                                    });
+                                    section.pages = pages;
+                                }
+
+                                sections.push(section);
+                            }
+                        });
+
+                        $scope.menu.sections = sections;
+                    });
                 }
 
             }]);

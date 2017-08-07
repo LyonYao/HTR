@@ -11,7 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +34,10 @@ public class CustomUserService implements UserDetailsService {
             LOG.warn("userAccount does not exist!!");
             throw new UsernameNotFoundException("userAccount does not exist!!");
         } else {
+            ServletRequestAttributes attr = (ServletRequestAttributes)
+                    RequestContextHolder.currentRequestAttributes();
+            HttpSession session= attr.getRequest().getSession(true);
+            session.setAttribute("loginUser", user);
             List<SimpleGrantedAuthority> authorities = new ArrayList<>();
             //用于添加用户的权限。只要把用户权限添加到authorities 就万事大吉。
             for(Role role:user.getRoles()) {

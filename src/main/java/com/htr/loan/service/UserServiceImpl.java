@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User saveUser(User user) {
         try {
+            user.setActive(true);
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             user = userRepository.save(user);
             return user;

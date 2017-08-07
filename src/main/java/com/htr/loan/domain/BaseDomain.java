@@ -1,5 +1,6 @@
 package com.htr.loan.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -24,10 +25,12 @@ public abstract class BaseDomain implements Serializable {
     @CreatedBy
     private User creator;
     @CreatedDate
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createdDate;
     @LastModifiedBy
     private User updater;
     @CreatedDate
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date updatedDate;
 
     public String getUuid() {

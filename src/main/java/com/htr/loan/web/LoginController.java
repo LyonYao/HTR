@@ -33,25 +33,14 @@ public class LoginController {
 
     @RequestMapping("/loginUser")
     @ResponseBody
-    public User user(Principal user, HttpSession session) {
-
-        User loginUser = userService.findUserByUserAccount(user.getName());
-        if (loginUser == null){
-            LOG.error("not find the login user by account:" + user.getName());
-        } else {
-            session.setAttribute("loginUser", loginUser);
-        }
-
-        return loginUser;
+    public Principal user(Principal user) {
+        return user;
     }
 
-    @RequestMapping("/resource")
+    @RequestMapping("/sessionUser")
     @ResponseBody
-    public Map<String, Object> home() {
-        Map<String, Object> model = new HashMap<String, Object>();
-        model.put("id", UUID.randomUUID().toString());
-        model.put("content", "Hello World");
-        return model;
+    public User getCurrentUser(HttpSession session) {
+        User user = (User)session.getAttribute("loginUser");
+        return user;
     }
-
 }

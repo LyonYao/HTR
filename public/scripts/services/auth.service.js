@@ -25,7 +25,7 @@
                     $http.get('loginUser', {
                         headers: headers
                     }).then(function (response) {
-                        if (response.data.userAccount) {
+                        if (response.data.name) {
                             auth.authenticated = true;
                             $rootScope.$broadcast('changeLogin', true);
                         } else {

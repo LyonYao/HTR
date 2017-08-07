@@ -12,25 +12,7 @@
             '$timeout',
             function ($location, $rootScope, $http, $timeout) {
 
-                var sections = [{
-                    "name": "数据链条化",
-                    "type": "toggle",
-                    "pages": [
-                        {
-                            "name": "表关系网图",
-                            "url": "dataView",
-                            "type": "link"
-                        },{
-                            "name": "表关系网列表",
-                            "url": "tableDataList",
-                            "type": "link"
-                        }]
-                }];
-                // $http.get('json_cache/menuJson.json').then(function (responseData) {
-                //     for(var i in responseData){
-                //         sections.push(responseData[i]);
-                //     }
-                // });
+                var sections = [];
                 var self;
 
                 self = {
