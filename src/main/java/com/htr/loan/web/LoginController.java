@@ -2,7 +2,7 @@ package com.htr.loan.web;
 
 import com.htr.loan.domain.User;
 import com.htr.loan.service.UserService;
-import com.htr.loan.service.UserServiceImpl;
+import com.htr.loan.service.impl.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 @Controller
 public class LoginController {
