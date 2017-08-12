@@ -5,7 +5,7 @@
     app.config(['$routeProvider','$mdThemingProvider','$locationProvider','$mdIconProvider', '$httpProvider',
         function ($routeProvider, $mdThemingProvider, $locationProvider, $mdIconProvider, $httpProvider) {
 
-        $locationProvider.html5Mode(true);
+        // $locationProvider.html5Mode(true);
 
         $routeProvider.otherwise({redirectTo: '/'});
         $routeProvider.when('/test', {
@@ -14,6 +14,15 @@
         }).when('/login', {
             templateUrl: 'views/login.html',
             controller: 'loginController'
+        }).when('/sys/menuList', {
+            templateUrl: 'views/menuList.html',
+            controller: 'menuListController'
+        }).when('/sys/userList', {
+            templateUrl: 'views/user.html',
+            controller: 'userController'
+
+
+
         // }).when('/tableDataList', {
         //     templateUrl: 'partials/tableDataList.html',
         //     controller: 'tableDataListController'

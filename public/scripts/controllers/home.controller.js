@@ -14,7 +14,8 @@
             '$location',
             '$rootScope',
             '$http',
-        function ($scope,$timeout, $mdDialog, $mdSidenav, menu, auth, $location, $rootScope, $http) {
+            'sectionsData',
+        function ($scope,$timeout, $mdDialog, $mdSidenav, menu, auth, $location, $rootScope, $http, sectionsData) {
 
                 var self = this;
 
@@ -156,6 +157,7 @@
                         });
 
                         $scope.menu.sections = sections;
+                        sectionsData.sections = sections;
                     });
                 }
 

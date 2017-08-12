@@ -3,9 +3,11 @@ var app = angular.module('app', [
     'ngMaterial',
     'test',
     'auth',
-    'login'
+    'login',
+    'menuList'
 ]);
 var test = angular.module('test', []);
 var auth = angular.module('auth', []);
 var login = angular.module('login', ['auth']);
-
+var menuList = angular.module('menuList', []);
+var user = angular.module('user', []);

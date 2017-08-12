@@ -1,5 +1,6 @@
-package com.htr.loan.domain;
+package com.htr.loan.domain.repository;
 
+import com.htr.loan.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

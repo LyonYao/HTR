@@ -4,15 +4,14 @@
 (function () {
     'use strict';
 
-    app.value('valueList',{})
+    app.value('sectionsData',{sections:[]})
         .factory('menu', [
             '$location',
             '$rootScope',
-            '$http',
-            '$timeout',
-            function ($location, $rootScope, $http, $timeout) {
+            'sectionsData',
+            function ($location, $rootScope, sectionsData) {
 
-                var sections = [];
+                var sections = sectionsData.sections;
                 var self;
 
                 self = {
@@ -40,6 +39,7 @@
                 $rootScope.$on('$locationChangeSuccess', onLocationChange);
 
                 function onLocationChange() {
+                    sections = sectionsData.sections;
                     var path = $location.path();
                     var introLink = {
                         name: "华泰然车辆管理",
