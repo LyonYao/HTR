@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    menuList.controller('userController', ['$scope','$mdSidenav','$timeout', function ($scope) {
+    user.controller('userController', ['$scope','$mdSidenav','$timeout', function ($scope) {
 
 
     }]);

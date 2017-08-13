@@ -1,0 +1,56 @@
+<md-card class="_md">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">车辆管理</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-header>
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+            <md-button class="md-raised" ng-click="showAdvanced($event)">新增</md-button>
+            <md-button class="md-raised md-primary">修改</md-button>
+            <md-button class="md-raised md-warn">删除</md-button>
+            <div class="label">Raised</div>
+        </section>
+    </md-card-header>
+    <md-card-content>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>姓名</th>
+                <th>电话</th>
+                <th>车辆类型</th>
+                <th>车牌号</th>
+                <th>上户日期</th>
+                <th>保险开始日期</th>
+                <th>保险结束日期</th>
+                <th>车辆状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+            </tr> <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+            </tr>
+            </tbody>
+        </table>
+        <div ng-if="status" id="status">
+            <b layout="row" layout-align="center center" class="md-padding">
+                {{status}}
+            </b>
+        </div>
+    </md-card-content>
+</md-card>

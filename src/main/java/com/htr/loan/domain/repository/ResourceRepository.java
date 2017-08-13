@@ -10,4 +10,6 @@ public interface ResourceRepository extends JpaRepository<Resource, Integer> {
     List<Resource> findAllByActiveTrueAndParentResIsNull();
 
     Resource save(Resource resource);
+
+    Resource findByResourceNameAndActiveTrue(String resourceName);
 }

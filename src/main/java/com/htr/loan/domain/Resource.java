@@ -5,6 +5,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -19,7 +20,7 @@ public class Resource extends BaseDomain {
     private Resource parentRes; //资源父ID
 
     @OneToMany(cascade = CascadeType.MERGE)
-    private Collection<Resource> childrenRes;
+    private List<Resource> childrenRes;
 
     @Transient
     private boolean selected;
@@ -56,11 +57,11 @@ public class Resource extends BaseDomain {
         this.parentRes = parentRes;
     }
 
-    public Collection<Resource> getChildrenRes() {
+    public List<Resource> getChildrenRes() {
         return childrenRes;
     }
 
-    public void setChildrenRes(Collection<Resource> childrenRes) {
+    public void setChildrenRes(List<Resource> childrenRes) {
         this.childrenRes = childrenRes;
     }
 

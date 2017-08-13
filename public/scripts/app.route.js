@@ -20,6 +20,9 @@
         }).when('/sys/userList', {
             templateUrl: 'views/user.html',
             controller: 'userController'
+        }).when('/loan/vehicle', {
+            templateUrl: 'views/vehicle.html',
+            controller: 'vehicleController'
 
 
 

@@ -33,6 +33,7 @@ public class RoleServiceImpl implements RoleService {
             return role;
         } catch (Exception e) {
             e.printStackTrace();
+            LOG.error("save or update Role" + role.getRoleName() + " fail!");
         }
         return null;
     }

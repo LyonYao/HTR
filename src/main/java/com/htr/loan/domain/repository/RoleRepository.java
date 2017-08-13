@@ -7,4 +7,5 @@ public interface RoleRepository extends JpaRepository<Role, Integer> {
     Role findByRoleNameAndActiveTrue(String roleName);
 
     Role save(Role role);
+
 }

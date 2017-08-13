@@ -10,4 +10,20 @@ import javax.persistence.EntityListeners;
 public class PhoneInfo extends BaseDomain {
     private String phoneNum;
     private String description;
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

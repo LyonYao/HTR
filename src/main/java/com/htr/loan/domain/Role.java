@@ -4,6 +4,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -13,7 +14,7 @@ public class Role extends BaseDomain {
     private String description;
 
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    private Collection<Resource> resources;
+    private List<Resource> resources;
 
     public String getRoleName() {
         return roleName;
@@ -31,11 +32,11 @@ public class Role extends BaseDomain {
         this.description = description;
     }
 
-    public Collection<Resource> getResources() {
+    public List<Resource> getResources() {
         return resources;
     }
 
-    public void setResources(Collection<Resource> resources) {
+    public void setResources(List<Resource> resources) {
         this.resources = resources;
     }
 }

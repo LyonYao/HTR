@@ -4,6 +4,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -16,11 +17,11 @@ public class User extends BaseDomain {
     private String phoneNumber;
     private String sex;
     @OneToMany(cascade = CascadeType.MERGE)
-    private Collection<Department> departments;
+    private List<Department> departments;
     private String station;
 
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    private Collection<Role> roles;
+    private List<Role> roles;
 
     public String getEmail() {
         return email;
@@ -70,11 +71,11 @@ public class User extends BaseDomain {
         this.sex = sex;
     }
 
-    public Collection<Department> getDepartments() {
+    public List<Department> getDepartments() {
         return departments;
     }
 
-    public void setDepartments(Collection<Department> departments) {
+    public void setDepartments(List<Department> departments) {
         this.departments = departments;
     }
 
@@ -86,11 +87,11 @@ public class User extends BaseDomain {
         this.station = station;
     }
 
-    public Collection<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 }

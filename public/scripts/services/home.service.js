@@ -42,7 +42,7 @@
                     sections = sectionsData.sections;
                     var path = $location.path();
                     var introLink = {
-                        name: "华泰然车辆管理",
+                        name: "华泰然管理系统",
                         url: "/",
                         type: "link"
                     };
