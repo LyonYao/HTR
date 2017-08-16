@@ -23,6 +23,9 @@
         }).when('/loan/vehicle', {
             templateUrl: 'views/vehicle.html',
             controller: 'vehicleController'
+        }).when('/loan/person', {
+            templateUrl: 'views/person.html',
+            controller: 'personController'
 
 
 
@@ -39,9 +42,14 @@
 
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-        $mdThemingProvider.theme('default')
-            .primaryPalette('blue')
-            .accentPalette('pink');
+            $mdThemingProvider.theme('default')
+                .primaryPalette('blue')
+                .accentPalette('teal')
+                .warnPalette('red')
+                .backgroundPalette('grey');
+
+            $mdThemingProvider.alwaysWatchTheme(true);
+
 
         $mdIconProvider.icon('md-toggle-arrow', 'img/icons/toggle-arrow.svg', 48);
 

@@ -36,6 +36,7 @@
         };
 
         var dialogController = ['$scope', '$mdDialog',function($scope, $mdDialog) {
+
             $scope.hide = function() {
                 $mdDialog.hide();
             };

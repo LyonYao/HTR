@@ -16,7 +16,7 @@ public class Person extends BaseDomain {
     private List<PhoneInfo> phoneInfos;
     private String address;
     private String idNumber;
-    private boolean surety;
+    private boolean surety;  //是否是担保人
 
     public String getName() {
         return name;

@@ -1,0 +1,82 @@
+<md-dialog aria-label="新建客户数据">
+    <form name="newPersonForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>新建客户数据</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content layout-padding>
+            <div class="row"></div>
+            <div layout="row">
+                <md-input-container>
+                    <label>姓名</label>
+                    <input md-maxlength="5" required md-no-asterisk name="name" ng-model="person.name">
+                    <div ng-messages="newPersonForm.name.$error" md-auto-hide="false">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                        <div ng-messages-include="views/common/maxlength5.message.html"></div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>身份证号</label>
+                    <input md-maxlength="18" required md-no-asterisk name="idNumber" ng-model="person.idNumber">
+                    <div ng-messages="newPersonForm.idNumber.$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                        <div ng-message="md-maxlength">不能超过18个字!</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <md-input-container class="md-block">
+                <md-checkbox name="tos" ng-model="person.surety" >
+                    是担保人
+                </md-checkbox>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>地址</label>
+                <input required md-no-asterisk name="address" ng-model="person.address">
+                <div ng-messages="newPersonForm.address.$error">
+                    <div ng-messages-include="views/common/required.message.html"></div>
+                </div>
+            </md-input-container>
+
+            <div class="row" ng-repeat="phoneInfo in person.phoneInfos">
+                <md-input-container>
+                    <label>电话号码</label>
+                    <input required md-no-asterisk name="phoneNum" ng-model="phoneInfo.phoneNum">
+                    <div ng-messages="newPersonForm.phoneNum.$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>关系</label>
+                    <input md-maxlength="5" required md-no-asterisk name="description" ng-model="phoneInfo.description">
+                    <div ng-messages="newPersonForm.description.$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                        <div ng-messages-include="views/common/maxlength5.message.html"></div>
+                    </div>
+                </md-input-container>
+                <md-button class="md-icon-button md-accent" ng-click="addNewPhoneInfo()">
+                    <md-icon md-svg-icon="img/icons/plus.svg"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button md-accent" ng-click="removePhoneInfo(phoneInfo)">
+                    <md-icon md-svg-icon="img/icons/minus.svg"></md-icon>
+                </md-button>
+            </div>
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised md-primary" type="submit"
+                       ng-click="newPersonForm.$valid && savePerson()">
+                保存
+            </md-button>
+            <md-button class="md-raised md-warn" ng-click="cancel()">
+                取消
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
