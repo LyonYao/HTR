@@ -16,7 +16,6 @@ public class Resource extends BaseDomain {
     private String resPath; //资源Path
 
     @ManyToOne
-    @JoinColumn(name="parent_id")
     private Resource parentRes; //资源父ID
 
     @OneToMany(cascade = CascadeType.MERGE)

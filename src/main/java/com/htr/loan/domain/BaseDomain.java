@@ -23,12 +23,12 @@ public abstract class BaseDomain implements Serializable {
 
     private boolean active;
     @CreatedBy
-    private User creator;
+    private String creator;
     @CreatedDate
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createdDate;
     @LastModifiedBy
-    private User updater;
+    private String updater;
     @CreatedDate
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date updatedDate;
@@ -49,11 +49,11 @@ public abstract class BaseDomain implements Serializable {
         this.active = active;
     }
 
-    public User getCreator() {
+    public String getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(String creator) {
         this.creator = creator;
     }
 
@@ -65,11 +65,11 @@ public abstract class BaseDomain implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public User getUpdater() {
+    public String getUpdater() {
         return updater;
     }
 
-    public void setUpdater(User updater) {
+    public void setUpdater(String updater) {
         this.updater = updater;
     }
 
