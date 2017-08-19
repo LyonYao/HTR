@@ -53,16 +53,15 @@
                 </md-input-container>
                 <md-input-container>
                     <label>关系</label>
-                    <input md-maxlength="5" required md-no-asterisk name="description" ng-model="phoneInfo.description">
+                    <input md-maxlength="5" md-no-asterisk name="description" ng-model="phoneInfo.description">
                     <div ng-messages="newPersonForm.description.$error">
-                        <div ng-messages-include="views/common/required.message.html"></div>
                         <div ng-messages-include="views/common/maxlength5.message.html"></div>
                     </div>
                 </md-input-container>
-                <md-button class="md-icon-button md-accent" ng-click="addNewPhoneInfo()">
+                <md-button class="md-icon-button" ng-click="addNewPhoneInfo()">
                     <md-icon md-svg-icon="img/icons/plus.svg"></md-icon>
                 </md-button>
-                <md-button class="md-icon-button md-accent" ng-click="removePhoneInfo(phoneInfo)">
+                <md-button class="md-icon-button" ng-click="removePhoneInfo(phoneInfo)">
                     <md-icon md-svg-icon="img/icons/minus.svg"></md-icon>
                 </md-button>
             </div>

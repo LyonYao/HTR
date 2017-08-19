@@ -7,8 +7,8 @@
     <md-card-header>
         <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
             <md-button class="md-raised" ng-click="showNewPerson($event)">新增</md-button>
-            <md-button class="md-raised md-primary">修改</md-button>
-            <md-button class="md-raised md-warn">删除</md-button>
+            <md-button class="md-raised md-primary" ng-click="showEditPerson($event)">修改</md-button>
+            <md-button class="md-raised md-warn" ng-click="removePersons($event)">删除</md-button>
             <div class="label">Raised</div>
         </section>
     </md-card-header>
@@ -16,31 +16,29 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>#</th>
-                <th>姓名</th>
-                <th>电话</th>
-                <th>类型</th>
-                <th>地址</th>
-                <th>身份证号</th>
+                <th><md-checkbox aria-label="Select All"
+                                 ng-checked="isChecked()"
+                                 md-indeterminate="isIndeterminate()"
+                                 ng-click="toggleAll()">
+                </md-checkbox></th>
+                <th><div class="">#</div></th>
+                <th class="col-sm-1">姓名</th>
+                <th class="col-sm-3">电话</th>
+                <th class="col-sm-1">类型</th>
+                <th class="col-sm-5">地址</th>
+                <th class="col-sm-2">身份证号</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr> <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
+            <tr ng-repeat="person in items">
+                <td><md-checkbox aria-label="Select one" ng-checked="exists(person, selected)" ng-click="toggle(person, selected)">
+                </md-checkbox></td>
+                <td>{{$index + 1}}</td>
+                <td>{{person.name}}</td>
+                <td>{{person.phoneInfos | phoneNums}}</td>
+                <td>{{person.surety | isSurety}}</td>
+                <td>{{person.address}}</td>
+                <td>{{person.idNumber}}</td>
             </tr>
             </tbody>
         </table>

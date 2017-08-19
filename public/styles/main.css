@@ -1,11 +1,13 @@
-
+md-checkbox {
+    margin-bottom: 0px;
+}
 html {
     font-size: 62.5%;
     line-height: 1.4;
 }
 
 body {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-family: "微软雅黑", "Microsoft YaHei";
 }
 

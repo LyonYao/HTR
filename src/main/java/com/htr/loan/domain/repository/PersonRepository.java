@@ -10,5 +10,5 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
     List<Person> findAllByActiveTrue();
 
-    Person save(Person user);
+    Person save(Person person);
 }

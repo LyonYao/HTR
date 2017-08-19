@@ -4,6 +4,7 @@ var app = angular.module('app', [
     'test',
     'auth',
     'login',
+    'user',
     'menuList',
     'vehicle',
     'ngMessages',

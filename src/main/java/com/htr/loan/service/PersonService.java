@@ -9,4 +9,6 @@ public interface PersonService {
     Person savePerson(Person person);
 
     List<Person> findAll();
+
+    boolean removePersons(List<Person> personList);
 }
