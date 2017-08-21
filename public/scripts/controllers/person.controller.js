@@ -20,7 +20,7 @@
             };
 
             function findAllPerson() {
-                var url = '/person/' + $scope.paging.current + '/' + 2;
+                var url = '/person/' + $scope.paging.current + '/' + 15;
                 url += '?jsonFilter=' + encodeURIComponent(JSON.stringify($scope.facet));
                 var req = {
                     method: 'GET',
