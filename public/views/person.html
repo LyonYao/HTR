@@ -5,12 +5,43 @@
         </md-card-title-text>
     </md-card-title>
     <md-card-header>
-        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-            <md-button class="md-raised" ng-click="showNewPerson($event)">新增</md-button>
-            <md-button class="md-raised md-primary" ng-click="showEditPerson($event)">修改</md-button>
-            <md-button class="md-raised md-warn" ng-click="removePersons($event)">删除</md-button>
-            <div class="label">Raised</div>
-        </section>
+        <md-content class="white-background">
+            <section layout="row" layout-sm="column" layout-align="center bottom" layout-wrap>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>姓名</label>
+                    <input ng-model="facet.search_LIKE_name">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>电话</label>
+                    <input ng-model="facet['search_LIKE_phoneInfos.phoneNum']">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>身份证号</label>
+                    <input ng-model="facet.search_LIKE_idNumber">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>地址</label>
+                    <input ng-model="surety.search_LIKE_address">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>类型</label>
+                    <md-select ng-model="facet.search_EQ_surety">
+                        <md-option ng-repeat="surety in suretys" value="{{surety.surety}}">
+                            {{surety.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <div class="md-block" flex-gt-sm>
+                    <md-button class="md-raised" ng-click="searchPersons()">查询</md-button>
+                </div>
+            </section>
+            <section layout="row" layout-sm="column" layout-align="left bottom" layout-wrap>
+                <md-button class="md-raised" ng-click="showNewPerson($event)">新增</md-button>
+                <md-button class="md-raised md-primary" ng-click="showEditPerson($event)">修改</md-button>
+                <md-button class="md-raised md-warn" ng-click="removePersons($event)">删除</md-button>
+                <div class="label">Raised</div>
+            </section>
+        </md-content>
     </md-card-header>
     <md-card-content>
         <table class="table table-hover">
@@ -42,5 +73,8 @@
             </tr>
             </tbody>
         </table>
+        <section layout="row" layout-padding="">
+            <cl-paging flex cl-pages="paging.total" , cl-steps="6" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"></cl-paging>
+        </section>
     </md-card-content>
 </md-card>

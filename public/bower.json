@@ -19,7 +19,8 @@
     "bootstrap": "^3.3.7",
     "angular-route": "^1.6.5",
     "angular-material": "^1.1.4",
-    "angular-animate": "^1.6.5"
+    "angular-animate": "^1.6.5",
+    "material-angular-paging": "*"
   },
   "overrides": {
     "bootstrap": {
@@ -28,6 +29,11 @@
         "dist/css/bootstrap.css",
         "dist/css/bootstrap-theme.css",
         "dist/fonts/*.*"
+      ]
+    },
+    "material-angular-paging": {
+      "main": [
+        "build/dist.min.js"
       ]
     }
   }

@@ -12,4 +12,14 @@ public interface Constants {
     public static final String CODE_ERROR="500";
     public static final String MSG_DELETE_FAIL="删除失败!";
     public static final String MSG_DELETE_SUCCESS="删除成功!";
+
+
+    /**
+     * 默认页面显示条数
+     */
+    public final static Integer DEFAULT_PAGE_SIGE = 15;
+
+    public static final String SEARCH_PREFIX = "search_";
+
+    public static final Boolean RECORD_EXIST = true;
 }

@@ -1,6 +1,7 @@
 var app = angular.module('app', [
     'ngRoute',
     'ngMaterial',
+    'cl.paging',
     'test',
     'auth',
     'login',
@@ -8,7 +9,7 @@ var app = angular.module('app', [
     'menuList',
     'vehicle',
     'ngMessages',
-    'person',
+    'person'
 ]);
 var test = angular.module('test', []);
 var auth = angular.module('auth', []);
