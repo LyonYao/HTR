@@ -2,6 +2,7 @@ package com.htr.loan.Utils;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
@@ -47,7 +48,7 @@ public class WebUtil {
 	 */
 	public static PageRequest buildPageRequest(int pageNumber, String sort) {
 		List<Sort.Order> orders = new ArrayList<Sort.Order>();
-		if (XaUtil.isNotEmpty(sort)) {
+		if (StringUtils.isNotEmpty(sort)) {
 			PageSort[] pageSorts = null;
 			try {
 				pageSorts = mapper.readValue(sort, PageSort[].class);
@@ -84,14 +85,10 @@ public class WebUtil {
 		pageNumber=pageNumber-1;
 
 		if(pageNumber<0){
-
 			pageNumber=0;
 		}
 
-		if (XaUtil.isEmpty(pageSize)) {
-			pageSize = 10;
-		}
-		if (XaUtil.isNotEmpty(sort)) {
+		if (StringUtils.isNotEmpty(sort)) {
 			PageSort[] pageSorts = null;
 			try {
 				pageSorts = mapper.readValue(sort, PageSort[].class);
@@ -120,7 +117,7 @@ public class WebUtil {
 	public static Map<String, Object> getParametersStartingWith(
 			String jsonFilter, String prefix) {
 		Map<String, Object> searchParams = new HashMap<>();
-		if (XaUtil.isNotEmpty(jsonFilter) && XaUtil.isNotEmpty(prefix)) {
+		if (StringUtils.isNotEmpty(jsonFilter) && StringUtils.isNotEmpty(prefix)) {
 			Map<String, String> map = null;
 			try {
 				map = mapper.readValue(jsonFilter, HashMap.class);
@@ -136,5 +133,17 @@ public class WebUtil {
 			}
 		}
 		return searchParams;
+	}
+
+	public static Map<String, String> buildDeleteMethodResult(boolean isDeleted){
+		Map<String, String> result = new HashMap<>();
+		if(!isDeleted){
+			result.put(Constants.RESPONSE_CODE, Constants.CODE_FAIL);
+			result.put(Constants.RESPONSE_MSG, Constants.MSG_DELETE_FAIL);
+		} else {
+			result.put(Constants.RESPONSE_CODE, Constants.CODE_SUCCESS);
+			result.put(Constants.RESPONSE_MSG, Constants.MSG_DELETE_SUCCESS);
+		}
+		return result;
 	}
 }

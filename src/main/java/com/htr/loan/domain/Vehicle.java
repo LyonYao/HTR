@@ -1,5 +1,6 @@
 package com.htr.loan.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.CascadeType;
@@ -11,14 +12,17 @@ import java.util.Date;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Vehicle extends BaseDomain {
-    private String brand;
+    private String brand;  //车辆品牌
     @OneToOne(cascade = CascadeType.MERGE)
-    private Person holder;
-    private String LicensePlate;
-    private String frameNumber;
-    private Double evaluation;
+    private Person holder;  //所有人
+    private String licensePlate;  //车牌号
+    private String frameNumber;  //车架号
+    private Double evaluation; //预估价
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date registrationDate; //上户时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date startInsuranceTime; //开始保险时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date endInsuranceTime; //保险到期时间
     private boolean detain; //是否被扣留
 
@@ -39,11 +43,11 @@ public class Vehicle extends BaseDomain {
     }
 
     public String getLicensePlate() {
-        return LicensePlate;
+        return licensePlate;
     }
 
     public void setLicensePlate(String licensePlate) {
-        LicensePlate = licensePlate;
+        this.licensePlate = licensePlate;
     }
 
     public String getFrameNumber() {

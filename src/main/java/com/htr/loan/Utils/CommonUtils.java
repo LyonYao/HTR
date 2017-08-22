@@ -14,40 +14,6 @@ import java.util.regex.Pattern;
 
 public class CommonUtils {
 
-	private static SimpleDateFormat[] dateFormats = null;
-
-	static {
-		final String[] possibleDateFormats = {
-				"MM/dd/yyyy HH:mm:ss a",
-				"EEE, dd MMM yyyy HH:mm:ss zzz", // RFC_822
-				"EEE, dd MMM yyyy HH:mm:ss z", // RFC_822
-				"EEE, dd MMM yyyy HH:mm zzzz",
-				"yyyy-MM-dd'T'HH:mm:ssZ",
-				"yyyy-MM-dd'T'HH:mm:sszzzz",
-				"yyyy-MM-dd'T'HH:mm:ss z",
-				"yyyy-MM-dd'T'HH:mm:ssz", // ISO_8601
-				"yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HHmmss.SSSz",
-				"yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd",
-				"yyyy/MM/dd", "yyyy.MM.dd", "yyyy'年'MM'月'dd'日'",
-				"EEE,dd MMM yyyy HH:mm:ss zzz", // 容错
-				"EEE, dd MMM yyyy HH:mm:ss", // RFC_822
-				"dd MMM yyyy HH:mm:ss zzz", // 容错
-				"dd MM yyyy HH:mm:ss zzz", // 容错
-				"EEE, dd MM yyyy HH:mm:ss", // RFC_822
-				"dd MM yyyy HH:mm:ss", // 容错
-				"EEE MMM dd HH:mm:ss zzz yyyy" // bokee 的时间格式 Tue Mar 28
-				// 02:25:45 CST 2006
-		};
-
-		dateFormats = new SimpleDateFormat[possibleDateFormats.length];
-		TimeZone gmtTZ = TimeZone.getTimeZone("GMT");
-		Locale locale = Locale.US;
-		for (int i = 0; i < possibleDateFormats.length; i++) {
-			dateFormats[i] = new SimpleDateFormat(possibleDateFormats[i],
-					locale);
-			dateFormats[i].setTimeZone(gmtTZ);
-		}
-	}
 	public static final SimpleDateFormat YYYYMMDD = new SimpleDateFormat("yyyy-MM-dd");
 	public static final SimpleDateFormat YYYYlMMlDD = new SimpleDateFormat("yyyy/MM/dd");
 	public static final SimpleDateFormat YYYYMMDDline = new SimpleDateFormat("yyyyMMdd");

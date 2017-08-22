@@ -1,12 +1,14 @@
 package com.htr.loan.Utils;
 
-import com.htr.loan.domain.Person;
-import com.htr.loan.domain.PhoneInfo;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.ObjectUtils;
 
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +19,7 @@ public class DynamicSpecifications {
     public static <T> Specification<T> bySearchFilter(
             final Collection<SearchFilter> filters, final Class<T> clazz) {
         return (root, query, builder) -> {
-            if (XaUtil.isNotEmpty(filters)) {
+            if (!ObjectUtils.isEmpty(filters)) {
                 List<Predicate> predicates = new ArrayList<>();
                 for (SearchFilter filter : filters) {
 

@@ -38,15 +38,7 @@ public class PersonController {
     @RequestMapping(value = "delete", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> removePerson(@RequestBody List<Person> persons){
-        Map<String, String> result = new HashMap<>();
         boolean isDeleted = personService.removePersons(persons);
-        if(!isDeleted){
-            result.put(Constants.RESPONSE_CODE, Constants.CODE_FAIL);
-            result.put(Constants.RESPONSE_MSG, Constants.MSG_DELETE_FAIL);
-        } else {
-            result.put(Constants.RESPONSE_CODE, Constants.CODE_SUCCESS);
-            result.put(Constants.RESPONSE_MSG, Constants.MSG_DELETE_SUCCESS);
-        }
-        return result;
+        return WebUtil.buildDeleteMethodResult(isDeleted);
     }
 }

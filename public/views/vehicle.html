@@ -5,52 +5,98 @@
         </md-card-title-text>
     </md-card-title>
     <md-card-header>
-        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-            <md-button class="md-raised" ng-click="showAdvanced($event)">新增</md-button>
-            <md-button class="md-raised md-primary">修改</md-button>
-            <md-button class="md-raised md-warn">删除</md-button>
-            <div class="label">Raised</div>
-        </section>
+        <md-content class="white-background">
+            <section layout="row" layout-sm="column" layout-align="center bottom" layout-wrap>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>姓名</label>
+                    <input ng-model="facet['search_LIKE_holder.name']">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>车牌号</label>
+                    <input ng-model="facet['search_LIKEIGNORE_licensePlate']">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>车辆品牌</label>
+                    <input ng-model="facet.search_LIKE_brand">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>车架号</label>
+                    <input ng-model="facet.search_LIKEIGNORE_frameNumber">
+                </md-input-container>
+                <md-input-container>
+                    <label>保险到期时间从</label>
+                    <md-datepicker ng-model="facet.search_GTE_endInsuranceTime_SHORTDATE" md-placeholder="保险到期时间" md-open-on-focus></md-datepicker>
+                </md-input-container>
+                <md-input-container>
+                    <label>到保险到期时间</label>
+                    <md-datepicker ng-model="facet.search_LTE_endInsuranceTime_SHORTDATE" md-placeholder="保险到期时间" md-open-on-focus></md-datepicker>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>状态</label>
+                    <md-select ng-model="facet.search_EQ_detain">
+                        <md-option ng-repeat="detain in detains" value="{{detain.detain}}">
+                            {{detain.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <div class="md-block" flex-gt-sm>
+                    <md-button class="md-raised" ng-click="searchVehicles()">查询</md-button>
+                </div>
+            </section>
+            <section layout="row" layout-sm="column" layout-align="left bottom" layout-wrap>
+                <md-button class="md-raised" ng-click="showNewVehicle($event)">新增</md-button>
+                <md-button class="md-raised md-primary" ng-click="showEditVehicle($event)">修改</md-button>
+                <md-button class="md-raised md-warn" ng-click="removeVehicles($event)">删除</md-button>
+                <div class="label">Raised</div>
+            </section>
+        </md-content>
     </md-card-header>
     <md-card-content>
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>#</th>
-                <th>姓名</th>
-                <th>电话</th>
-                <th>车辆类型</th>
-                <th>车牌号</th>
-                <th>上户日期</th>
-                <th>保险开始日期</th>
-                <th>保险结束日期</th>
-                <th>车辆状态</th>
+                <th>
+                    <md-checkbox aria-label="Select All"
+                                 ng-checked="isChecked()"
+                                 md-indeterminate="isIndeterminate()"
+                                 ng-click="toggleAll()">
+                    </md-checkbox>
+                </th>
+                <th>
+                    <div>#</div>
+                </th>
+                <th class="col-sm-1">姓名</th>
+                <th class="col-sm-1">车牌号</th>
+                <th class="col-sm-2">车辆品牌</th>
+                <th class="col-sm-2">车架号</th>
+                <th class="col-sm-1">上户时间</th>
+                <th class="col-sm-2">保险时间</th>
+                <th class="col-sm-1">评估价</th>
+                <th class="col-sm-1">状态</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr> <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
+            <tr ng-repeat="vehicle in items">
+                <td>
+                    <md-checkbox aria-label="Select one" ng-checked="exists(vehicle, selected)"
+                                 ng-click="toggle(vehicle, selected)">
+                    </md-checkbox>
+                </td>
+                <td>{{$index + 1}}</td>
+                <td>{{vehicle.holder.name}}</td>
+                <td>{{vehicle.licensePlate}}</td>
+                <td>{{vehicle.brand}}</td>
+                <td>{{vehicle.frameNumber | uppercase}}</td>
+                <td>{{vehicle.registrationDate | date:'yyyy-MM-dd'}}</td>
+                <td>{{vehicle.startInsuranceTime | date:'yyyy-MM-dd'}}~{{vehicle.endInsuranceTime | date:'yyyy-MM-dd'}}</td>
+                <td>{{vehicle.evaluation | currency:'￥'}}</td>
+                <td>{{vehicle.detain | isDetain}}</td>
             </tr>
             </tbody>
         </table>
-        <div ng-if="status" id="status">
-            <b layout="row" layout-align="center center" class="md-padding">
-                {{status}}
-            </b>
-        </div>
+        <section layout="row" layout-padding="">
+            <cl-paging flex cl-pages="paging.total" , cl-steps="6" , cl-page-changed="paging.onPageChanged()" ,
+                       cl-align="center center" , cl-current-page="paging.current"></cl-paging>
+        </section>
     </md-card-content>
 </md-card>

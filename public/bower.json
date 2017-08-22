@@ -20,7 +20,8 @@
     "angular-route": "^1.6.5",
     "angular-material": "^1.1.4",
     "angular-animate": "^1.6.5",
-    "material-angular-paging": "*"
+    "material-angular-paging": "*",
+    "moment": "^2.18.1"
   },
   "overrides": {
     "bootstrap": {

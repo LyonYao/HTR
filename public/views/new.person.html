@@ -16,7 +16,7 @@
                 <md-input-container>
                     <label>姓名</label>
                     <input md-maxlength="5" required md-no-asterisk name="name" ng-model="person.name">
-                    <div ng-messages="newPersonForm.name.$error" md-auto-hide="false">
+                    <div ng-messages="newPersonForm.name.$error">
                         <div ng-messages-include="views/common/required.message.html"></div>
                         <div ng-messages-include="views/common/maxlength5.message.html"></div>
                     </div>

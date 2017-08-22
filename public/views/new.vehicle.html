@@ -1,123 +1,113 @@
 <md-dialog aria-label="新建车辆数据">
-    <form ng-cloak>
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h2>新建车辆数据</h2>
-                <span flex></span>
-                <md-button class="md-icon-button" ng-click="cancel()">
-                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
-                </md-button>
-            </div>
-        </md-toolbar>
-
-        <md-dialog-content layout-padding>
-            <div class="row"></div>
-            <form name="projectForm">
-                <md-input-container class="md-block">
-                    <label>Description</label>
-                    <input md-maxlength="30" required md-no-asterisk name="description" ng-model="project.description">
-                    <div ng-messages="projectForm.description.$error">
-                        <div ng-message="required">This is required.</div>
-                        <div ng-message="md-maxlength">The description must be less than 30 characters long.</div>
-                    </div>
-                </md-input-container>
-
-                <div layout="row">
-                    <md-input-container flex="50">
-                        <label>Client Name</label>
-                        <input required name="clientName" ng-model="project.clientName">
-                        <div ng-messages="projectForm.clientName.$error">
-                            <div ng-message="required">This is required.</div>
-                        </div>
-                    </md-input-container>
-
-                    <md-input-container flex="50">
-                        <label>Project Type</label>
-                        <md-select name="type" ng-model="project.type" required>
-                            <md-option value="app">Application</md-option>
-                            <md-option value="web">Website</md-option>
-                        </md-select>
-                    </md-input-container>
-                </div>
-
-                <md-input-container class="md-block">
-                    <label>Client Email</label>
-                    <input required type="email" name="clientEmail" ng-model="project.clientEmail"
-                           minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
-
-                    <div ng-messages="projectForm.clientEmail.$error" role="alert">
-                        <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                            Your email must be between 10 and 100 characters long and look like an e-mail address.
-                        </div>
-                    </div>
-                </md-input-container>
-
-                <md-input-container class="md-block">
-                    <label>Hourly Rate (USD)</label>
-                    <input required type="number" step="any" name="rate" ng-model="project.rate" min="800"
-                           max="4999" ng-pattern="/^1234$/" />
-
-                    <div ng-messages="projectForm.rate.$error" multiple md-auto-hide="false">
-                        <div ng-message="required">
-                            You've got to charge something! You can't just <b>give away</b> a Missile Defense
-                            System.
-                        </div>
-
-                        <div ng-message="min">
-                            You should charge at least $800 an hour. This job is a big deal... if you mess up,
-                            everyone dies!
-                        </div>
-
-                        <div ng-message="pattern">
-                            You should charge exactly $1,234.
-                        </div>
-
-                        <div ng-message="max">
-                            {{projectForm.rate.$viewValue | currency:"$":0}} an hour? That's a little ridiculous. I
-                            doubt even Bill Clinton could afford that.
-                        </div>
-                    </div>
-                </md-input-container>
-
-                <md-input-container class="md-block">
-                    <md-checkbox name="tos" ng-model="project.tos" required>
-                        I accept the terms of service.
-                    </md-checkbox>
-                    <div ng-messages="projectForm.tos.$error" multiple md-auto-hide="false">
-                        <div ng-message="required">
-                            You must accept the terms of service before you can proceed.
-                        </div>
-                    </div>
-                </md-input-container>
-
-                <md-input-container class="md-block">
-                    <md-switch class="md-primary" name="special" ng-model="project.special" required>
-                        Enable special options.
-                    </md-switch>
-                    <div ng-messages="projectForm.special.$error" multiple>
-                        <div ng-message="required">
-                            You must enable all special options before you can proceed.
-                        </div>
-                    </div>
-                </md-input-container>
-                <div>
-                    <md-button type="submit">Submit</md-button>
-                </div>
-
-                <p style="font-size:.8em; width: 100%; text-align: center;">
-                    Make sure to include <a href="https://docs.angularjs.org/api/ngMessages" target="_blank">ngMessages</a> module when using ng-message markup.
-                </p>
-            </form>
-        </md-dialog-content>
-
-        <md-dialog-actions layout="row">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>新建车辆数据</h2>
             <span flex></span>
-            <md-button ng-click="answer('not useful')">
-                Not Useful
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
             </md-button>
-            <md-button ng-click="answer('useful')">
-                Useful
-            </md-button>
-        </md-dialog-actions>
-    </form>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content layout-padding>
+        <form name="newVehicleForm">
+            <div class="row">
+            </div>
+            <div layout="row">
+                <md-input-container>
+                    <label>车辆品牌</label>
+                    <input required md-no-asterisk name="brand" ng-model="vehicle.brand">
+                    <div ng-messages="newVehicleForm.brand.$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>车牌号</label>
+                    <input required md-no-asterisk name="licensePlate" ng-model="vehicle.licensePlate">
+                    <div ng-messages="newVehicleForm.licensePlate.$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout="row">
+                <md-input-container>
+                    <label>车架号</label>
+                    <input required md-no-asterisk name="frameNumber" ng-model="vehicle.frameNumber">
+                    <div ng-messages="newVehicleForm.frameNumber.$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>评估价</label>
+                    <input type="number" md-no-asterisk name="evaluation" ng-model="vehicle.evaluation">
+                </md-input-container>
+            </div>
+
+            <div layout="row" layout-align="center center">
+                <md-input-container>
+                    <label>上户时间</label>
+                    <md-datepicker ng-model="vehicle.registrationDate" required md-open-on-focus></md-datepicker>
+                    <div ng-messages="newVehicleForm.registrationDate.$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                    </div>
+                </md-input-container>
+
+                <md-autocomplete flex required
+                                 md-input-name="holder"
+                                 md-selected-item="vehicle.holder"
+                                 md-search-text="searchText"
+                                 md-items="item in querySearch(searchText)"
+                                 md-item-text="item.name"
+                                 md-require-match
+                                 md-floating-label="车主">
+                    <md-item-template>
+                        <span md-highlight-text="ctrl.searchText">{{item.name}}</span>
+                    </md-item-template>
+                    <div ng-messages="newVehicleForm.holder.$error">
+                        <div ng-message="required">你 <b>必须</b> 选择一个车主.</div>
+                        <div ng-message="md-require-match">请选择一个已存在的车主.</div>
+                    </div>
+                </md-autocomplete>
+                <section layout-align="left bottom">
+                    <md-button class="md-icon-button" ng-click="addNewPerson()">
+                        <md-icon md-svg-icon="img/icons/plus.svg"></md-icon>
+                    </md-button>
+                </section>
+            </div>
+
+            <div layout="row">
+                <md-input-container>
+                    <label>保险开始时间</label>
+                    <md-datepicker ng-model="vehicle.startInsuranceTime" required md-open-on-focus></md-datepicker>
+                    <div ng-messages="newVehicleForm.startInsuranceTime.$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>保险到期时间</label>
+                    <md-datepicker ng-model="vehicle.endInsuranceTime" required md-open-on-focus></md-datepicker>
+                    <div ng-messages="newVehicleForm.endInsuranceTime.$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <md-input-container class="md-block">
+                <md-checkbox name="detain" ng-model="vehicle.detain">
+                    是否被扣留
+                </md-checkbox>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button class="md-raised md-primary" type="submit"
+                   ng-click="newVehicleForm.$valid && saveVehicle()">
+            保存
+        </md-button>
+        <md-button class="md-raised md-warn" ng-click="cancel()">
+            取消
+        </md-button>
+    </md-dialog-actions>
 </md-dialog>

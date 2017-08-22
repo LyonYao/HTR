@@ -1,6 +1,8 @@
 package com.htr.loan.Utils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -27,6 +29,8 @@ public class SearchFilter {
         this.operator = operator;
     }
 
+
+
     public static Map<String, SearchFilter> parse(Map<String, Object> filterParams) {
         Map<String, SearchFilter> filters = new HashMap<String, SearchFilter>();
 
@@ -40,25 +44,29 @@ public class SearchFilter {
             if (names.length == 3) {
                 if ("SHORTDATE".equals(names[2])) {
                     String fieldValue = (String) value;
-                    if (XaUtil.isNotEmpty(fieldValue)) {
-                        value = fieldValue.replace("T", "").replace(":", "").replace("-", "").subSequence(0, 8);
+                    if (StringUtils.isNotEmpty(fieldValue)) {
+                        try {
+                            Date date = DateUtils.parseDate(value.toString(), Constants.POSSIBLE_DATE_FORMATS);
+                            value = CommonUtils.YYYYlMMlDD.format(date);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 if ("DATE".equals(names[2])) {
                     String fieldValue = (String) value;
-                    if (XaUtil.isNotEmpty(fieldValue)) {
-                        //	fieldValue = fieldValue.replace("T", "").replace(":", "").replace("-", "");
+                    if (StringUtils.isNotEmpty(fieldValue)) {
                         if ("LTE".equals(names[0])) {
                             try {
-                                Date d = DateUtils.parseDate(value.toString(), new String[]{"yyyy/MM/dd"});
-                                value = CommonUtils.YYYYlMMlDD.format(DateUtils.addDays(d, 1));
+                                Date date = DateUtils.parseDate(value.toString(), Constants.POSSIBLE_DATE_FORMATS);
+                                value = CommonUtils.YYYYlMMlDD.format(DateUtils.addDays(date, 1));
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
                         } else if ("GTE".equals(names[0])) {
                             try {
-                                Date d = DateUtils.parseDate(value.toString(), new String[]{"yyyy/MM/dd"});
-                                value = CommonUtils.YYYYlMMlDD.format(DateUtils.addDays(d, 1));
+                                Date date = DateUtils.parseDate(value.toString(), Constants.POSSIBLE_DATE_FORMATS);
+                                value = CommonUtils.YYYYlMMlDD.format(DateUtils.addDays(date, 1));
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
@@ -69,7 +77,7 @@ public class SearchFilter {
                 }
             }
             SearchFilter filter = new SearchFilter(names[1], Operator.valueOf(names[0]), value);
-            if (XaUtil.isNotEmpty(entry.getValue())) {
+            if (!ObjectUtils.isEmpty(entry.getValue())) {
                 filters.put(filter.fieldName + Identities.uuid2(), filter);
             }
         }
