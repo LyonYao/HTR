@@ -27,6 +27,7 @@ public interface Constants {
      * 系统模块名称
      */
     public static final String MODULE_PERSON = "person";
+    public static final String MODULE_BANKCARD = "bankCard";
     public static final String MODULE_VEHICLE = "vehicle";
     public static final String MODULE_LOANINFO = "loanInfo";
     public static final String MODULE_LOANRECORD = "loanRecord";
@@ -41,6 +42,7 @@ public interface Constants {
     public static final String OPERATYPE_ADD = "新建";
     public static final String OPERATYPE_UPDATE = "修改";
     public static final String OPERATYPE_DELETE = "删除";
+    public static final String OPERATYPE_STOP = "禁用";
 
     /**
      * 日期数据格式化

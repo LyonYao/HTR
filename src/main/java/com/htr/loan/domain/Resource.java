@@ -18,7 +18,7 @@ public class Resource extends BaseDomain {
     @ManyToOne
     private Resource parentRes; //资源父ID
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<Resource> childrenRes;
 
     @Transient

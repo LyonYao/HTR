@@ -16,12 +16,14 @@ public class LoanInfo extends BaseDomain {
     private Person surety; //担保人
     @OneToOne(cascade = CascadeType.MERGE)
     private Vehicle vehicle; //车辆信息
+    @OneToOne(cascade = CascadeType.MERGE)
+    private BankCard bankCard; //银行卡
     private Double LoanAmount; //贷款额
+    private Double totalRepayment; //应还款总额
+    private Double balance; //上期多还余额
+    private Double totalBalance; //总余额
     private Date loanDate; //放款日期
     private Integer loansNum; //贷款期数
-    private String RepaymentCard; //还款卡号
-    private String cardHolder; //户名
-    private String openBank; //开户行
     @OneToMany(cascade = CascadeType.ALL)
     private List<LoanRecord> loanRecords; //还款记录
     private String receiptNum; //收据编号
@@ -58,12 +60,44 @@ public class LoanInfo extends BaseDomain {
         this.vehicle = vehicle;
     }
 
+    public BankCard getBankCard() {
+        return bankCard;
+    }
+
+    public void setBankCard(BankCard bankCard) {
+        this.bankCard = bankCard;
+    }
+
     public Double getLoanAmount() {
         return LoanAmount;
     }
 
     public void setLoanAmount(Double loanAmount) {
         LoanAmount = loanAmount;
+    }
+
+    public Double getTotalRepayment() {
+        return totalRepayment;
+    }
+
+    public void setTotalRepayment(Double totalRepayment) {
+        this.totalRepayment = totalRepayment;
+    }
+
+    public Double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Double balance) {
+        this.balance = balance;
+    }
+
+    public Double getTotalBalance() {
+        return totalBalance;
+    }
+
+    public void setTotalBalance(Double totalBalance) {
+        this.totalBalance = totalBalance;
     }
 
     public Date getLoanDate() {
@@ -80,30 +114,6 @@ public class LoanInfo extends BaseDomain {
 
     public void setLoansNum(Integer loansNum) {
         this.loansNum = loansNum;
-    }
-
-    public String getRepaymentCard() {
-        return RepaymentCard;
-    }
-
-    public void setRepaymentCard(String repaymentCard) {
-        RepaymentCard = repaymentCard;
-    }
-
-    public String getCardHolder() {
-        return cardHolder;
-    }
-
-    public void setCardHolder(String cardHolder) {
-        this.cardHolder = cardHolder;
-    }
-
-    public String getOpenBank() {
-        return openBank;
-    }
-
-    public void setOpenBank(String openBank) {
-        this.openBank = openBank;
     }
 
     public List<LoanRecord> getLoanRecords() {

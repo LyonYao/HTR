@@ -28,7 +28,6 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role saveRole(Role role) {
         try {
-            role.setActive(true);
             role = roleRepository.save(role);
             return role;
         } catch (Exception e) {

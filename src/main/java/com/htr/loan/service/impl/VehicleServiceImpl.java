@@ -36,7 +36,7 @@ public class VehicleServiceImpl implements VehicleService {
     public Vehicle saveVehicle(Vehicle vehicle) {
         try {
 
-            SystemLog log = new SystemLog(Constants.MODULE_PERSON, vehicle.getLicensePlate());
+            SystemLog log = new SystemLog(Constants.MODULE_VEHICLE, vehicle.getLicensePlate());
             if (StringUtils.isNotBlank(vehicle.getUuid())) {
                 log.setOperaType(Constants.OPERATYPE_UPDATE);
             } else {
@@ -58,7 +58,7 @@ public class VehicleServiceImpl implements VehicleService {
         try {
             SystemLog log;
             for (Vehicle vehicle : vehicleList) {
-                log = new SystemLog(Constants.MODULE_PERSON, vehicle.getLicensePlate(), vehicle.getUuid(), Constants.OPERATYPE_DELETE);
+                log = new SystemLog(Constants.MODULE_VEHICLE, vehicle.getLicensePlate(), vehicle.getUuid(), Constants.OPERATYPE_DELETE);
                 vehicle.setActive(false);
                 vehicleRepository.save(vehicle);
                 systemLogRepository.save(log);

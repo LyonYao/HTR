@@ -1,7 +1,6 @@
 package com.htr.loan.Utils;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.text.ParseException;
@@ -46,8 +45,8 @@ public class SearchFilter {
                     String fieldValue = (String) value;
                     if (StringUtils.isNotEmpty(fieldValue)) {
                         try {
-                            Date date = DateUtils.parseDate(value.toString(), Constants.POSSIBLE_DATE_FORMATS);
-                            value = CommonUtils.YYYYlMMlDD.format(date);
+                            Date date = org.apache.commons.lang3.time.DateUtils.parseDate(value.toString(), Constants.POSSIBLE_DATE_FORMATS);
+                            value = DateUtils.YYYYlMMlDD.format(date);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -58,15 +57,15 @@ public class SearchFilter {
                     if (StringUtils.isNotEmpty(fieldValue)) {
                         if ("LTE".equals(names[0])) {
                             try {
-                                Date date = DateUtils.parseDate(value.toString(), Constants.POSSIBLE_DATE_FORMATS);
-                                value = CommonUtils.YYYYlMMlDD.format(DateUtils.addDays(date, 1));
+                                Date date = org.apache.commons.lang3.time.DateUtils.parseDate(value.toString(), Constants.POSSIBLE_DATE_FORMATS);
+                                value = DateUtils.YYYYlMMlDD.format(org.apache.commons.lang3.time.DateUtils.addDays(date, 1));
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
                         } else if ("GTE".equals(names[0])) {
                             try {
-                                Date date = DateUtils.parseDate(value.toString(), Constants.POSSIBLE_DATE_FORMATS);
-                                value = CommonUtils.YYYYlMMlDD.format(DateUtils.addDays(date, 1));
+                                Date date = org.apache.commons.lang3.time.DateUtils.parseDate(value.toString(), Constants.POSSIBLE_DATE_FORMATS);
+                                value = DateUtils.YYYYlMMlDD.format(org.apache.commons.lang3.time.DateUtils.addDays(date, 1));
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }

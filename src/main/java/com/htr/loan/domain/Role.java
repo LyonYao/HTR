@@ -13,7 +13,7 @@ public class Role extends BaseDomain {
     private String roleName;
     private String description;
 
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Resource> resources;
 
     public String getRoleName() {

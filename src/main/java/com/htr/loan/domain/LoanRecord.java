@@ -3,9 +3,12 @@ package com.htr.loan.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.OneToMany;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -13,15 +16,13 @@ public class LoanRecord extends BaseDomain {
     private Integer loanNum; //贷款期数
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date expectDate; //应还款时间
-    private Double expectMoney; //应还款时间
+    private Double expectMoney; //应还款额
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date actualDate; //实际还款时间
-    private Double actualMoney; //实际还款时间
-    private Integer overdue; //逾期天数
-    private Double balance; //余额
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date payee; //收款人
-    private String description; //应还款时间
+    private Date actualDate; //实际还款时间(本期还款最后完成日期)
+    private boolean completed; //是否已还款完成
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<SubLoanRecord> subLoanRecords; //多次还款记录
+    private String description; //备注
 
     public Integer getLoanNum() {
         return loanNum;
@@ -55,36 +56,20 @@ public class LoanRecord extends BaseDomain {
         this.actualDate = actualDate;
     }
 
-    public Double getActualMoney() {
-        return actualMoney;
+    public boolean isCompleted() {
+        return completed;
     }
 
-    public void setActualMoney(Double actualMoney) {
-        this.actualMoney = actualMoney;
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
-    public Integer getOverdue() {
-        return overdue;
+    public List<SubLoanRecord> getSubLoanRecords() {
+        return subLoanRecords;
     }
 
-    public void setOverdue(Integer overdue) {
-        this.overdue = overdue;
-    }
-
-    public Double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Double balance) {
-        this.balance = balance;
-    }
-
-    public Date getPayee() {
-        return payee;
-    }
-
-    public void setPayee(Date payee) {
-        this.payee = payee;
+    public void setSubLoanRecords(List<SubLoanRecord> subLoanRecords) {
+        this.subLoanRecords = subLoanRecords;
     }
 
     public String getDescription() {
