@@ -37,35 +37,6 @@ public class WebUtil {
 		return new PageRequest(pageNumber, pageSize);
 	}
 
-	/**
-	 * 构造分页参数（排序）.
-	 *
-	 * @param pageNumber
-	 *            the page number
-	 * @param sort
-	 *            the sort
-	 * @return the page request
-	 */
-	public static PageRequest buildPageRequest(int pageNumber, String sort) {
-		List<Sort.Order> orders = new ArrayList<Sort.Order>();
-		if (StringUtils.isNotEmpty(sort)) {
-			PageSort[] pageSorts = null;
-			try {
-				pageSorts = mapper.readValue(sort, PageSort[].class);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-			for (PageSort pageSort : pageSorts) {
-				orders.add(new Sort.Order(Sort.Direction.valueOf(pageSort
-						.getDirection()), pageSort.getProperty()));
-			}
-			Sort sorts = new Sort(orders);
-			return new PageRequest(pageNumber - 1, 1, sorts);
-		} else {
-			return new PageRequest(pageNumber - 1, 1);
-		}
-	}
 
 	/**
 	 * 构造分页参数
@@ -77,15 +48,17 @@ public class WebUtil {
 	 *            排序字段
 	 * @return
 	 */
-	public static PageRequest buildPageRequest(int pageNumber, int pageSize,
-											   String sort) {
+	public static PageRequest buildPageRequest(int pageNumber, int pageSize,String sort) {
 
-		List<Sort.Order> orders = new ArrayList<Sort.Order>();
+		List<Sort.Order> orders = new ArrayList<>();
 
-		pageNumber=pageNumber-1;
+		pageNumber = pageNumber - 1;
+		if(pageNumber < 0){
+			pageNumber = 0;
+		}
 
-		if(pageNumber<0){
-			pageNumber=0;
+		if (pageSize <= 0) {
+			pageSize = Constants.DEFAULT_PAGE_SIGE;
 		}
 
 		if (StringUtils.isNotEmpty(sort)) {

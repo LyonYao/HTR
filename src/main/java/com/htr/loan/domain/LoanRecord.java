@@ -14,10 +14,10 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 public class LoanRecord extends BaseDomain {
     private Integer loanNum; //贷款期数
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd HH:mm:ss")
     private Date expectDate; //应还款时间
     private Double expectMoney; //应还款额
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd HH:mm:ss")
     private Date actualDate; //实际还款时间(本期还款最后完成日期)
     private boolean completed; //是否已还款完成
     @OneToMany(cascade = CascadeType.ALL)

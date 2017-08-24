@@ -1,6 +1,7 @@
 var app = angular.module('app', [
     'ngRoute',
     'ngMaterial',
+    'ui.bootstrap',
     'cl.paging',
     'test',
     'auth',
@@ -9,7 +10,9 @@ var app = angular.module('app', [
     'menuList',
     'vehicle',
     'ngMessages',
-    'person'
+    'person',
+    'bankCard',
+    'systemLog'
 ]);
 var test = angular.module('test', []);
 var auth = angular.module('auth', []);
@@ -18,3 +21,5 @@ var menuList = angular.module('menuList', []);
 var user = angular.module('user', []);
 var vehicle = angular.module('vehicle', []);
 var person = angular.module('person', []);
+var bankCard = angular.module('bankCard', []);
+var systemLog = angular.module('systemLog', []);

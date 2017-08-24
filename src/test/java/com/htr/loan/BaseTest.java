@@ -55,21 +55,23 @@ public class BaseTest extends LoanApplicationTests {
 //        Resource resource11 = resourceService.findByResourceName("菜单管理");
 //        Resource resource12 = resourceService.findByResourceName("用户管理");
 //        Resource resource13 = resourceService.findByResourceName("角色管理");
+        Resource resource14 = resourceService.findByResourceName("日志查询");
 
 //        Resource resource2 = resourceService.findByResourceName("贷款管理");
 //        Resource resource21 = resourceService.findByResourceName("档案管理");
 //        Resource resource22 = resourceService.findByResourceName("人员管理");
 //        Resource resource23 = resourceService.findByResourceName("车辆管理");
-        Resource resource24 = resourceService.findByResourceName("银行卡管理");
+//        Resource resource24 = resourceService.findByResourceName("银行卡管理");
 //        resources.add(resource1);
 //        resources.add(resource11);
 //        resources.add(resource12);
 //        resources.add(resource13);
+        resources.add(resource14);
 //        resources.add(resource2);
 //        resources.add(resource21);
 //        resources.add(resource22);
 //        resources.add(resource23);
-        resources.add(resource24);
+//        resources.add(resource24);
 
         role.setResources(resources);
         role = roleService.saveRole(role);
@@ -152,6 +154,21 @@ public class BaseTest extends LoanApplicationTests {
         resources.add(subResource4);
         resource.setChildrenRes(resources);
          */
+
+        /**
+         *日志查询
+         Resource resource = resourceService.findByResourceName("系统管理");
+         Resource subResource4 = new Resource();
+         subResource4.setResourceName("日志查询");
+         subResource4.setResPath("sys/systemLog");
+         subResource4.setParentRes(resource);
+         subResource4.setActive(true);
+         subResource4 = resourceService.saveResource(subResource4);
+         List<Resource> resources = resource.getChildrenRes();
+         resources.add(subResource4);
+         resource.setChildrenRes(resources);
+         */
+
 
 
 //

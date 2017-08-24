@@ -1,0 +1,50 @@
+<md-dialog aria-label="新建银行卡数据">
+    <form name="newBankCardForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>新建银行卡数据</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content layout-padding>
+            <div layout="row">
+                <md-input-container>
+                    <label>卡号</label>
+                    <input required md-no-asterisk name="cardNumber" ng-model="bankCard.cardNumber">
+                    <div ng-messages="newBankCardForm.cardNumber.$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>户主</label>
+                    <input md-maxlength="5" required md-no-asterisk name="cardHolder" ng-model="bankCard.cardHolder">
+                    <div ng-messages="newBankCardForm.cardHolder.$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                        <div ng-messages-include="views/common/maxlength5.message.html"></div>
+                    </div>
+                </md-input-container>
+            </div>
+            <md-input-container class="md-block">
+                <label>开户行</label>
+                <input required md-no-asterisk name="bankLocation" ng-model="bankCard.bankLocation">
+                <div ng-messages="newBankCardForm.bankLocation.$error">
+                    <div ng-messages-include="views/common/required.message.html"></div>
+                </div>
+            </md-input-container>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised md-primary" type="submit"
+                       ng-click="newBankCardForm.$valid && saveBankCard()">
+                保存
+            </md-button>
+            <md-button class="md-raised md-warn" ng-click="cancel()">
+                取消
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

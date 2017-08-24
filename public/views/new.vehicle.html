@@ -47,7 +47,8 @@
             <div layout="row" layout-align="center center">
                 <md-input-container>
                     <label>上户时间</label>
-                    <md-datepicker ng-model="vehicle.registrationDate" required md-open-on-focus></md-datepicker>
+                    <input required md-no-asterisk uib-datepicker-popup name="registrationDate" ng-model="registrationDate"
+                           ng-click="openDatePopup('registrationDate')" is-open="datePopup.registrationDate" show-button-bar="false"/>
                     <div ng-messages="newVehicleForm.registrationDate.$error">
                         <div ng-messages-include="views/common/required.message.html"></div>
                     </div>
@@ -79,14 +80,16 @@
             <div layout="row">
                 <md-input-container>
                     <label>保险开始时间</label>
-                    <md-datepicker ng-model="vehicle.startInsuranceTime" required md-open-on-focus></md-datepicker>
+                        <input required md-no-asterisk uib-datepicker-popup name="startInsuranceTime" ng-model="startInsuranceTime"
+                               ng-click="openDatePopup('startInsuranceTime')" is-open="datePopup.startInsuranceTime" show-button-bar="false"/>
                     <div ng-messages="newVehicleForm.startInsuranceTime.$error">
                         <div ng-messages-include="views/common/required.message.html"></div>
                     </div>
                 </md-input-container>
                 <md-input-container>
                     <label>保险到期时间</label>
-                    <md-datepicker ng-model="vehicle.endInsuranceTime" required md-open-on-focus></md-datepicker>
+                    <input required md-no-asterisk uib-datepicker-popup name="endInsuranceTime" ng-model="endInsuranceTime"
+                           ng-click="openDatePopup('endInsuranceTime')" is-open="datePopup.endInsuranceTime" show-button-bar="false"/>
                     <div ng-messages="newVehicleForm.endInsuranceTime.$error">
                         <div ng-messages-include="views/common/required.message.html"></div>
                     </div>

@@ -13,5 +13,5 @@ public interface BankCardService {
 
     BankCard saveBankCard(BankCard bankCard);
 
-    boolean stopBankCards(List<BankCard> bankCards);
+    boolean activeOrStopBankCards(List<BankCard> bankCards, boolean flag);
 }

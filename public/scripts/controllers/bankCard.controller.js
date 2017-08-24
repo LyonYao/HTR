@@ -4,55 +4,44 @@
 (function () {
     'use strict';
 
-    person.controller('personController', ['$scope', '$mdDialog', '$http', '$mdToast',
+    bankCard.controller('bankCardController', ['$scope', '$mdDialog', '$http', '$mdToast',
         function ($scope, $mdDialog, $http, $mdToast) {
 
             $scope.items = [];
             $scope.selected = [];
 
-            $scope.facet = {};
-            $scope.suretys = [{surety: '', name: '全部'}, {surety: 0, name: '贷款人'}, {surety: 1, name: '担保人'}];
-
-            $scope.paging = {
-                total: 0,
-                current: 1,
-                onPageChanged: findAllPerson
-            };
-
-            function findAllPerson() {
-                var url = '/person/' + $scope.paging.current + '/' + PAGESIZE;
-                url += '?jsonFilter=' + encodeURIComponent(JSON.stringify($scope.facet));
+            function findAllBankCard() {
+                var url = '/bankCard/0';
                 var req = {
                     method: 'GET',
                     url: url
                 };
 
                 $http(req).then(function (responseData) {
-                    $scope.items = responseData.data.content;
-                    $scope.paging.total = responseData.data.totalPages;
+                    $scope.items = responseData.data;
                     $scope.selected = [];
                 });
             }
 
-            $scope.showNewPerson = function (ev) {
+            $scope.showNewBankCard = function (ev) {
                 $mdDialog.show({
-                    controller: 'newPersonController',
-                    templateUrl: 'views/new.person.html',
+                    controller: 'newBankCardController',
+                    templateUrl: 'views/new.bankCard.html',
                     parent: angular.element(document.body),
                     targetEvent: ev,
                     clickOutsideToClose: false,
                     locals: {
-                        person: {}
+                        bankCard: {}
                     }
                 }).then(function (answer) {
                     if ('success' == answer) {
-                        findAllPerson();
+                        findAllBankCard();
                     }
                 }, function () {
                 });
             };
 
-            $scope.showEditPerson = function (ev) {
+            $scope.showEditBankCard = function (ev) {
 
                 if ($scope.selected.length != 1) {
                     var editMessage = '';
@@ -73,61 +62,103 @@
                 }
 
                 $mdDialog.show({
-                    controller: 'newPersonController',
-                    templateUrl: 'views/new.person.html',
+                    controller: 'newBankCardController',
+                    templateUrl: 'views/new.bankCard.html',
                     parent: angular.element(document.body),
                     targetEvent: ev,
                     clickOutsideToClose: false,
                     locals: {
-                        person: $scope.selected[0]
+                        bankCard: $scope.selected[0]
                     }
                 }).then(function (answer) {
                     if ('success' == answer) {
-                        findAllPerson();
+                        findAllBankCard();
                     }
                 }, function () {
                 });
             };
 
-            $scope.removePersons = function (ev) {
+            $scope.removeBankCards = function (ev) {
                 if ($scope.selected.length == 0) {
                     $mdToast.show(
                         $mdToast.simple()
-                            .textContent('请先选择要删除的数据!')
+                            .textContent('请先选择要禁用的银行卡!')
                             .position('top right')
                             .hideDelay(2000)
                     );
                 } else {
 
                     var names = '';
-                    angular.forEach($scope.selected, function (person) {
-                        names += person.name + ', ';
+                    angular.forEach($scope.selected, function (bankCard) {
+                        names += bankCard.cardNumber + ', ';
                     });
 
                     var confirm = $mdDialog.confirm()
-                        .title('确定要删除已选择的数据吗?')
+                        .title('确定要禁用已选择的银行卡吗?')
                         .textContent(names.substr(0, names.length - 2))
                         .ariaLabel('remove peron')
                         .targetEvent(ev)
-                        .ok('删除')
+                        .ok('禁用')
                         .cancel('取消');
 
                     $mdDialog.show(confirm).then(function () {
-                        removePerson();
+                        removeBankCard();
                     }, function () {
                     });
                 }
             };
 
-            function removePerson() {
-                $http.post('/person/delete', $scope.selected).then(function () {
+            function removeBankCard() {
+                $http.post('/bankCard/stop', $scope.selected).then(function () {
                     $mdToast.show(
                         $mdToast.simple()
-                            .textContent('删除成功!')
+                            .textContent('禁用成功!')
                             .position('top right')
                             .hideDelay(2000)
                     );
-                    findAllPerson();
+                    findAllBankCard();
+                });
+            }
+
+            $scope.activeBankCards = function (ev) {
+                if ($scope.selected.length == 0) {
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('请先选择要启用的的银行卡!')
+                            .position('top right')
+                            .hideDelay(2000)
+                    );
+                } else {
+
+                    var names = '';
+                    angular.forEach($scope.selected, function (bankCard) {
+                        names += bankCard.cardNumber + ', ';
+                    });
+
+                    var confirm = $mdDialog.confirm()
+                        .title('确定要启用已选择的银行卡吗?')
+                        .textContent(names.substr(0, names.length - 2))
+                        .ariaLabel('remove peron')
+                        .targetEvent(ev)
+                        .ok('启用')
+                        .cancel('取消');
+
+                    $mdDialog.show(confirm).then(function () {
+                        activeBankCard();
+                    }, function () {
+                    });
+                }
+            };
+
+            function activeBankCard() {
+                $http.post('/bankCard/active', $scope.selected).then(function () {
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('启用成功!')
+                            .position('top right')
+                            .hideDelay(2000)
+                    );
+                    findAllBankCard();
                 });
             }
 
@@ -162,37 +193,19 @@
                 }
             };
 
-            $scope.searchPersons = findAllPerson;
-            findAllPerson();
+            $scope.searchBankCards = findAllBankCard;
+            findAllBankCard();
 
         }])
-        .controller('newPersonController', ['$scope', '$mdDialog', '$http', 'person', function ($scope, $mdDialog, $http, person) {
+        .controller('newBankCardController', ['$scope', '$mdDialog', '$http', 'bankCard', function ($scope, $mdDialog, $http, bankCard) {
 
-            $scope.person = person ? person : {};
-            $scope.person.phoneInfos = person.phoneInfos ? person.phoneInfos : [{
-                phoneNum: '',
-                description: ''
-            }];
+            $scope.bankCard = bankCard ? bankCard : {};
 
-            $scope.addNewPhoneInfo = function () {
-                $scope.person.phoneInfos.push({
-                    phoneNum: '',
-                    description: ''
-                });
-            };
-
-            $scope.removePhoneInfo = function (phoneInfo) {
-                if ($scope.person.phoneInfos.length > 1) {
-                    var index = $scope.person.phoneInfos.indexOf(phoneInfo);
-                    $scope.person.phoneInfos.splice(index, 1);
-                }
-            };
-
-            $scope.savePerson = function () {
+            $scope.saveBankCard = function () {
                 var req = {
                     method: 'POST',
-                    url: '/person/save',
-                    data: $scope.person
+                    url: '/bankCard/save',
+                    data: $scope.bankCard
                 };
                 $http(req).then(function () {
                     $mdDialog.hide('success');

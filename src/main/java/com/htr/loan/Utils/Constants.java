@@ -43,6 +43,9 @@ public interface Constants {
     public static final String OPERATYPE_UPDATE = "修改";
     public static final String OPERATYPE_DELETE = "删除";
     public static final String OPERATYPE_STOP = "禁用";
+    public static final String OPERATYPE_ACTIVE = "启用";
+    public static final String OPERATYPE_DETAIN = "扣车";
+    public static final String OPERATYPE_NOTDETAIN = "解扣";
 
     /**
      * 日期数据格式化

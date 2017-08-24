@@ -5,8 +5,8 @@
         </md-card-title-text>
     </md-card-title>
     <md-card-header>
-        <md-content class="white-background">
-            <section layout="row" layout-sm="column" layout-align="center bottom" layout-wrap>
+        <div layout="row" layout-wrap>
+            <section flex="100" layout="row" layout-sm="column" layout-align="center bottom" layout-wrap>
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>姓名</label>
                     <input ng-model="facet.search_LIKE_name">
@@ -41,7 +41,7 @@
                 <md-button class="md-raised md-warn" ng-click="removePersons($event)">删除</md-button>
                 <div class="label">Raised</div>
             </section>
-        </md-content>
+        </div>
     </md-card-header>
     <md-card-content>
         <table class="table table-hover">

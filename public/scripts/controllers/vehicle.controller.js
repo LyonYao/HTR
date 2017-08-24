@@ -114,7 +114,6 @@
 
                     $mdDialog.show(confirm).then(function () {
                         removeVehicle();
-                        findAllVehicle();
                     }, function () {
                     });
                 }
@@ -125,6 +124,90 @@
                     $mdToast.show(
                         $mdToast.simple()
                             .textContent('删除成功!')
+                            .position('top right')
+                            .hideDelay(2000)
+                    );
+                    findAllVehicle();
+                });
+            }
+
+            $scope.detainVehicles = function (ev) {
+                if ($scope.selected.length == 0) {
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('请先选择要扣留的车辆数据!')
+                            .position('top right')
+                            .hideDelay(2000)
+                    );
+                } else {
+
+                    var names = '';
+                    angular.forEach($scope.selected, function (vehicle) {
+                        names += vehicle.licensePlate + ', ';
+                    });
+
+                    var confirm = $mdDialog.confirm()
+                        .title('确定要扣留已选车辆吗?')
+                        .textContent(names.substr(0, names.length - 2))
+                        .ariaLabel('remove peron')
+                        .targetEvent(ev)
+                        .ok('扣押')
+                        .cancel('取消');
+
+                    $mdDialog.show(confirm).then(function () {
+                        detainVehicle();
+                    }, function () {
+                    });
+                }
+            };
+
+            function detainVehicle() {
+                $http.post('/vehicle/detain', $scope.selected).then(function () {
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('扣车成功!')
+                            .position('top right')
+                            .hideDelay(2000)
+                    );
+                    findAllVehicle();
+                });
+            }
+
+            $scope.unDetainVehicles = function (ev) {
+                if ($scope.selected.length == 0) {
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('请先选择要解扣的车辆数据!')
+                            .position('top right')
+                            .hideDelay(2000)
+                    );
+                } else {
+
+                    var names = '';
+                    angular.forEach($scope.selected, function (vehicle) {
+                        names += vehicle.licensePlate + ', ';
+                    });
+
+                    var confirm = $mdDialog.confirm()
+                        .title('确定要解扣已选车辆吗?')
+                        .textContent(names.substr(0, names.length - 2))
+                        .ariaLabel('remove peron')
+                        .targetEvent(ev)
+                        .ok('解扣')
+                        .cancel('取消');
+
+                    $mdDialog.show(confirm).then(function () {
+                        unDetainVehicle();
+                    }, function () {
+                    });
+                }
+            };
+
+            function unDetainVehicle() {
+                $http.post('/vehicle/unDetain', $scope.selected).then(function () {
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('解扣车辆成功!')
                             .position('top right')
                             .hideDelay(2000)
                     );
@@ -165,6 +248,15 @@
 
             $scope.searchVehicles = findAllVehicle;
             findAllVehicle();
+
+            $scope.openDatePopup = function(popup) {
+                $scope.datePopup[popup] = true;
+            };
+
+            $scope.datePopup = {
+                GTE_endInsuranceTime: false,
+                LTE_endInsuranceTime: false
+            };
 
         }])
         .controller('newVehicleController', ['$scope', '$mdDialog', '$http', '$timeout', '$q', 'vehicle',
@@ -239,5 +331,17 @@
                 $scope.cancel = function () {
                     $mdDialog.cancel();
                 };
+
+
+                $scope.openDatePopup = function(popup) {
+                    $scope.datePopup[popup] = true;
+                };
+
+                $scope.datePopup = {
+                    registrationDate: false,
+                    startInsuranceTime: false,
+                    endInsuranceTime: false
+                };
+
             }]);
 })();

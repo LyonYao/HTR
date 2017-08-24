@@ -1,0 +1,80 @@
+<md-card class="_md">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">人员管理</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-header>
+        <div layout="row" layout-wrap>
+            <section flex="100" layout="row" layout-sm="column" layout-align="center bottom" layout-wrap>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>操作人</label>
+                    <input ng-model="facet.search_LIKE_creator">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>操作数据</label>
+                    <input ng-model="facet.search_LIKE_recordName">
+                </md-input-container>
+                <md-input-container>
+                    <label>操作日期从</label>
+                    <input md-no-asterisk uib-datepicker-popup ng-model="facet.search_GTE_createdDate_DATE"
+                           ng-click="openDatePopup('GTE_createdDate')" is-open="datePopup.GTE_createdDate" show-button-bar="false"/>
+                </md-input-container>
+                <md-input-container>
+                    <label>到</label>
+                    <input md-no-asterisk uib-datepicker-popup ng-model="facet.search_LTE_createdDate_DATE"
+                           ng-click="openDatePopup('LTE_createdDate')" is-open="datePopup.LTE_createdDate" show-button-bar="false"/>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>操作模块</label>
+                    <md-select ng-model="facet.search_EQ_modules">
+                        <md-option ng-repeat="module in modules" value="{{module.module}}">
+                            {{module.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>操作类型</label>
+                    <md-select ng-model="facet.search_EQ_operaType">
+                        <md-option value="">全部</md-option>
+                        <md-option ng-repeat="operaType in operaTypes" value="{{operaType}}">
+                            {{operaType}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <div class="md-block" flex-gt-sm>
+                    <md-button class="md-raised" ng-click="searchSystemLogs()">查询</md-button>
+                </div>
+            </section>
+        </div>
+    </md-card-header>
+    <md-card-content>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="col-sm-1"><div>#</div></th>
+                <th class="col-sm-1">操作类型</th>
+                <th class="col-sm-1">操作模块</th>
+                <th class="col-sm-1">操作人</th>
+                <th class="col-sm-2">操作时间</th>
+                <th class="col-sm-3">操作数据</th>
+                <th class="col-sm-2">数据ID</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="systemLog in items">
+                <td>{{$index + 1}}</td>
+                <td>{{systemLog.operaType}}</td>
+                <td>{{systemLog.modules | translateModules}}</td>
+                <td>{{systemLog.creator}}</td>
+                <td>{{systemLog.createdDate}}</td>
+                <td>{{systemLog.recordName}}</td>
+                <td>{{systemLog.recordId}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <section layout="row" layout-padding="">
+            <cl-paging flex cl-pages="paging.total" , cl-steps="6" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"></cl-paging>
+        </section>
+    </md-card-content>
+</md-card>

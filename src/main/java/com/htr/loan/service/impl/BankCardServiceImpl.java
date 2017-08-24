@@ -91,21 +91,22 @@ public class BankCardServiceImpl implements BankCardService {
         return null;
     }
 
-
     @Override
-    public boolean stopBankCards(List<BankCard> bankCards) {
+    public boolean activeOrStopBankCards(List<BankCard> bankCards, boolean flag) {
         try {
             SystemLog log;
             for (BankCard bankCard : bankCards) {
-                log = new SystemLog(Constants.MODULE_BANKCARD, bankCard.getCardNumber(), bankCard.getUuid(), Constants.OPERATYPE_STOP);
-                bankCard.setActive(false);
+                if(flag)
+                    log = new SystemLog(Constants.MODULE_BANKCARD, bankCard.getCardNumber(), bankCard.getUuid(), Constants.OPERATYPE_ACTIVE);
+                else log = new SystemLog(Constants.MODULE_BANKCARD, bankCard.getCardNumber(), bankCard.getUuid(), Constants.OPERATYPE_STOP);
+                bankCard.setActive(flag);
                 bankCardRepository.save(bankCard);
                 systemLogRepository.save(log);
             }
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            LOG.error("stop BankCard fail!");
+            LOG.error("active BankCard fail!");
         }
         return false;
     }

@@ -25,11 +25,11 @@ public abstract class BaseDomain implements Serializable {
     @CreatedBy
     private String creator;
     @CreatedDate
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd HH:mm:ss")
     private Date createdDate;
     @LastModifiedBy
     private String updater;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd HH:mm:ss")
     private Date updatedDate;
 
     public String getUuid() {

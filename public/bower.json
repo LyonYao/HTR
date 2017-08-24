@@ -21,7 +21,9 @@
     "angular-material": "^1.1.4",
     "angular-animate": "^1.6.5",
     "material-angular-paging": "*",
-    "moment": "^2.18.1"
+    "moment": "^2.18.1",
+    "angular-bootstrap": "^2.5.0",
+    "angular-i18n": "^1.6.6"
   },
   "overrides": {
     "bootstrap": {
@@ -35,6 +37,11 @@
     "material-angular-paging": {
       "main": [
         "build/dist.min.js"
+      ]
+    },
+    "angular-i18n": {
+      "main": [
+        "angular-locale_zh-cn.js"
       ]
     }
   }

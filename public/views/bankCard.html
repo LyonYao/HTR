@@ -1,0 +1,55 @@
+<md-card class="_md">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">银行卡管理</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-header>
+        <div layout="row" layout-wrap>
+            <section layout="row" layout-sm="column" layout-align="left bottom" layout-wrap>
+                <md-button class="md-raised" ng-click="showNewBankCard($event)">新增</md-button>
+                <md-button class="md-raised md-primary" ng-click="showEditBankCard($event)">修改</md-button>
+                <md-button class="md-raised md-warn" ng-click="($event)">禁用</md-button>
+                <md-button class="md-raised md-accent" ng-click="activeBankCards($event)">启用</md-button>
+                <div class="label">Raised</div>
+            </section>
+        </div>
+    </md-card-header>
+    <md-card-content>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th><md-checkbox aria-label="Select All"
+                                 ng-checked="isChecked()"
+                                 md-indeterminate="isIndeterminate()"
+                                 ng-click="toggleAll()">
+                </md-checkbox></th>
+                <th><div class="">#</div></th>
+                <th class="col-sm-2">卡号</th>
+                <th class="col-sm-1">户主</th>
+                <th class="col-sm-3">开户行</th>
+                <th class="col-sm-1">日收入</th>
+                <th class="col-sm-1">月收入</th>
+                <th class="col-sm-1">年收入</th>
+                <th class="col-sm-2">总收入</th>
+                <th class="col-sm-1">状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="bankCard in items">
+                <td><md-checkbox aria-label="Select one" ng-checked="exists(bankCard, selected)" ng-click="toggle(bankCard, selected)">
+                </md-checkbox></td>
+                <td>{{$index + 1}}</td>
+                <td>{{bankCard.cardNumber}}</td>
+                <td>{{bankCard.cardHolder}}</td>
+                <td>{{bankCard.bankLocation}}</td>
+                <td>{{bankCard.dailyIncome | currency:'￥'}}</td>
+                <td>{{bankCard.monthlyIncome | currency:'￥'}}</td>
+                <td>{{bankCard.annualIncome | currency:'￥'}}</td>
+                <td>{{bankCard.totalIncome | currency:'￥'}}</td>
+                <td>{{bankCard.active | isActive }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </md-card-content>
+</md-card>

@@ -41,4 +41,18 @@ public class VehicleController {
         return WebUtil.buildDeleteMethodResult(isDeleted);
     }
 
+    @RequestMapping(value = "detain", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> detainVehicle(@RequestBody List<Vehicle> Vehicles){
+        boolean isDeleted = vehicleService.detainOrNotVehicles(Vehicles, true);
+        return WebUtil.buildDeleteMethodResult(isDeleted);
+    }
+
+    @RequestMapping(value = "unDetain", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> unDetainVehicle(@RequestBody List<Vehicle> Vehicles){
+        boolean isDeleted = vehicleService.detainOrNotVehicles(Vehicles, false);
+        return WebUtil.buildDeleteMethodResult(isDeleted);
+    }
+
 }

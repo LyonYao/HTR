@@ -72,6 +72,26 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+    public boolean detainOrNotVehicles(List<Vehicle> vehicleList, boolean detain) {
+        try {
+            SystemLog log;
+            for (Vehicle vehicle : vehicleList) {
+                if(detain)
+                    log = new SystemLog(Constants.MODULE_VEHICLE, vehicle.getLicensePlate(), vehicle.getUuid(), Constants.OPERATYPE_DETAIN);
+                else log = new SystemLog(Constants.MODULE_VEHICLE, vehicle.getLicensePlate(), vehicle.getUuid(), Constants.OPERATYPE_NOTDETAIN);
+                vehicle.setDetain(detain);
+                vehicleRepository.save(vehicle);
+                systemLogRepository.save(log);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOG.error("detain Vehicle fail!");
+        }
+        return false;
+    }
+
+    @Override
     public Page<Vehicle> findAll(Map<String, Object> filterParams, Pageable pageable) {
         Map<String, SearchFilter> filterMap = SearchFilter.parse(filterParams);
         return vehicleRepository.findAll(DynamicSpecifications

@@ -14,4 +14,6 @@ public interface VehicleService {
     Page<Vehicle> findAll(Map<String,Object> filterParams, Pageable pageable);
 
     boolean removeVehicles(List<Vehicle> vehicleList);
+
+    boolean detainOrNotVehicles(List<Vehicle> vehicleList, boolean detain);
 }

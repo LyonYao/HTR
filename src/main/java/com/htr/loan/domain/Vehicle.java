@@ -18,11 +18,11 @@ public class Vehicle extends BaseDomain {
     private String licensePlate;  //车牌号
     private String frameNumber;  //车架号
     private Double evaluation; //预估价
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd HH:mm:ss")
     private Date registrationDate; //上户时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd HH:mm:ss")
     private Date startInsuranceTime; //开始保险时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd HH:mm:ss")
     private Date endInsuranceTime; //保险到期时间
     private boolean detain; //是否被扣留
 

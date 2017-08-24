@@ -1,5 +1,6 @@
 package com.htr.loan.Utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,12 +10,9 @@ import java.util.Date;
 
 public abstract class DateUtils {
 
-	public static final SimpleDateFormat YYYYMMDD = new SimpleDateFormat("yyyy-MM-dd");
 	public static final SimpleDateFormat YYYYlMMlDD = new SimpleDateFormat("yyyy/MM/dd");
-	public static final SimpleDateFormat YYYYMMDDline = new SimpleDateFormat("yyyyMMdd");
-	public static final SimpleDateFormat YYYYMMDDHHMMSS = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	public static final SimpleDateFormat YYYYMMDDHHMMSSline = new SimpleDateFormat("yyyyMMddHHmmss");
-	public static final SimpleDateFormat YYYYMMDDHHMMSSCn = new SimpleDateFormat("yyyy年MM月dd日");
+	public static final SimpleDateFormat YYYYLMMLDD_BIG = new SimpleDateFormat("yyyy/MM/dd 23:59:59");
+	public static final SimpleDateFormat YYYYLMMLDD_SMALL = new SimpleDateFormat("yyyy/MM/dd 00:00:00");
 
 
 	/**
@@ -86,6 +84,26 @@ public abstract class DateUtils {
 		return isThisTime(date,"yyyy");
 	}
 
+
+	/**
+	 * 现在天数加一天
+	 * @param date
+	 * @return
+	 */
+	public static String addOneDays(final Date date, SimpleDateFormat sdf) {
+		return sdf.format(org.apache.commons.lang3.time.DateUtils.addDays(date, 1));
+	}
+
+	public static Date parseDate(final String str) {
+		Date date = null;
+		try {
+			date = org.apache.commons.lang3.time.DateUtils.parseDate(str, Constants.POSSIBLE_DATE_FORMATS);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			System.out.println("简析日期错误!!");
+		}
+		return date;
+	}
 
 	/**
 	 * 转换 Date类 为 LocalDate类
