@@ -32,6 +32,9 @@
             }).when('/sys/systemLog', {
                 templateUrl: 'views/systemLog.html',
                 controller: 'systemLogController'
+            }).when('/loan/loanInfo', {
+                templateUrl: 'views/loanInfo.html',
+                controller: 'loanInfoController'
 
 
                 // }).when('/tableDataList', {

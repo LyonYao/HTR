@@ -292,9 +292,8 @@
 
                 function createFilterFor(query) {
                     return function filterFn(person) {
-                        return (person.name.indexOf(query) === 0);
+                        return (person.name.indexOf(query) >= 0);
                     };
-
                 }
 
                 $scope.saveVehicle = function () {

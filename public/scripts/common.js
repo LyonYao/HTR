@@ -4,9 +4,5 @@
 
 var PAGESIZE = 15;
 
-var datepickerOptions = {
-    showWeeks:false
-}
-
 
 

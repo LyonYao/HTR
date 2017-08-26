@@ -1,0 +1,81 @@
+<md-dialog aria-label="新建档案数据">
+    <form name="newLoanInfoForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>新建档案数据</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content layout-padding>
+            <div class="md-block"></div>
+            <md-input-container class="md-block">
+                <label>档案编号</label>
+                <input md-maxlength="5" required md-no-asterisk name="loanInfoNum" ng-model="loanInfo.loanInfoNum">
+                <div ng-messages="newLoanInfoForm.loanInfoNum.$error">
+                    <div ng-messages-include="views/common/required.message.html"></div>
+                    <div ng-messages-include="views/common/maxlength5.message.html"></div>
+                </div>
+            </md-input-container>
+            <div layout="row">
+                <md-autocomplete flex required
+                                 md-input-name="surety"
+                                 md-selected-item="loanInfo.surety"
+                                 md-search-text="searchText"
+                                 md-items="item in querySearch(searchText)"
+                                 md-item-text="item.name"
+                                 md-require-match
+                                 md-floating-label="担保人">
+                    <md-item-template>
+                        <span md-highlight-text="ctrl.searchText">{{item.name}}</span>
+                    </md-item-template>
+                    <div ng-messages="newVehicleForm.holder.$error">
+                        <div ng-message="required">你 <b>必须</b> 选择一个车主.</div>
+                        <div ng-message="md-require-match">请选择一个已存在的车主.</div>
+                    </div>
+                </md-autocomplete>
+                <section layout-align="left bottom">
+                    <md-button class="md-icon-button" ng-click="addNewPerson()">
+                        <md-icon md-svg-icon="img/icons/plus.svg"></md-icon>
+                    </md-button>
+                </section>
+
+                <md-autocomplete flex required
+                                 md-input-name="holder"
+                                 md-selected-item="vehicle.holder"
+                                 md-search-text="searchText"
+                                 md-items="item in querySearch(searchText)"
+                                 md-item-text="item.name"
+                                 md-require-match
+                                 md-floating-label="车牌号">
+                    <md-item-template>
+                        <span md-highlight-text="ctrl.searchText">{{item.name}}</span>
+                    </md-item-template>
+                    <div ng-messages="newVehicleForm.holder.$error">
+                        <div ng-message="required">你 <b>必须</b> 选择一个车主.</div>
+                        <div ng-message="md-require-match">请选择一个已存在的车主.</div>
+                    </div>
+                </md-autocomplete>
+                <section layout-align="left bottom">
+                    <md-button class="md-icon-button" ng-click="addNewPerson()">
+                        <md-icon md-svg-icon="img/icons/plus.svg"></md-icon>
+                    </md-button>
+                </section>
+            </div>
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised md-primary" type="submit"
+                       ng-click="newLoanInfoForm.$valid && saveLoanInfo()">
+                保存
+            </md-button>
+            <md-button class="md-raised md-warn" ng-click="cancel()">
+                取消
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

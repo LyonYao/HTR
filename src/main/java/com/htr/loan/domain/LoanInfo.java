@@ -11,8 +11,6 @@ import java.util.List;
 public class LoanInfo extends BaseDomain {
     private String loanInfoNum; //档案号
     @OneToOne(cascade = CascadeType.MERGE)
-    private Person customer; //客户信息
-    @OneToOne(cascade = CascadeType.MERGE)
     private Person surety; //担保人
     @OneToOne(cascade = CascadeType.MERGE)
     private Vehicle vehicle; //车辆信息
@@ -27,6 +25,10 @@ public class LoanInfo extends BaseDomain {
     @OneToMany(cascade = CascadeType.ALL)
     private List<LoanRecord> loanRecords; //还款记录
     private String receiptNum; //收据编号
+    @OneToOne(cascade = CascadeType.MERGE)
+    private LoanRecord nextRepay;//下次还款记录
+    private long leftDays;//剩余还款天数(可以不要这个属性,在前台动态计算. 但是不要这个属性不好实现按逾期天数排序)
+    private boolean completed; //是否已完成所有还款
 
     public String getLoanInfoNum() {
         return loanInfoNum;
@@ -34,14 +36,6 @@ public class LoanInfo extends BaseDomain {
 
     public void setLoanInfoNum(String loanInfoNum) {
         this.loanInfoNum = loanInfoNum;
-    }
-
-    public Person getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Person customer) {
-        this.customer = customer;
     }
 
     public Person getSurety() {
@@ -130,5 +124,29 @@ public class LoanInfo extends BaseDomain {
 
     public void setReceiptNum(String receiptNum) {
         this.receiptNum = receiptNum;
+    }
+
+    public LoanRecord getNextRepay() {
+        return nextRepay;
+    }
+
+    public void setNextRepay(LoanRecord nextRepay) {
+        this.nextRepay = nextRepay;
+    }
+
+    public long getLeftDays() {
+        return leftDays;
+    }
+
+    public void setLeftDays(long leftDays) {
+        this.leftDays = leftDays;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 }
