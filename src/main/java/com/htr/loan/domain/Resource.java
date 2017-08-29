@@ -1,10 +1,16 @@
 package com.htr.loan.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
-import java.util.Collection;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import java.util.List;
 
 @Entity
@@ -18,7 +24,8 @@ public class Resource extends BaseDomain {
     @ManyToOne
     private Resource parentRes; //资源父ID
 
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
+    @Cascade(CascadeType.ALL)
     private List<Resource> childrenRes;
 
     @Transient

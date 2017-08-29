@@ -72,9 +72,10 @@
                 <th class="col-sm-1">姓名</th>
                 <th class="col-sm-1">车牌号</th>
                 <th class="col-sm-2">车辆品牌</th>
-                <th class="col-sm-2">车架号</th>
+                <th class="col-sm-1">车架号</th>
                 <th class="col-sm-1">上户时间</th>
                 <th class="col-sm-2">保险时间</th>
+                <th class="col-sm-2">保险剩余天数</th>
                 <th class="col-sm-1">评估价</th>
                 <th class="col-sm-1">状态</th>
             </tr>
@@ -91,8 +92,9 @@
                 <td>{{vehicle.licensePlate}}</td>
                 <td>{{vehicle.brand}}</td>
                 <td>{{vehicle.frameNumber | uppercase}}</td>
-                <td>{{vehicle.registrationDate | date:'yyyy-MM-dd'}}</td>
-                <td>{{vehicle.startInsuranceTime | date:'yyyy-MM-dd'}}~{{vehicle.endInsuranceTime | date:'yyyy-MM-dd'}}</td>
+                <td>{{vehicle.registrationDate}}</td>
+                <td>{{vehicle.startInsuranceTime}}~{{vehicle.endInsuranceTime}}</td>
+                <td>{{vehicle.leftDays | isOverdue}}</td>
                 <td>{{vehicle.evaluation | currency:'￥'}}</td>
                 <td>{{vehicle.detain | isDetain}}</td>
             </tr>

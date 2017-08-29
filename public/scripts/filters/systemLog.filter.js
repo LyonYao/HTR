@@ -17,6 +17,8 @@
                         return '角色';
                     case 'vehicle':
                         return '车辆';
+                    case 'loanInfo':
+                        return '档案';
                     // default:
                     //     return '未知模块';
                 }

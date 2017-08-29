@@ -25,8 +25,8 @@ public class VehicleController {
                                 @RequestParam(defaultValue = "{}") String jsonFilter){
         Map<String, Object> filterParams = WebUtil.getParametersStartingWith(jsonFilter, Constants.SEARCH_PREFIX);
         filterParams.put("EQ_active", Constants.RECORD_EXIST);
-
-        return vehicleService.findAll(filterParams, WebUtil.buildPageRequest(currentPage, pageSize));
+        String sortData = "[{\"property\":\"leftDays\",\"direction\":\"ASC\"}]";
+        return vehicleService.findAll(filterParams, WebUtil.buildPageRequest(currentPage, pageSize, sortData));
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)

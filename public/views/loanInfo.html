@@ -1,33 +1,43 @@
 <md-card class="_md">
     <md-card-title>
         <md-card-title-text>
-            <span class="md-headline">答案管理</span>
+            <span class="md-headline">档案管理</span>
         </md-card-title-text>
     </md-card-title>
     <md-card-header>
         <div layout="row" layout-wrap>
             <section flex="100" layout="row" layout-sm="column" layout-align="center bottom" layout-wrap>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label>姓名</label>
-                    <input ng-model="facet.search_LIKE_name">
+                    <label>档案号</label>
+                    <input ng-model="facet.search_LIKE_loanInfoNum">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label>电话</label>
-                    <input ng-model="facet['search_LIKE_phoneInfos.phoneNum']">
+                    <label>车牌号</label>
+                    <input ng-model="facet['search_LIKE_vehicle.licensePlate']">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label>身份证号</label>
-                    <input ng-model="facet.search_LIKE_idNumber">
+                    <label>贷款人</label>
+                    <input ng-model="facet['search_LIKE_vehicle.holder.name']">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label>地址</label>
-                    <input ng-model="facet.search_LIKE_address">
+                    <label>担保人</label>
+                    <input ng-model="facet['search_LIKE_surety.name']">
+                </md-input-container>
+                <md-input-container>
+                    <label>贷款日期从</label>
+                    <input md-no-asterisk uib-datepicker-popup ng-model="facet.search_GTE_loanDate_SHORTDATE"
+                           ng-click="openDatePopup('GTE_loanDate')" is-open="datePopup.GTE_loanDate" show-button-bar="false"/>
+                </md-input-container>
+                <md-input-container>
+                    <label>到</label>
+                    <input md-no-asterisk uib-datepicker-popup ng-model="facet.search_LTE_loanDate_SHORTDATE"
+                           ng-click="openDatePopup('LTE_loanDate')" is-open="datePopup.LTE_loanDate" show-button-bar="false"/>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label>类型</label>
-                    <md-select ng-model="facet.search_EQ_surety">
-                        <md-option ng-repeat="surety in suretys" value="{{surety.surety}}">
-                            {{surety.name}}
+                    <label>状态</label>
+                    <md-select ng-model="facet.search_EQ_completed">
+                        <md-option ng-repeat="completed in completeds" value="{{completed.completed}}">
+                            {{completed.name}}
                         </md-option>
                     </md-select>
                 </md-input-container>
@@ -37,8 +47,10 @@
             </section>
             <section layout="row" layout-sm="column" layout-align="left bottom" layout-wrap>
                 <md-button class="md-raised" ng-click="showNewLoanInfo($event)">新增</md-button>
-                <md-button class="md-raised md-primary" ng-click="showEditLoanInfo($event)">修改</md-button>
                 <md-button class="md-raised md-warn" ng-click="removeLoanInfos($event)">删除</md-button>
+                <md-button class="md-raised md-primary" ng-click="showRepayment($event)">还款</md-button>
+                <md-button class="md-raised md-accent" ng-click="">查看档案详情</md-button>
+                <md-button class="md-raised md-accent" ng-click="showDetailLoanRecords()">查看还款明细</md-button>
                 <div class="label">Raised</div>
             </section>
         </div>
@@ -53,11 +65,21 @@
                                  ng-click="toggleAll()">
                 </md-checkbox></th>
                 <th><div class="">#</div></th>
-                <th class="col-sm-1">姓名</th>
-                <th class="col-sm-3">电话</th>
-                <th class="col-sm-1">类型</th>
-                <th class="col-sm-5">地址</th>
-                <th class="col-sm-2">身份证号</th>
+                <th class="col-sm-1">档案号</th>
+                <th class="col-sm-1">车牌号</th>
+                <th class="col-sm-1">贷款人</th>
+                <th class="col-sm-1">担保人</th>
+                <th class="col-sm-1">总期数</th>
+                <th class="col-sm-1">当前期数</th>
+                <th class="col-sm-1">应还款额</th>
+                <th class="col-sm-1">已还款额</th>
+                <th class="col-sm-1">还款日期</th>
+                <th class="col-sm-1">距离还款天数</th>
+                <th class="col-sm-1">贷款日期</th>
+                <!--<th class="col-sm-1">总余额</th>-->
+                <!--<th class="col-sm-1">贷款总额</th>-->
+                <!--<th class="col-sm-1">应还款总额</th>-->
+                <th class="col-sm-1">状态</th>
             </tr>
             </thead>
             <tbody>
@@ -65,11 +87,21 @@
                 <td><md-checkbox aria-label="Select one" ng-checked="exists(loanInfo, selected)" ng-click="toggle(loanInfo, selected)">
                 </md-checkbox></td>
                 <td>{{$index + 1}}</td>
-                <td>{{loanInfo.name}}</td>
-                <td>{{loanInfo.phoneInfos | phoneNums}}</td>
-                <td>{{loanInfo.surety | isSurety}}</td>
-                <td>{{loanInfo.address}}</td>
-                <td>{{loanInfo.idNumber}}</td>
+                <td>{{loanInfo.loanInfoNum}}</td>
+                <td>{{loanInfo.vehicle.licensePlate}}</td>
+                <td>{{loanInfo.vehicle.holder.name}}</td>
+                <td>{{loanInfo.surety.name }}</td>
+                <td>{{loanInfo.loansNum}}</td>
+                <td>{{loanInfo.nextRepay.loanNum | currentLoanNum}}</td>
+                <td>{{loanInfo.nextRepay.expectMoney | currency:'¥'}}</td>
+                <td>{{loanInfo.balance | currency:'¥' }}</td>
+                <td>{{loanInfo.nextRepay.expectDate}}</td>
+                <td>{{loanInfo.leftDays | isOverdue}}</td>
+                <td>{{loanInfo.loanDate}}</td>
+                <!--<td>{{loanInfo.totalBalance | currency:'¥'}}</td>-->
+                <!--<td>{{loanInfo.loanAmount | currency:'¥'}}</td>-->
+                <!--<td>{{loanInfo.totalRepayment | currency:'¥'}}</td>-->
+                <td>{{loanInfo.completed | isCompleted }}</td>
             </tr>
             </tbody>
         </table>

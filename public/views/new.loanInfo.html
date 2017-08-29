@@ -14,25 +14,25 @@
             <div class="md-block"></div>
             <md-input-container class="md-block">
                 <label>档案编号</label>
-                <input md-maxlength="5" required md-no-asterisk name="loanInfoNum" ng-model="loanInfo.loanInfoNum">
+                <input md-maxlength="18" required md-no-asterisk name="loanInfoNum" ng-model="loanInfo.loanInfoNum">
                 <div ng-messages="newLoanInfoForm.loanInfoNum.$error">
                     <div ng-messages-include="views/common/required.message.html"></div>
-                    <div ng-messages-include="views/common/maxlength5.message.html"></div>
+                    <div ng-message="md-maxlength">不能超过18个字!</div>
                 </div>
             </md-input-container>
             <div layout="row">
                 <md-autocomplete flex required
                                  md-input-name="surety"
                                  md-selected-item="loanInfo.surety"
-                                 md-search-text="searchText"
-                                 md-items="item in querySearch(searchText)"
+                                 md-search-text="searchPerson"
+                                 md-items="item in querySearchPerson(searchPerson)"
                                  md-item-text="item.name"
                                  md-require-match
                                  md-floating-label="担保人">
                     <md-item-template>
-                        <span md-highlight-text="ctrl.searchText">{{item.name}}</span>
+                        <span md-highlight-text="searchPerson">{{item.name}}</span>
                     </md-item-template>
-                    <div ng-messages="newVehicleForm.holder.$error">
+                    <div ng-messages="newLoanInfoForm.surety.$error">
                         <div ng-message="required">你 <b>必须</b> 选择一个车主.</div>
                         <div ng-message="md-require-match">请选择一个已存在的车主.</div>
                     </div>
@@ -44,26 +44,86 @@
                 </section>
 
                 <md-autocomplete flex required
-                                 md-input-name="holder"
-                                 md-selected-item="vehicle.holder"
-                                 md-search-text="searchText"
-                                 md-items="item in querySearch(searchText)"
-                                 md-item-text="item.name"
+                                 md-input-name="vehicle"
+                                 md-selected-item="loanInfo.vehicle"
+                                 md-search-text="searchVehicle"
+                                 md-items="item in querySearchVehicle(searchVehicle)"
+                                 md-item-text="item.licensePlate"
                                  md-require-match
                                  md-floating-label="车牌号">
                     <md-item-template>
-                        <span md-highlight-text="ctrl.searchText">{{item.name}}</span>
+                        <span md-highlight-text="searchVehicle">{{item.licensePlate}}</span>
                     </md-item-template>
-                    <div ng-messages="newVehicleForm.holder.$error">
+                    <div ng-messages="newLoanInfoForm.vehicle.$error">
                         <div ng-message="required">你 <b>必须</b> 选择一个车主.</div>
                         <div ng-message="md-require-match">请选择一个已存在的车主.</div>
                     </div>
                 </md-autocomplete>
                 <section layout-align="left bottom">
-                    <md-button class="md-icon-button" ng-click="addNewPerson()">
+                    <md-button class="md-icon-button" ng-click="addNewVehicle()">
                         <md-icon md-svg-icon="img/icons/plus.svg"></md-icon>
                     </md-button>
                 </section>
+            </div>
+
+            <div layout="row">
+                <md-input-container>
+                    <label>贷款额</label>
+                    <input type="number" required md-no-asterisk name="loanAmount" ng-model="loanInfo.loanAmount">
+                    <div ng-messages="newLoanInfoForm.loanAmount.$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>应还款总额</label>
+                    <input type="number" required md-no-asterisk name="totalRepayment" ng-model="loanInfo.totalRepayment">
+                    <div ng-messages="newLoanInfoForm.totalRepayment.$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout="row">
+                <md-input-container>
+                    <label>放款日期</label>
+                    <input required md-no-asterisk uib-datepicker-popup name="loanDate" ng-model="loanInfo.loanDate"
+                           ng-click="openDatePopup('loanDate')" is-open="datePopup.loanDate" show-button-bar="false"/>
+                    <div ng-messages="newLoanInfoForm.loanDate.$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>贷款期数</label>
+                    <input required md-no-asterisk name="loansNum" ng-model="loanInfo.loansNum">
+                    <div ng-messages="newLoanInfoForm.loansNum.$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout="row" ng-repeat="item in loanInfo.loanRecords">
+                <md-input-container>
+                    <label>贷款期数</label>
+                    <input type="number" required md-no-asterisk name="loanNum{{$index}}" ng-model="item.loanNum">
+                    <div ng-messages="newLoanInfoForm['loanNum'+$index].$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>应还款时间</label>
+                    <input required md-no-asterisk uib-datepicker-popup name="expectDate{{$index}}" ng-model="item.expectDate"
+                           ng-click="openDatePopup('expectDate', $index)" is-open="datePopup.expectDate[$index]" show-button-bar="false"/>
+                    <div ng-messages="newLoanInfoForm['expectDate'+$index].$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>应还款额</label>
+                    <input required md-no-asterisk name="expectMoney{{$index}}" ng-model="item.expectMoney">
+                    <div ng-messages="newLoanInfoForm['expectMoney'+$index].$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                    </div>
+                </md-input-container>
             </div>
 
         </md-dialog-content>

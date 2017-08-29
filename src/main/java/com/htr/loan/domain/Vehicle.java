@@ -3,7 +3,6 @@ package com.htr.loan.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.OneToOne;
@@ -13,7 +12,7 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 public class Vehicle extends BaseDomain {
     private String brand;  //车辆品牌
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne
     private Person holder;  //所有人
     private String licensePlate;  //车牌号
     private String frameNumber;  //车架号
@@ -24,6 +23,7 @@ public class Vehicle extends BaseDomain {
     private Date startInsuranceTime; //开始保险时间
     @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd")
     private Date endInsuranceTime; //保险到期时间
+    private long leftDays;//剩余还款天数
     private boolean detain; //是否被扣留
 
     public String getBrand() {
@@ -88,6 +88,14 @@ public class Vehicle extends BaseDomain {
 
     public void setEndInsuranceTime(Date endInsuranceTime) {
         this.endInsuranceTime = endInsuranceTime;
+    }
+
+    public long getLeftDays() {
+        return leftDays;
+    }
+
+    public void setLeftDays(long leftDays) {
+        this.leftDays = leftDays;
     }
 
     public boolean isDetain() {

@@ -1,8 +1,9 @@
 package com.htr.loan.domain;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.OneToMany;
@@ -12,7 +13,8 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 public class Person extends BaseDomain {
     private String name;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
+    @Cascade(CascadeType.ALL)
     private List<PhoneInfo> phoneInfos;
     private String address;
     private String idNumber;

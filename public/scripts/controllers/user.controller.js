@@ -20,10 +20,10 @@
             str+='</style>';
             str +='</head>';
             str +='<body onload="window.print()">';
-            str +="<div id='oDiv2'><div>{{firstName}}</div></div>";
+            str +="<div id='oDiv2'><div>dddd</div></div>";
             str +='</body>';
             str +='</html>';
-            $scope.oPop.document.write($compile(str));
+            $scope.oPop.document.write(str);
             $scope.oPop.document.close();
         };
         $scope.test = function(){

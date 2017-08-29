@@ -1,9 +1,10 @@
 package com.htr.loan.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.OneToMany;
@@ -20,7 +21,8 @@ public class LoanRecord extends BaseDomain {
     @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd")
     private Date actualDate; //实际还款时间(本期还款最后完成日期)
     private boolean completed; //是否已还款完成
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
+    @Cascade(CascadeType.ALL)
     private List<SubLoanRecord> subLoanRecords; //多次还款记录
     private String description; //备注
 

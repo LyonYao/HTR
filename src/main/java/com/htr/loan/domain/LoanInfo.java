@@ -1,8 +1,13 @@
 package com.htr.loan.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.Date;
 import java.util.List;
 
@@ -10,22 +15,24 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 public class LoanInfo extends BaseDomain {
     private String loanInfoNum; //档案号
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne
     private Person surety; //担保人
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne
     private Vehicle vehicle; //车辆信息
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne
     private BankCard bankCard; //银行卡
-    private Double LoanAmount; //贷款额
+    private Double loanAmount; //贷款额
     private Double totalRepayment; //应还款总额
     private Double balance; //上期多还余额
     private Double totalBalance; //总余额
+    @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd")
     private Date loanDate; //放款日期
     private Integer loansNum; //贷款期数
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
+    @Cascade(CascadeType.ALL)
     private List<LoanRecord> loanRecords; //还款记录
     private String receiptNum; //收据编号
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne
     private LoanRecord nextRepay;//下次还款记录
     private long leftDays;//剩余还款天数(可以不要这个属性,在前台动态计算. 但是不要这个属性不好实现按逾期天数排序)
     private boolean completed; //是否已完成所有还款
@@ -63,11 +70,11 @@ public class LoanInfo extends BaseDomain {
     }
 
     public Double getLoanAmount() {
-        return LoanAmount;
+        return loanAmount;
     }
 
     public void setLoanAmount(Double loanAmount) {
-        LoanAmount = loanAmount;
+        this.loanAmount = loanAmount;
     }
 
     public Double getTotalRepayment() {

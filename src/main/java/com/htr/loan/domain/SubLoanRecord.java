@@ -15,7 +15,6 @@ public class SubLoanRecord extends BaseDomain {
     private User payee;  //收款人
     private Double receipts; //收到的金额
     private Date receiptDate; //收款时间
-
     @OneToOne
     private BankCard bankCard; //收款银行卡
     private String description; //备注

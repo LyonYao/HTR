@@ -28,7 +28,7 @@ public abstract class MoneyCalculator {
      * @param value2 减数
      * @return 两个参数的差
      */
-    public static double sub(Double value1, Double value2) {
+    public static double subtract(Double value1, Double value2) {
         BigDecimal b1 = new BigDecimal(Double.toString(value1));
         BigDecimal b2 = new BigDecimal(Double.toString(value2));
         return b1.subtract(b2).doubleValue();

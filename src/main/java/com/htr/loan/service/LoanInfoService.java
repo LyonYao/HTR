@@ -11,6 +11,8 @@ public interface LoanInfoService {
 
     LoanInfo saveLoanInfo(LoanInfo loanInfo);
 
+    LoanInfo repayment(LoanInfo loanInfo);
+
     Page<LoanInfo> findAll(Map<String,Object> filterParams, Pageable pageable);
 
     boolean removeLoanInfos(List<LoanInfo> loanInfoList);

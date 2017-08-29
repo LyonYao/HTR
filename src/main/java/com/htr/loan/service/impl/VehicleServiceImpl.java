@@ -1,6 +1,7 @@
 package com.htr.loan.service.impl;
 
 import com.htr.loan.Utils.Constants;
+import com.htr.loan.Utils.DateUtils;
 import com.htr.loan.Utils.DynamicSpecifications;
 import com.htr.loan.Utils.SearchFilter;
 import com.htr.loan.domain.SystemLog;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +44,7 @@ public class VehicleServiceImpl implements VehicleService {
             } else {
                 log.setOperaType(Constants.OPERATYPE_ADD);
             }
+            vehicle.setLeftDays(DateUtils.between(vehicle.getEndInsuranceTime(), LocalDate.now()));
             vehicle = vehicleRepository.save(vehicle);
             log.setRecordId(vehicle.getUuid());
             systemLogRepository.save(log);
