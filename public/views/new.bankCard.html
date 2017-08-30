@@ -10,31 +10,34 @@
             </div>
         </md-toolbar>
 
-        <md-dialog-content layout-padding>
-            <div layout="row">
-                <md-input-container>
-                    <label>卡号</label>
-                    <input required md-no-asterisk name="cardNumber" ng-model="bankCard.cardNumber">
-                    <div ng-messages="newBankCardForm.cardNumber.$error">
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div layout="row">
+                    <md-input-container>
+                        <label>卡号</label>
+                        <input required md-no-asterisk name="cardNumber" ng-model="bankCard.cardNumber">
+                        <div ng-messages="newBankCardForm.cardNumber.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>户主</label>
+                        <input md-maxlength="5" required md-no-asterisk name="cardHolder"
+                               ng-model="bankCard.cardHolder">
+                        <div ng-messages="newBankCardForm.cardHolder.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                            <div ng-messages-include="views/common/maxlength5.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <md-input-container class="md-block">
+                    <label>开户行</label>
+                    <input required md-no-asterisk name="bankLocation" ng-model="bankCard.bankLocation">
+                    <div ng-messages="newBankCardForm.bankLocation.$error">
                         <div ng-messages-include="views/common/required.message.html"></div>
-                    </div>
-                </md-input-container>
-                <md-input-container>
-                    <label>户主</label>
-                    <input md-maxlength="5" required md-no-asterisk name="cardHolder" ng-model="bankCard.cardHolder">
-                    <div ng-messages="newBankCardForm.cardHolder.$error">
-                        <div ng-messages-include="views/common/required.message.html"></div>
-                        <div ng-messages-include="views/common/maxlength5.message.html"></div>
                     </div>
                 </md-input-container>
             </div>
-            <md-input-container class="md-block">
-                <label>开户行</label>
-                <input required md-no-asterisk name="bankLocation" ng-model="bankCard.bankLocation">
-                <div ng-messages="newBankCardForm.bankLocation.$error">
-                    <div ng-messages-include="views/common/required.message.html"></div>
-                </div>
-            </md-input-container>
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>

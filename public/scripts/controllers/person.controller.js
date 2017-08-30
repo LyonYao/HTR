@@ -30,6 +30,7 @@
                 $http(req).then(function (responseData) {
                     $scope.items = responseData.data.content;
                     $scope.paging.total = responseData.data.totalPages;
+                    $scope.paging.totalElements = responseData.data.totalElements;
                     $scope.selected = [];
                 });
             }

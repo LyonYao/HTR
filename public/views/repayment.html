@@ -10,40 +10,45 @@
             </div>
         </md-toolbar>
 
-        <md-dialog-content layout-padding>
-            <div class="row"></div>
-            <div layout="row">
-                <md-input-container>
-                    <label>金额</label>
-                    <input type="number" required md-no-asterisk name="receipts" ng-model="subLoanRecord.receipts">
-                    <div ng-messages="repaymentForm.receipts.$error">
-                        <div ng-messages-include="views/common/required.message.html"></div>
-                    </div>
-                </md-input-container>
-                <md-input-container>
-                    <label>还款日期</label>
-                    <input required md-no-asterisk uib-datepicker-popup name="receiptDate" ng-model="subLoanRecord.receiptDate"
-                           ng-click="openDatePopup('receiptDate')" is-open="datePopup.receiptDate" show-button-bar="false"/>
-                    <div ng-messages="repaymentForm.loanDate.$error">
-                        <div ng-messages-include="views/common/required.message.html"></div>
-                    </div>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div class="row"></div>
+                <div layout="row">
+                    <md-input-container>
+                        <label>金额</label>
+                        <input type="number" required md-no-asterisk name="receipts" ng-model="subLoanRecord.receipts">
+                        <div ng-messages="repaymentForm.receipts.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>还款日期</label>
+                        <input required md-no-asterisk uib-datepicker-popup name="receiptDate"
+                               ng-model="subLoanRecord.receiptDate"
+                               ng-click="openDatePopup('receiptDate')" is-open="datePopup.receiptDate"
+                               show-button-bar="false"/>
+                        <div ng-messages="repaymentForm.loanDate.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="70">
+                        <label>还款到银行卡</label>
+                        <md-select name="bankCard" ng-model="subLoanRecord.bankCard" required>
+                            <md-option ng-repeat="bankCard in bankCards" value="{{bankCard}}">{{bankCard.cardNumber}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="repaymentForm.bankCard.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <md-input-container class="md-block">
+                    <label>备注说明</label>
+                    <textarea ng-model="subLoanRecord.description" md-maxlength="150" rows="5"></textarea>
                 </md-input-container>
             </div>
-            <div layout="row">
-                <md-input-container flex="70">
-                    <label>还款到银行卡</label>
-                    <md-select name="bankCard" ng-model="subLoanRecord.bankCard" required>
-                        <md-option ng-repeat="bankCard in bankCards" value="{{bankCard}}">{{bankCard.cardNumber}}</md-option>
-                    </md-select>
-                    <div ng-messages="repaymentForm.bankCard.$error">
-                        <div ng-messages-include="views/common/required.message.html"></div>
-                    </div>
-                </md-input-container>
-            </div>
-            <md-input-container class="md-block">
-                <label>备注说明</label>
-                <textarea ng-model="subLoanRecord.description" md-maxlength="150" rows="5"></textarea>
-            </md-input-container>
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>

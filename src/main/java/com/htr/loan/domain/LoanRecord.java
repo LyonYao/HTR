@@ -20,6 +20,7 @@ public class LoanRecord extends BaseDomain {
     private Double expectMoney; //应还款额
     @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd")
     private Date actualDate; //实际还款时间(本期还款最后完成日期)
+    private Long overdueDays; //逾期天数
     private boolean completed; //是否已还款完成
     @OneToMany
     @Cascade(CascadeType.ALL)
@@ -56,6 +57,14 @@ public class LoanRecord extends BaseDomain {
 
     public void setActualDate(Date actualDate) {
         this.actualDate = actualDate;
+    }
+
+    public Long getOverdueDays() {
+        return overdueDays;
+    }
+
+    public void setOverdueDays(Long overdueDays) {
+        this.overdueDays = overdueDays;
     }
 
     public boolean isCompleted() {

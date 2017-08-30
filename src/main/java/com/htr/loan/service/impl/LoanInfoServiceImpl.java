@@ -82,6 +82,7 @@ public class LoanInfoServiceImpl implements LoanInfoService {
                 total = MoneyCalculator.subtract(total, nextRepay.getExpectMoney());
                 nextRepay.setCompleted(true);
                 nextRepay.setActualDate(repayDate);
+                nextRepay.setOverdueDays(DateUtils.between(nextRepay.getExpectDate(), repayDate));
                 loanInfo.setBalance(total);
 
                 //从列表中找出这次还款记录并替换

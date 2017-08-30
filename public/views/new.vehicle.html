@@ -9,99 +9,107 @@
         </div>
     </md-toolbar>
 
-    <md-dialog-content layout-padding>
-        <form name="newVehicleForm">
-            <div class="row">
-            </div>
-            <div layout="row">
-                <md-input-container>
-                    <label>车辆品牌</label>
-                    <input required md-no-asterisk name="brand" ng-model="vehicle.brand">
-                    <div ng-messages="newVehicleForm.brand.$error">
-                        <div ng-messages-include="views/common/required.message.html"></div>
-                    </div>
-                </md-input-container>
-                <md-input-container>
-                    <label>车牌号</label>
-                    <input required md-no-asterisk name="licensePlate" ng-model="vehicle.licensePlate">
-                    <div ng-messages="newVehicleForm.licensePlate.$error">
-                        <div ng-messages-include="views/common/required.message.html"></div>
-                    </div>
-                </md-input-container>
-            </div>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <form name="newVehicleForm">
+                <div class="row">
+                </div>
+                <div layout="row">
+                    <md-input-container flex="65">
+                        <label>车辆品牌</label>
+                        <input required md-no-asterisk name="brand" ng-model="vehicle.brand">
+                        <div ng-messages="newVehicleForm.brand.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>车牌号</label>
+                        <input required md-no-asterisk name="licensePlate" ng-model="vehicle.licensePlate">
+                        <div ng-messages="newVehicleForm.licensePlate.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
 
-            <div layout="row">
-                <md-input-container>
-                    <label>车架号</label>
-                    <input required md-no-asterisk name="frameNumber" ng-model="vehicle.frameNumber">
-                    <div ng-messages="newVehicleForm.frameNumber.$error">
-                        <div ng-messages-include="views/common/required.message.html"></div>
-                    </div>
-                </md-input-container>
-                <md-input-container>
-                    <label>评估价</label>
-                    <input type="number" md-no-asterisk name="evaluation" ng-model="vehicle.evaluation">
-                </md-input-container>
-            </div>
+                <div layout="row">
+                    <md-input-container flex="60">
+                        <label>车架号</label>
+                        <input required md-no-asterisk name="frameNumber" ng-model="vehicle.frameNumber">
+                        <div ng-messages="newVehicleForm.frameNumber.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>评估价</label>
+                        <input type="number" md-no-asterisk name="evaluation" ng-model="vehicle.evaluation">
+                    </md-input-container>
+                </div>
 
-            <div layout="row" layout-align="center center">
-                <md-input-container>
-                    <label>上户时间</label>
-                    <input required md-no-asterisk uib-datepicker-popup name="registrationDate" ng-model="vehicle.registrationDate"
-                           ng-click="openDatePopup('registrationDate')" is-open="datePopup.registrationDate" show-button-bar="false"/>
-                    <div ng-messages="newVehicleForm.registrationDate.$error">
-                        <div ng-messages-include="views/common/required.message.html"></div>
-                    </div>
-                </md-input-container>
+                <div layout="row" layout-align="center center">
+                    <md-input-container>
+                        <label>上户时间</label>
+                        <input required md-no-asterisk uib-datepicker-popup name="registrationDate"
+                               ng-model="vehicle.registrationDate"
+                               ng-click="openDatePopup('registrationDate')" is-open="datePopup.registrationDate"
+                               show-button-bar="false"/>
+                        <div ng-messages="newVehicleForm.registrationDate.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
 
-                <md-autocomplete flex required
-                                 md-input-name="holder"
-                                 md-selected-item="vehicle.holder"
-                                 md-search-text="searchText"
-                                 md-items="item in querySearch(searchText)"
-                                 md-item-text="item.name"
-                                 md-require-match
-                                 md-floating-label="车主">
-                    <md-item-template>
-                        <span md-highlight-text="searchText">{{item.name}}</span>
-                    </md-item-template>
-                    <div ng-messages="newVehicleForm.holder.$error">
-                        <div ng-message="required">你 <b>必须</b> 选择一个车主.</div>
-                        <div ng-message="md-require-match">请选择一个已存在的车主.</div>
-                    </div>
-                </md-autocomplete>
-                <section layout-align="left bottom">
-                    <md-button class="md-icon-button" ng-click="addNewPerson()">
-                        <md-icon md-svg-icon="img/icons/plus.svg"></md-icon>
-                    </md-button>
-                </section>
-            </div>
+                    <md-autocomplete flex required
+                                     md-input-name="holder"
+                                     md-selected-item="vehicle.holder"
+                                     md-search-text="searchText"
+                                     md-items="item in querySearch(searchText)"
+                                     md-item-text="item.name"
+                                     md-require-match
+                                     md-floating-label="车主">
+                        <md-item-template>
+                            <span md-highlight-text="searchText">{{item.name}}</span>
+                        </md-item-template>
+                        <div ng-messages="newVehicleForm.holder.$error">
+                            <div ng-message="required">你 <b>必须</b> 选择一个车主.</div>
+                            <div ng-message="md-require-match">请选择一个已存在的车主.</div>
+                        </div>
+                    </md-autocomplete>
+                    <section layout-align="left bottom">
+                        <md-button class="md-icon-button" ng-click="addNewPerson()">
+                            <md-icon md-svg-icon="img/icons/plus.svg"></md-icon>
+                        </md-button>
+                    </section>
+                </div>
 
-            <div layout="row">
-                <md-input-container>
-                    <label>保险开始时间</label>
-                        <input required md-no-asterisk uib-datepicker-popup name="startInsuranceTime" ng-model="vehicle.startInsuranceTime"
-                               ng-click="openDatePopup('startInsuranceTime')" is-open="datePopup.startInsuranceTime" show-button-bar="false"/>
-                    <div ng-messages="newVehicleForm.startInsuranceTime.$error">
-                        <div ng-messages-include="views/common/required.message.html"></div>
-                    </div>
-                </md-input-container>
-                <md-input-container>
-                    <label>保险到期时间</label>
-                    <input required md-no-asterisk uib-datepicker-popup name="endInsuranceTime" ng-model="vehicle.endInsuranceTime"
-                           ng-click="openDatePopup('endInsuranceTime')" is-open="datePopup.endInsuranceTime" show-button-bar="false"/>
-                    <div ng-messages="newVehicleForm.endInsuranceTime.$error">
-                        <div ng-messages-include="views/common/required.message.html"></div>
-                    </div>
-                </md-input-container>
-            </div>
+                <div layout="row">
+                    <md-input-container>
+                        <label>保险开始时间</label>
+                        <input required md-no-asterisk uib-datepicker-popup name="startInsuranceTime"
+                               ng-model="vehicle.startInsuranceTime"
+                               ng-click="openDatePopup('startInsuranceTime')" is-open="datePopup.startInsuranceTime"
+                               show-button-bar="false"/>
+                        <div ng-messages="newVehicleForm.startInsuranceTime.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>保险到期时间</label>
+                        <input required md-no-asterisk uib-datepicker-popup name="endInsuranceTime"
+                               ng-model="vehicle.endInsuranceTime"
+                               ng-click="openDatePopup('endInsuranceTime')" is-open="datePopup.endInsuranceTime"
+                               show-button-bar="false"/>
+                        <div ng-messages="newVehicleForm.endInsuranceTime.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
 
-            <md-input-container class="md-block">
-                <md-checkbox name="detain" ng-model="vehicle.detain">
-                    是否被扣留
-                </md-checkbox>
-            </md-input-container>
-        </form>
+                <md-input-container class="md-block">
+                    <md-checkbox name="detain" ng-model="vehicle.detain">
+                        是否被扣留
+                    </md-checkbox>
+                </md-input-container>
+            </form>
+        </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
         <span flex></span>

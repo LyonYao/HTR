@@ -30,6 +30,7 @@
                 $http(req).then(function (responseData) {
                     $scope.items = responseData.data.content;
                     $scope.paging.total = responseData.data.totalPages;
+                    $scope.paging.totalElements = responseData.data.totalElements;
                     $scope.selected = [];
                 });
             }
@@ -253,6 +254,7 @@
             $scope.loanInfo = loanInfo ? loanInfo : {};
 
             $scope.saveLoanInfo = function () {
+                $scope.loanInfo.bankCard = JSON.parse($scope.loanInfo.bankCard);
                 var req = {
                     method: 'POST',
                     url: '/loanInfo/save',
@@ -390,6 +392,21 @@
                     }
                 }
             });
+
+            $scope.bankCards = [];
+            function findAllBankCards() {
+                var url = '/bankCard/1';
+                var req = {
+                    method: 'GET',
+                    url: url
+                };
+
+                $http(req).then(function (responseData) {
+                    $scope.bankCards = responseData.data;
+                });
+            }
+
+            findAllBankCards();
 
             $scope.openDatePopup = function (popup, index) {
                 if (index != undefined) {

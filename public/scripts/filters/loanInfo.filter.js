@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    bankCard.filter('currentLoanNum', function () {
+    loanInfo.filter('currentLoanNum', function () {
         return function (LoanNum) {
             if (LoanNum) {
                 return '第 ' + LoanNum + ' 期';
@@ -12,7 +12,7 @@
         };
     });
 
-    bankCard.filter('isCompleted', function () {
+    loanInfo.filter('isCompleted', function () {
         return function (completed) {
             if (completed) {
                 return "已完结";
@@ -22,13 +22,42 @@
         };
     });
 
-    bankCard.filter('isOverdue', function () {
+    loanInfo.filter('isOverdue', function () {
         return function (overdue) {
             if (overdue >= 0) {
                 return overdue + ' 天';
             } else {
                 return '逾期 ' + Math.abs(overdue) + ' 天';
             }
+        };
+    });
+
+    loanInfo.filter('Overdue', function () {
+        return function (overdue) {
+            if (overdue >= 0) {
+                return '未逾期';
+            } else {
+                return Math.abs(overdue) + ' 天';
+            }
+        };
+    });
+
+    loanInfo.filter('payees', function () {
+        return function (subLoanRecords) {
+            var listName = [];
+            angular.forEach(subLoanRecords, function (subLoanRecord) {
+                var isExist = false;
+                angular.forEach(listName, function (name) {
+                    if(name === subLoanRecord.payee.userName){
+                        isExist = true;
+                    }
+                });
+                if (!isExist) {
+                    listName.push(subLoanRecord.payee.userName);
+                }
+            });
+
+            return listName.join("/");
         };
     });
 })();
