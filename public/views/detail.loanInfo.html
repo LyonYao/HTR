@@ -1,0 +1,86 @@
+<md-dialog aria-label="档案明细">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>档案明细</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content layout-padding class="loan-detail">
+        <div class="row"></div>
+        <div align="center"><h2>保利汽贸车辆信息表</h2></div>
+        <div align="left">档案号: {{loanInfo.loanInfoNum}}</div>
+        <!--<loan-info></loan-info>-->
+        <table class="table loan-info">
+            <tr>
+                <th colspan="6" class="col-sm-6">客户信息</th>
+                <th colspan="6" class="col-sm-6">担保人信息</th>
+            </tr>
+            <tr>
+                <th>姓名</th><td>{{loanInfo.vehicle.holder.name}}</td>
+                <th>电话</th><td colspan="3">{{loanInfo.vehicle.holder.phoneInfos | phoneNums}}</td>
+                <th>姓名</th><td>{{loanInfo.surety.name}}</td>
+                <th>电话</th><td colspan="3">{{loanInfo.surety.phoneInfos | phoneNums}}</td>
+            </tr>
+            <tr>
+                <th>地址</th><td colspan="5">{{loanInfo.vehicle.holder.address}}</td>
+                <th>地址</th><td colspan="5">{{loanInfo.surety.address}}</td>
+            </tr>
+            <tr>
+                <th colspan="2">身份证号码</th><td colspan="4">{{loanInfo.vehicle.holder.idNumber}}</td>
+                <th colspan="2">身份证号码</th><td colspan="4">{{loanInfo.surety.idNumber}}</td>
+            </tr>
+            <tr>
+                <th>车辆品牌</th><td colspan="4">{{loanInfo.vehicle.brand}}</td>
+                <th>车牌号</th><td colspan="2">{{loanInfo.vehicle.licensePlate}}</td>
+                <th>车架号</th><td colspan="3">{{loanInfo.vehicle.frameNumber}}</td>
+            </tr>
+            <tr>
+                <th>评估价</th><td colspan="2">{{loanInfo.vehicle.evaluation | currency:'¥'}}</td>
+                <th>贷款总额</th><td colspan="2">{{loanInfo.loanAmount | currency:'¥'}}</td>
+                <th>放款日期</th><td colspan="2">{{loanInfo.loanDate}}</td>
+                <th>贷款期数</th><td colspan="2">{{loanInfo.loansNum}} 期</td>
+            </tr>
+            <tr>
+                <th colspan="2">还款银行卡号</th><td colspan="3">{{}}111</td>
+                <th>户主</th><td colspan="2">{{}}111</td>
+                <th>开户行</th><td colspan="3">{{}}111</td>
+            </tr>
+            <tr>
+                <th rowspan="{{loanInfo.loansNum + 1 }}">月款明细</th>
+                <th>还款期数</th>
+                <th>应还款金额</th>
+                <th colspan="2">应还款时间</th>
+                <th colspan="2">实际还款时间</th>
+                <th>逾期</th>
+                <th>余额</th>
+                <th colspan="2">收款人</th>
+                <th>状态</th>
+            </tr>
+            <tr ng-repeat="loanRecord in loanInfo.loanRecords">
+                <td>第 {{ loanRecord.loanNum }} 期</td>
+                <td>{{loanRecord.expectMoney | currency:'¥' }}</td>
+                <td colspan="2">{{loanRecord.expectDate }}</td>
+                <td colspan="2">{{loanRecord.actualDate }}</td>
+                <td>{{}}</td>
+                <td>{{2000000 |currency:'¥' }}</td>
+                <td colspan="2">{{}}</td>
+                <td>{{}}</td>
+            </tr>
+            <tr>
+                <th colspan="2">应还款总额</th>
+                <td colspan="4">{{loanInfo.totalRepayment | currency:'¥' }}</td>
+                <th colspan="2">剩余未还款总额</th>
+                <td colspan="4">{{loanInfo.totalBalance | currency:'¥' }}</td>
+            </tr>
+        </table>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button class="md-raised md-primary" ng-click="printLoanInfo()">打印</md-button>
+        <md-button class="md-raised" ng-click="cancel()">完成</md-button>
+    </md-dialog-actions>
+</md-dialog>

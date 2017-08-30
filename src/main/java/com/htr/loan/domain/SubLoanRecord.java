@@ -1,5 +1,6 @@
 package com.htr.loan.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Entity;
@@ -14,6 +15,8 @@ public class SubLoanRecord extends BaseDomain {
     @OneToOne
     private User payee;  //收款人
     private Double receipts; //收到的金额
+
+    @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd")
     private Date receiptDate; //收款时间
     @OneToOne
     private BankCard bankCard; //收款银行卡

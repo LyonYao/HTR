@@ -125,6 +125,42 @@
                 });
             };
 
+            $scope.showDetailLoanInfo = function (ev) {
+
+                if ($scope.selected.length != 1) {
+                    var editMessage = '';
+                    if ($scope.selected.length == 0) {
+                        editMessage = '请选择一项档案查看!';
+                    }
+                    if ($scope.selected.length > 1) {
+                        editMessage = '只能选择一项!';
+                    }
+
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent(editMessage)
+                            .position('top right')
+                            .hideDelay(2000)
+                    );
+                    return;
+                }
+
+                $mdDialog.show({
+                    controller: 'repaymentController',
+                    templateUrl: 'views/detail.loanInfo.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: false,
+                    locals: {
+                        loanInfo: $scope.selected[0]
+                    }
+                }).then(function (answer) {
+                    if ('success' == answer) {
+                    }
+                }, function () {
+                });
+            };
+
             $scope.removeLoanInfos = function (ev) {
                 if ($scope.selected.length == 0) {
                     $mdToast.show(
@@ -416,6 +452,27 @@
 
             $scope.datePopup = {
                 receiptDate: false
+            };
+
+            $scope.printLoanInfo = function () {
+                $scope.oPop = window.open('', '_blank', 'width='+ (window.screen.availWidth)+',height='+(window.screen.availHeight)+ ',top=0,left=0');
+                var str = '<!DOCTYPE html>';
+                str +='<html>';
+                str +='<head>';
+                str +='<meta charset="utf-8">';
+                str +='<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">';
+                str += '<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />' +
+                    '<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css" />' +
+                    '<link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />' +
+                    '<link rel="stylesheet" href="styles/loanInfo.css">' +
+                    '<link rel="stylesheet" href="styles/main.css">';
+                str +='</head>';
+                str +='<body onload="window.print()">';
+                str += $('.loan-detail').html();
+                str +='</body>';
+                str +='</html>';
+                $scope.oPop.document.write(str);
+                $scope.oPop.document.close();
             };
 
             $scope.cancel = function () {

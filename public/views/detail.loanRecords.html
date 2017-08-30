@@ -11,18 +11,12 @@
 
     <md-dialog-content layout-padding>
         <div class="row"></div>
-        <md-grid-list md-cols="5" md-gutter="1em" md-row-height="4:3">
-            <md-grid-tile></md-grid-tile>
-        </md-grid-list>
+        <loan-records></loan-records>
     </md-dialog-content>
     <md-dialog-actions layout="row">
         <span flex></span>
-        <md-button class="md-raised md-primary" type="submit"
-                   ng-click="">
-            保存
-        </md-button>
-        <md-button class="md-raised md-warn" ng-click="cancel()">
-            取消
+        <md-button class="md-raised" ng-click="cancel()">
+            完成
         </md-button>
     </md-dialog-actions>
 </md-dialog>

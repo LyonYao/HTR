@@ -1,0 +1,13 @@
+.loan-info td {
+    border:1px solid #000000;
+    font-size:12px;
+    min-width: 58px;
+}
+.loan-info th {
+    border:1px solid #000000;
+    text-align:center;
+    min-width: 58px;
+}
+.loan-info tr {
+    border:1px solid #000000;
+}
