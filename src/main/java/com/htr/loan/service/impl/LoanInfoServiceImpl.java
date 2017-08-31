@@ -73,7 +73,8 @@ public class LoanInfoServiceImpl implements LoanInfoService {
                     repayDate = subLoanRecord.getReceiptDate();
                 }
             }
-            total = MoneyCalculator.add(total, loanInfo.getBalance());
+            //总还款等于本期所有还款次和加上期结余额
+            total = MoneyCalculator.add(total, loanInfo.getRemainder() == null ? 0d : loanInfo.getRemainder());
 
             boolean isExecute = false;
             //多次还款叠加大于本期需要还款的钱数
@@ -84,11 +85,12 @@ public class LoanInfoServiceImpl implements LoanInfoService {
                 nextRepay.setActualDate(repayDate);
                 nextRepay.setOverdueDays(DateUtils.between(nextRepay.getExpectDate(), repayDate));
                 loanInfo.setBalance(total);
+                loanInfo.setRemainder(total);
 
                 //从列表中找出这次还款记录并替换
                 List<LoanRecord> loanRecords = loanInfo.getLoanRecords();
                 for (int i = 0; i < loanRecords.size(); i++) {
-                    if (loanRecords.get(i).getUuid().equals(nextRepay.getUuid())){
+                    if (loanRecords.get(i).getUuid().equals(nextRepay.getUuid())) {
                         loanRecords.set(i, nextRepay);
                         break;
                     }
@@ -106,12 +108,12 @@ public class LoanInfoServiceImpl implements LoanInfoService {
                 }
             }
 
-            if(!isExecute){
+            if (!isExecute) {
                 loanInfo.setBalance(total);
                 //从列表中找出这次还款记录并替换
                 List<LoanRecord> loanRecords = loanInfo.getLoanRecords();
                 for (int i = 0; i < loanRecords.size(); i++) {
-                    if (loanRecords.get(i).getUuid().equals(nextRepay.getUuid())){
+                    if (loanRecords.get(i).getUuid().equals(nextRepay.getUuid())) {
                         loanRecords.set(i, nextRepay);
                         break;
                     }
@@ -121,16 +123,16 @@ public class LoanInfoServiceImpl implements LoanInfoService {
             //计算应还款总额
             double totalBalance = loanInfo.getTotalRepayment();
             for (LoanRecord loanRecord : loanInfo.getLoanRecords()) {
-                if (loanRecord.isCompleted()){
+                if (loanRecord.isCompleted()) {
                     totalBalance = MoneyCalculator.subtract(totalBalance, loanRecord.getExpectMoney());
                 }
             }
             loanInfo.setTotalBalance(MoneyCalculator.subtract(totalBalance, loanInfo.getBalance()));
 
             //计算下期还款天数
-            if(loanInfo.isCompleted()){
+            if (loanInfo.isCompleted()) {
                 loanInfo.setLeftDays(0);
-            }else {
+            } else {
                 loanInfo.setLeftDays(DateUtils.between(loanInfo.getNextRepay().getExpectDate(), LocalDate.now()));
             }
             loanInfo = loanInfoRepository.save(loanInfo);
@@ -150,6 +152,10 @@ public class LoanInfoServiceImpl implements LoanInfoService {
             for (LoanInfo loanInfo : loanInfoList) {
                 log = new SystemLog(Constants.MODULE_LOANINFO, loanInfo.getLoanInfoNum(), loanInfo.getUuid(), Constants.OPERATYPE_DELETE);
                 loanInfo.setActive(false);
+                loanInfo.getLoanRecords().forEach(loanRecord -> {
+                    loanRecord.setActive(false);
+                    loanRecord.getSubLoanRecords().forEach(subLoanRecord -> subLoanRecord.setActive(false));
+                });
                 loanInfoRepository.save(loanInfo);
                 systemLogRepository.save(log);
             }

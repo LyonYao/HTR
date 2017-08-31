@@ -82,7 +82,7 @@
                     <td colspan="2">{{loanRecord.expectMoney | currency:'¥' }}</td>
                     <td colspan="2">{{loanRecord.expectDate }}</td>
                     <td colspan="2">{{loanRecord.actualDate }}</td>
-                    <td>{{loanRecord.overdueDays | Overdue}}</td>
+                    <td>{{loanRecord | Overdue}}</td>
                     <td colspan="2">{{loanRecord.subLoanRecords | payees}}</td>
                     <td>{{loanRecord.completed | isCompleted}}</td>
                 </tr>

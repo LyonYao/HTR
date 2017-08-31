@@ -33,12 +33,17 @@
     });
 
     loanInfo.filter('Overdue', function () {
-        return function (overdue) {
-            if (overdue >= 0) {
-                return '未逾期';
+        return function (loanRecord) {
+            if(!loanRecord.completed){
+                return '';
             } else {
-                return Math.abs(overdue) + ' 天';
+                if (loanRecord.overdueDays >= 0) {
+                    return '未逾期';
+                } else {
+                    return Math.abs(loanRecord.overdueDays) + ' 天';
+                }
             }
+
         };
     });
 

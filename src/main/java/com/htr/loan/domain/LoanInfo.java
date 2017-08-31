@@ -23,7 +23,8 @@ public class LoanInfo extends BaseDomain {
     private BankCard bankCard; //银行卡
     private Double loanAmount; //贷款额
     private Double totalRepayment; //应还款总额
-    private Double balance; //上期多还余额
+    private Double balance; //当前已还款额
+    private Double remainder; //上期多还的金额
     private Double totalBalance; //总余额
     @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd")
     private Date loanDate; //放款日期
@@ -91,6 +92,14 @@ public class LoanInfo extends BaseDomain {
 
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public Double getRemainder() {
+        return remainder;
+    }
+
+    public void setRemainder(Double remainder) {
+        this.remainder = remainder;
     }
 
     public Double getTotalBalance() {
