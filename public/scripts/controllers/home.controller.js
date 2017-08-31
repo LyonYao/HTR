@@ -25,6 +25,8 @@
                 $scope.openMenu = openMenu;
                 $scope.closeMenu = closeMenu;
                 $scope.isSectionSelected = isSectionSelected;
+                $scope.changePassword = changePassword;
+
                 $scope.isLogin = auth.authenticated;
 
                 $scope.$on('changeLogin', function (event, isLogin) {
@@ -158,6 +160,18 @@
 
                         $scope.menu.sections = sections;
                         sectionsData.sections = sections;
+                    });
+                }
+
+                function changePassword(ev) {
+                    $mdDialog.show({
+                        controller: 'changePasswordController',
+                        templateUrl: 'views/changePassword.html',
+                        parent: angular.element(document.body),
+                        targetEvent: ev,
+                        clickOutsideToClose: false
+                    }).then(function (answer) {
+                    }, function () {
                     });
                 }
 

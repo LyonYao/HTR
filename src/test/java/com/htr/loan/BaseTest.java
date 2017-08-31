@@ -30,10 +30,11 @@ public class BaseTest extends LoanApplicationTests {
         User user = new User();
         user.setActive(true);
         user.setUserAccount("xinlin");
+        user.setUserName("新林");
         user.setPassword("xinlin");
         Role userRole = roleService.findRoleByRoleName("超级管理员");
         user.setRoles(new ArrayList<Role>(Arrays.asList(userRole)));
-        userService.saveUser(user);
+        userService.saveUser(user, false);
     }
 
     @Test
@@ -51,27 +52,26 @@ public class BaseTest extends LoanApplicationTests {
         Role role = roleService.findRoleByRoleName("超级管理员");
         List<Resource> resources = role.getResources();
 
-//        Resource resource1 = resourceService.findByResourceName("系统管理");
-//        Resource resource11 = resourceService.findByResourceName("菜单管理");
-//        Resource resource12 = resourceService.findByResourceName("用户管理");
-//        Resource resource13 = resourceService.findByResourceName("角色管理");
-        Resource resource14 = resourceService.findByResourceName("日志查询");
+        Resource resource1 = resourceService.findByResourceName("系统管理");
+        Resource resource11 = resourceService.findByResourceName("用户管理");
+        Resource resource12 = resourceService.findByResourceName("角色管理");
+        Resource resource13 = resourceService.findByResourceName("日志查询");
 
-//        Resource resource2 = resourceService.findByResourceName("贷款管理");
-//        Resource resource21 = resourceService.findByResourceName("档案管理");
-//        Resource resource22 = resourceService.findByResourceName("人员管理");
-//        Resource resource23 = resourceService.findByResourceName("车辆管理");
-//        Resource resource24 = resourceService.findByResourceName("银行卡管理");
-//        resources.add(resource1);
-//        resources.add(resource11);
-//        resources.add(resource12);
-//        resources.add(resource13);
-        resources.add(resource14);
-//        resources.add(resource2);
-//        resources.add(resource21);
-//        resources.add(resource22);
-//        resources.add(resource23);
-//        resources.add(resource24);
+        Resource resource2 = resourceService.findByResourceName("贷款管理");
+        Resource resource21 = resourceService.findByResourceName("档案管理");
+        Resource resource22 = resourceService.findByResourceName("人员管理");
+        Resource resource23 = resourceService.findByResourceName("车辆管理");
+        Resource resource24 = resourceService.findByResourceName("银行卡管理");
+        resources.add(resource1);
+        resources.add(resource11);
+        resources.add(resource12);
+        resources.add(resource13);
+
+        resources.add(resource2);
+        resources.add(resource21);
+        resources.add(resource22);
+        resources.add(resource23);
+        resources.add(resource24);
 
         role.setResources(resources);
         role = roleService.saveRole(role);
@@ -87,8 +87,8 @@ public class BaseTest extends LoanApplicationTests {
 //        resource = resourceService.saveResource(resource);
 //
 //        Resource subResource1 = new Resource();
-//        subResource1.setResourceName("菜单管理");
-//        subResource1.setResPath("sys/menuList");
+//        subResource1.setResourceName("日志查询");
+//        subResource1.setResPath("sys/systemLog");
 //        subResource1.setParentRes(resource);
 //        subResource1.setActive(true);
 //        subResource1 = resourceService.saveResource(subResource1);
@@ -115,31 +115,43 @@ public class BaseTest extends LoanApplicationTests {
 
 
 
-//        Resource resource = new Resource();
-//        resource.setResourceName("贷款管理");
-//        resource.setActive(true);
-//        resource = resourceService.saveResource(resource);
-//
-//        Resource subResource1 = new Resource();
-//        subResource1.setResourceName("档案管理");
-//        subResource1.setResPath("loan/loanInfo");
-//        subResource1.setParentRes(resource);
-//        subResource1.setActive(true);
-//        subResource1 = resourceService.saveResource(subResource1);
-//
-//        Resource subResource2 = new Resource();
-//        subResource2.setResourceName("人员管理");
-//        subResource2.setResPath("loan/person");
-//        subResource2.setParentRes(resource);
-//        subResource2.setActive(true);
-//        subResource2 = resourceService.saveResource(subResource2);
-//
-//        Resource subResource3 = new Resource();
-//        subResource3.setResourceName("车辆管理");
-//        subResource3.setResPath("loan/vehicle");
-//        subResource3.setParentRes(resource);
-//        subResource3.setActive(true);
-//        subResource3 = resourceService.saveResource(subResource3);
+        Resource resource = new Resource();
+        resource.setResourceName("贷款管理");
+        resource.setActive(true);
+        resource = resourceService.saveResource(resource);
+
+        Resource subResource1 = new Resource();
+        subResource1.setResourceName("档案管理");
+        subResource1.setResPath("loan/loanInfo");
+        subResource1.setParentRes(resource);
+        subResource1.setActive(true);
+        subResource1 = resourceService.saveResource(subResource1);
+
+        Resource subResource2 = new Resource();
+        subResource2.setResourceName("人员管理");
+        subResource2.setResPath("loan/person");
+        subResource2.setParentRes(resource);
+        subResource2.setActive(true);
+        subResource2 = resourceService.saveResource(subResource2);
+
+        Resource subResource3 = new Resource();
+        subResource3.setResourceName("车辆管理");
+        subResource3.setResPath("loan/vehicle");
+        subResource3.setParentRes(resource);
+        subResource3.setActive(true);
+        subResource3 = resourceService.saveResource(subResource3);
+
+        Resource subResource4 = new Resource();
+        subResource4.setResourceName("银行卡管理");
+        subResource4.setResPath("loan/bankCard");
+        subResource4.setParentRes(resource);
+        subResource4.setActive(true);
+        subResource4 = resourceService.saveResource(subResource4);
+
+
+        resource.setChildrenRes(Arrays.asList(subResource1,subResource2,subResource3,subResource4));
+        resource = resourceService.saveResource(resource);
+        System.out.println(resource.getUuid());
 
         /**
          *银行卡管理
@@ -169,12 +181,6 @@ public class BaseTest extends LoanApplicationTests {
          resource.setChildrenRes(resources);
          */
 
-
-
-//
-//        resource.setChildrenRes(Arrays.asList(subResource1,subResource2,subResource3));
-//        resource = resourceService.saveResource(resource);
-//        System.out.println(resource.getUuid());
     }
 
 

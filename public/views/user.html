@@ -1,22 +1,57 @@
 <md-card class="_md">
-    <md-card-header>
-        <md-card-avatar>
-            <img src="img/icons/angular-logo.svg">
-        </md-card-avatar>
-        <md-card-header-text>
-            <span class="md-title">AngularJS</span>
-            <span class="md-subhead">Material</span>
-        </md-card-header-text>
-    </md-card-header>
     <md-card-title>
         <md-card-title-text>
-            <span class="md-headline">Card header</span>
+            <span class="md-headline">用户管理</span>
         </md-card-title-text>
     </md-card-title>
+    <md-card-header>
+        <div layout="row" layout-wrap>
+            <section layout="row" layout-sm="column" layout-align="left bottom" layout-wrap>
+                <md-button class="md-raised" ng-click="showNewUser($event)">新增</md-button>
+                <md-button class="md-raised md-primary" ng-click="showEditUser($event)">修改</md-button>
+                <md-button class="md-raised md-warn" ng-click="removeUsers($event)">禁用</md-button>
+                <md-button class="md-raised md-accent" ng-click="activeUsers($event)">启用</md-button>
+                <div class="label">Raised</div>
+            </section>
+        </div>
+    </md-card-header>
     <md-card-content>
-        <p>
-            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-        </p>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th><md-checkbox aria-label="Select All"
+                                 ng-checked="isChecked()"
+                                 md-indeterminate="isIndeterminate()"
+                                 ng-click="toggleAll()">
+                </md-checkbox></th>
+                <th><div class="">#</div></th>
+                <th class="col-sm-1">用户账号</th>
+                <th class="col-sm-1">用户名</th>
+                <th class="col-sm-1">电话号码</th>
+                <th class="col-sm-1">性别</th>
+                <th class="col-sm-1">部门</th>
+                <th class="col-sm-1">工位</th>
+                <th class="col-sm-1">职务</th>
+                <th class="col-sm-3">邮箱</th>
+                <th class="col-sm-1">状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in items">
+                <td><md-checkbox aria-label="Select one" ng-checked="exists(user, selected)" ng-click="toggle(user, selected)">
+                </md-checkbox></td>
+                <td>{{$index + 1}}</td>
+                <td>{{user.userAccount}}</td>
+                <td>{{user.userName}}</td>
+                <td>{{user.phoneNumber}}</td>
+                <td>{{user.sex}}</td>
+                <td>{{user.department}}</td>
+                <td>{{user.station}}</td>
+                <td>{{user.roles | roles}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.active | isActive }}</td>
+            </tr>
+            </tbody>
+        </table>
     </md-card-content>
 </md-card>

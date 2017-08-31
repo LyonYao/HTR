@@ -19,6 +19,8 @@ public interface Constants {
      */
     public final static Integer DEFAULT_PAGE_SIGE = 15;
 
+    public final static Integer DEFAULT_PASSWORD_MAXLENGTH = 18;
+
     public static final String SEARCH_PREFIX = "search_";
 
     public static final Boolean RECORD_EXIST = true;
@@ -47,6 +49,7 @@ public interface Constants {
     public static final String OPERATYPE_DETAIN = "扣车";
     public static final String OPERATYPE_NOTDETAIN = "解扣";
     public static final String OPERATYPE_REPAYMENT = "还款";
+    public static final String OPERATYPE_CHANGEPWD = "修改密码";
 
     /**
      * 日期数据格式化

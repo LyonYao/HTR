@@ -7,7 +7,7 @@
 
             // $locationProvider.html5Mode(true);
 
-            $routeProvider.otherwise({redirectTo: '/'});
+            $routeProvider.otherwise({redirectTo: '/test'});
             $routeProvider.when('/test', {
                 templateUrl: 'views/test.html',
                 controller: 'testController'

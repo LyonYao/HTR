@@ -1,22 +1,21 @@
 <!-- Using Angular Material 6.1 + Jade Templates-->
-<div layout="column" layout-align="center center" layout-fill="layout-fill">
-    <div class="loginBox md-whiteframe-z1" layout="column">
+<div layout="column" layout-align="center center" layout-fill="layout-fill" style="background-color: #0f0f0f">
+    <div layout="column" style="width: 25%">
+        <div style="background-color: rgb(33,150,243); text-align: center; height: 150px"></div>
         <md-toolbar>
-            <h2 class="md-toolbar-tools"><span>Login</span></h2>
+            <div style="background-color: rgb(33,150,243); text-align: center;"><h1>华泰然管理系统</h1></div>
         </md-toolbar>
-        <md-content class="md-padding" layout="column">
+        <md-content class="md-padding" layout="column" style="text-align: center">
             <md-input-container>
-                <label>user name</label>
+                <label>用户名</label>
                 <input type="user" id="username" name="username" ng-model="credentials.username"/>
             </md-input-container>
             <md-input-container>
-                <label>Password</label>
+                <label>密码</label>
                 <input type="password" id="password" name="password" ng-model="credentials.password"/>
             </md-input-container>
-            <div layout="row" layout-align="center center" style="padding-top:20px">
-                <md-button class="md-raised md-primary" ng-click="login()">Login</md-button>
-                <div flex="flex"></div>
-                <md-button href="" md-no-ink="md-no-ink">Forgot Password</md-button>
+            <div layout="row" layout-align="center center">
+                <md-button class="md-raised md-primary" ng-click="login()">登陆</md-button>
             </div>
         </md-content>
     </div>

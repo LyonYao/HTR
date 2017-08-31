@@ -1,0 +1,78 @@
+<md-dialog aria-label="新建银行卡数据">
+    <form name="newUserForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>新建用户数据</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div layout="row">
+                    <md-input-container>
+                        <label>用户账号</label>
+                        <input required md-no-asterisk name="userAccount" ng-model="user.userAccount">
+                        <div ng-messages="newUserForm.userAccount.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>密码</label>
+                        <input type="password" md-maxlength="18" required md-no-asterisk name="password" ng-model="user.password">
+                        <div ng-messages="newUserForm.password.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                            <div ng-messages-include="views/common/maxlength18.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container>
+                        <label>用户姓名</label>
+                        <input required md-no-asterisk name="userName" ng-model="user.userName">
+                        <div ng-messages="newUserForm.userName.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>电话号码</label>
+                        <input md-no-asterisk name="phoneNumber" ng-model="user.phoneNumber">
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container>
+                        <label>性别</label>
+                        <input md-no-asterisk name="sex" ng-model="user.sex">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>部门</label>
+                        <input md-no-asterisk name="department" ng-model="user.department">
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container>
+                        <label>工位</label>
+                        <input md-no-asterisk name="station" ng-model="user.station">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>邮箱</label>
+                        <input md-no-asterisk name="email" ng-model="user.email">
+                    </md-input-container>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised md-primary" type="submit"
+                       ng-click="newUserForm.$valid && saveUser()">
+                保存
+            </md-button>
+            <md-button class="md-raised md-warn" ng-click="cancel()">
+                取消
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

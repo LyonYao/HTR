@@ -20,9 +20,7 @@ public class User extends BaseDomain {
     private String userName;
     private String phoneNumber;
     private String sex;
-    @OneToMany
-    @Cascade(CascadeType.SAVE_UPDATE)
-    private List<Department> departments;
+    private String department;
     private String station;
 
     @OneToMany(fetch = FetchType.EAGER)
@@ -77,12 +75,12 @@ public class User extends BaseDomain {
         this.sex = sex;
     }
 
-    public List<Department> getDepartments() {
-        return departments;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setDepartments(List<Department> departments) {
-        this.departments = departments;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     public String getStation() {
