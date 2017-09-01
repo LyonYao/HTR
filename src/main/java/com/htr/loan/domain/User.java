@@ -1,13 +1,11 @@
 package com.htr.loan.domain;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import java.util.List;
 
 @Entity
@@ -23,8 +21,7 @@ public class User extends BaseDomain {
     private String department;
     private String station;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @Cascade(CascadeType.SAVE_UPDATE)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
     public String getEmail() {

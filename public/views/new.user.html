@@ -29,6 +29,14 @@
                         </div>
                     </md-input-container>
                 </div>
+                <md-input-container class="md-block">
+                    <label>角色</label>
+                    <md-select ng-model="user.roles" md-on-open="loadAllRoles()" ng-model-options="{trackBy: '$value.uuid'}" multiple>
+                        <md-optgroup label="roles">
+                            <md-option ng-value="role" ng-repeat="role in roles">{{role.roleName}}</md-option>
+                        </md-optgroup>
+                    </md-select>
+                </md-input-container>
                 <div layout="row">
                     <md-input-container>
                         <label>用户姓名</label>

@@ -251,10 +251,9 @@
     loanInfo.controller('newLoanInfoController', ['$scope', '$mdDialog', '$http', '$timeout', '$q', 'loanInfo',
         function ($scope, $mdDialog, $http, $timeout, $q, loanInfo) {
 
-            $scope.loanInfo = loanInfo ? loanInfo : {};
+            $scope.loanInfo = loanInfo ? angular.copy(loanInfo) : {};
 
             $scope.saveLoanInfo = function () {
-                $scope.loanInfo.bankCard = JSON.parse($scope.loanInfo.bankCard);
                 var req = {
                     method: 'POST',
                     url: '/loanInfo/save',
@@ -429,14 +428,13 @@
     loanInfo.controller('repaymentController', ['$scope', '$mdDialog', '$http', '$timeout', '$q', 'loanInfo',
         function ($scope, $mdDialog, $http, $timeout, $q, loanInfo) {
 
-            $scope.loanInfo = loanInfo ? loanInfo : {};
+            $scope.loanInfo = loanInfo ? angular.copy(loanInfo) : {};
 
             $scope.subLoanRecord = {
                 receiptDate: new Date()
             };
 
             $scope.saveLoanInfo = function () {
-                $scope.subLoanRecord.bankCard = JSON.parse($scope.subLoanRecord.bankCard);
                 $scope.loanInfo.nextRepay.subLoanRecords.push($scope.subLoanRecord);
                 var req = {
                     method: 'POST',

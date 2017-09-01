@@ -13,6 +13,12 @@ public interface Constants {
     public static final String MSG_DELETE_FAIL="删除失败!";
     public static final String MSG_DELETE_SUCCESS="删除成功!";
 
+    /**
+     * 资源类型
+     */
+    public static final String RESOURCE_TYPE_MENU="menu";
+    public static final String RESOURCE_TYPE_BUTTON="button";
+
 
     /**
      * 默认页面显示条数

@@ -169,7 +169,7 @@
         }])
         .controller('newPersonController', ['$scope', '$mdDialog', '$http', 'person', function ($scope, $mdDialog, $http, person) {
 
-            $scope.person = person ? person : {};
+            $scope.person = person ? angular.copy(person) : {};
             $scope.person.phoneInfos = person.phoneInfos ? person.phoneInfos : [{
                 phoneNum: '',
                 description: ''

@@ -20,28 +20,34 @@ public class ResourceController {
     private ResourceService resourceService;
 
     @RequestMapping(value = "/currentRes", method = RequestMethod.GET)
-    public List<Resource> getCurrentRes(HttpSession session){
+    public List<Resource> getCurrentRes(HttpSession session) {
 
-        User user = (User)session.getAttribute("loginUser");
+        User user = (User) session.getAttribute("loginUser");
         List<Resource> resources = resourceService.findAll();
         for (Role role : user.getRoles()) {
-           for(Resource selectedResource : role.getResources()){
-               resources.forEach(resource -> {
-                   if(selectedResource.getUuid().equals(resource.getUuid())){
-                       resource.setSelected(true);
-                   } else {
-                       if(resource.getChildrenRes() != null){
-                           resource.getChildrenRes().forEach(subRes -> {
-                               if(selectedResource.getUuid().equals(subRes.getUuid())){
-                                   subRes.setSelected(true);
-                               }
-                           });
-                       }
-                   }
-               });
-           }
+            for (Resource selectedResource : role.getResources()) {
+                checkResourceSelected(resources, selectedResource);
+            }
         }
 
         return resources;
+    }
+
+    private void checkResourceSelected(List<Resource> resources, Resource selectedResource) {
+        for (Resource resource : resources) {
+            if (selectedResource.getUuid().equals(resource.getUuid())) {
+                resource.setSelected(true);
+                break;
+            } else {
+                if (resource.getChildrenRes() != null) {
+                    checkResourceSelected(resource.getChildrenRes(), selectedResource);
+                }
+            }
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Resource> findAllResources() {
+        return resourceService.findAll();
     }
 }

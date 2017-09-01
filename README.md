@@ -1,4 +1,3 @@
 # HTR
 HTR loan project for HTR.
-1. add log;
-2. change delete;
+1. auth service 检查权限

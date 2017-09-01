@@ -36,7 +36,7 @@
                     <md-input-container flex="70">
                         <label>还款到银行卡</label>
                         <md-select name="bankCard" ng-model="subLoanRecord.bankCard" required>
-                            <md-option ng-repeat="bankCard in bankCards" value="{{bankCard}}">{{bankCard.cardNumber}}
+                            <md-option ng-repeat="bankCard in bankCards" ng-value="bankCard">{{bankCard.cardNumber}}
                             </md-option>
                         </md-select>
                         <div ng-messages="repaymentForm.bankCard.$error">

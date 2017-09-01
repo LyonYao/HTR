@@ -14,9 +14,9 @@
             }).when('/login', {
                 templateUrl: 'views/login.html',
                 controller: 'loginController'
-            }).when('/sys/menuList', {
-                templateUrl: 'views/menuList.html',
-                controller: 'menuListController'
+            }).when('/sys/roleList', {
+                templateUrl: 'views/role.html',
+                controller: 'roleController'
             }).when('/sys/userList', {
                 templateUrl: 'views/user.html',
                 controller: 'userController'

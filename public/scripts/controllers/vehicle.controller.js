@@ -262,7 +262,7 @@
         }])
         .controller('newVehicleController', ['$scope', '$mdDialog', '$http', '$timeout', '$q', 'vehicle',
             function ($scope, $mdDialog, $http, $timeout, $q, vehicle) {
-                $scope.vehicle = vehicle ? vehicle : {};
+                $scope.vehicle = vehicle ? angular.copy(vehicle) : {};
 
                 $scope.persons = [];
                 $scope.searchText = null;

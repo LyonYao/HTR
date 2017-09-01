@@ -199,7 +199,7 @@
         }])
         .controller('newBankCardController', ['$scope', '$mdDialog', '$http', 'bankCard', function ($scope, $mdDialog, $http, bankCard) {
 
-            $scope.bankCard = bankCard ? bankCard : {};
+            $scope.bankCard = bankCard ? angular.copy(bankCard) : {};
 
             $scope.saveBankCard = function () {
                 var req = {

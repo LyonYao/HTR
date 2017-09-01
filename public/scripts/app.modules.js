@@ -7,7 +7,7 @@ var app = angular.module('app', [
     'auth',
     'login',
     'user',
-    'menuList',
+    'role',
     'vehicle',
     'ngMessages',
     'person',
@@ -18,8 +18,8 @@ var app = angular.module('app', [
 var test = angular.module('test', []);
 var auth = angular.module('auth', []);
 var login = angular.module('login', ['auth']);
-var menuList = angular.module('menuList', []);
 var user = angular.module('user', []);
+var role = angular.module('role', []);
 var vehicle = angular.module('vehicle', []);
 var person = angular.module('person', []);
 var bankCard = angular.module('bankCard', []);
