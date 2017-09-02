@@ -1,5 +1,6 @@
 package com.htr.loan.web;
 
+import com.htr.loan.Utils.Constants;
 import com.htr.loan.domain.Resource;
 import com.htr.loan.domain.Role;
 import com.htr.loan.domain.User;
@@ -22,7 +23,7 @@ public class ResourceController {
     @RequestMapping(value = "/currentRes", method = RequestMethod.GET)
     public List<Resource> getCurrentRes(HttpSession session) {
 
-        User user = (User) session.getAttribute("loginUser");
+        User user = (User) session.getAttribute(Constants.SESSION_USER_KEY);
         List<Resource> resources = resourceService.findAll();
         for (Role role : user.getRoles()) {
             for (Resource selectedResource : role.getResources()) {

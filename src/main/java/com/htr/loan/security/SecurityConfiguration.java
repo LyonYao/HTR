@@ -44,10 +44,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // @formatter:on
 
         http.sessionManagement()
-                .invalidSessionUrl("/")
                 .sessionFixation()
                 .changeSessionId()
-                .maximumSessions(1)
-                .expiredUrl("/");
+                .maximumSessions(1);
     }
 }

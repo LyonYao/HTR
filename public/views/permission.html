@@ -16,6 +16,7 @@
                     <div layout="row" class="md-block" style="min-width: 550px">
                         <md-checkbox ng-checked="resource.selected" ng-click="setSelected(resource)">{{resource.resourceName}}</md-checkbox>
                     </div>
+                    <hr />
                     <span ng-repeat="menu in resource.childrenRes">
                         <div layout="row" class="md-block">
                             <span flex="5"></span>
@@ -28,6 +29,7 @@
                                 </md-checkbox>
                             </div>
                         </div>
+                        <hr />
                     </span>
                 </span>
             </div>

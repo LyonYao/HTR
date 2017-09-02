@@ -15,7 +15,12 @@
             '$rootScope',
             '$http',
             'sectionsData',
-        function ($scope,$timeout, $mdDialog, $mdSidenav, menu, auth, $location, $rootScope, $http, sectionsData) {
+            '$window',
+        function ($scope,$timeout, $mdDialog, $mdSidenav, menu, auth, $location, $rootScope, $http, sectionsData, $window) {
+
+            $scope.$on('IdleStart', function() {
+                $window.location.reload();
+            });
 
                 var self = this;
 

@@ -1,5 +1,6 @@
 package com.htr.loan.web;
 
+import com.htr.loan.Utils.Constants;
 import com.htr.loan.domain.User;
 import com.htr.loan.service.UserService;
 import com.htr.loan.service.impl.UserServiceImpl;
@@ -34,7 +35,7 @@ public class LoginController {
     @RequestMapping("/sessionUser")
     @ResponseBody
     public User getCurrentUser(HttpSession session) {
-        User user = (User) session.getAttribute("loginUser");
+        User user = (User) session.getAttribute(Constants.SESSION_USER_KEY);
         return user;
     }
 }

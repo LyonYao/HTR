@@ -267,7 +267,37 @@
 
         $scope.setSelected = function (item) {
             item.selected = !item.selected;
+            if (item.selected) {
+                selectedParentRes(item);
+            } else {
+                unSeclectedChildrenRes(item);
+            }
         };
+
+        function selectedParentRes(item) {
+            angular.forEach($scope.resources, function (resource) {
+                angular.forEach(resource.childrenRes, function (menu) {
+                    if(menu.uuid === item.uuid){
+                        resource.selected = true;
+                    }
+                    angular.forEach(menu.childrenRes, function (button) {
+                        if(button.uuid === item.uuid){
+                            resource.selected = true;
+                            menu.selected = true;
+                        }
+                    });
+                });
+            });
+        }
+
+        function unSeclectedChildrenRes(resource) {
+            if (resource.childrenRes !== null && resource.childrenRes !== undefined && resource.childrenRes.length > 0) {
+                for (var i in resource.childrenRes) {
+                    resource.childrenRes[i].selected = false;
+                    unSeclectedChildrenRes(resource.childrenRes[i]);
+                }
+            }
+        }
 
         function findAllResources() {
             var req = {
@@ -315,10 +345,10 @@
 
 
         function getCheckedResources(roleList, resources) {
-            for(var i in resources){
-                if(resources[i].selected){
+            for (var i in resources) {
+                if (resources[i].selected) {
                     roleList.push(resources[i]);
-                    if(resources[i].childrenRes !== null){
+                    if (resources[i].childrenRes !== null) {
                         getCheckedResources(roleList, resources[i].childrenRes);
                     }
                 }

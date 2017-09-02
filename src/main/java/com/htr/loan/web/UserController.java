@@ -59,7 +59,7 @@ public class UserController {
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> changePassword(@RequestBody UserPasswordHelper userPasswordHelper, HttpSession session){
-        User currentUser = (User)session.getAttribute("loginUser");
+        User currentUser = (User)session.getAttribute(Constants.SESSION_USER_KEY);
         Map<String, String> result = new HashMap<>();
         if(!bCryptPasswordEncoder.matches(userPasswordHelper.getOriginalPassword(), currentUser.getPassword())){
             result.put(Constants.RESPONSE_CODE, Constants.CODE_FAIL);

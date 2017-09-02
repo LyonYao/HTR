@@ -23,7 +23,8 @@
     "material-angular-paging": "*",
     "moment": "^2.18.1",
     "angular-bootstrap": "^2.5.0",
-    "angular-i18n": "^1.6.6"
+    "angular-i18n": "^1.6.6",
+    "ng-idle": "^1.3.2"
   },
   "overrides": {
     "bootstrap": {

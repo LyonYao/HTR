@@ -13,6 +13,10 @@ public interface Constants {
     public static final String MSG_DELETE_FAIL="删除失败!";
     public static final String MSG_DELETE_SUCCESS="删除成功!";
 
+
+
+    public static final String SESSION_USER_KEY="loginUser";
+
     /**
      * 资源类型
      */

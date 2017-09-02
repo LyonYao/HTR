@@ -5,7 +5,8 @@
         '$rootScope',
         '$http',
         '$location',
-        function ($rootScope, $http, $location) {
+        '$window',
+        function ($rootScope, $http, $location, $window) {
 
             var auth = {
 
@@ -54,6 +55,10 @@
                             }
                         }
                         callback(null);
+                    }, function (response) {
+                        if(response.status === 400){
+                            $window.location.reload();
+                        }
                     });
                 },
 

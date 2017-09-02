@@ -13,7 +13,8 @@ var app = angular.module('app', [
     'person',
     'bankCard',
     'systemLog',
-    'loanInfo'
+    'loanInfo',
+    'ngIdle'
 ]);
 var test = angular.module('test', []);
 var auth = angular.module('auth', []);

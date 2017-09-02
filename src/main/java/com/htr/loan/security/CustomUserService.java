@@ -1,5 +1,6 @@
 package com.htr.loan.security;
 
+import com.htr.loan.Utils.Constants;
 import com.htr.loan.domain.Role;
 import com.htr.loan.domain.User;
 import com.htr.loan.service.UserService;
@@ -37,7 +38,7 @@ public class CustomUserService implements UserDetailsService {
             ServletRequestAttributes attr = (ServletRequestAttributes)
                     RequestContextHolder.currentRequestAttributes();
             HttpSession session= attr.getRequest().getSession(true);
-            session.setAttribute("loginUser", user);
+            session.setAttribute(Constants.SESSION_USER_KEY, user);
             List<SimpleGrantedAuthority> authorities = new ArrayList<>();
             //用于添加用户的权限。只要把用户权限添加到authorities 就万事大吉。
             for(Role role:user.getRoles()) {

@@ -44,7 +44,7 @@ public class LoanInfoController {
 
     @RequestMapping(value = "repayment", method = RequestMethod.POST)
     public LoanInfo repayment(@RequestBody LoanInfo loanInfo, HttpSession session){
-        User user = (User)session.getAttribute("loginUser");
+        User user = (User)session.getAttribute(Constants.SESSION_USER_KEY);
         LoanRecord nextRepay = loanInfo.getNextRepay();
         nextRepay.getSubLoanRecords().forEach(subLoanRecord -> {
             if (subLoanRecord.getUuid() == null) {

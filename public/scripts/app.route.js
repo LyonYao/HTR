@@ -2,10 +2,8 @@
     'use strict';
 
 // Declare app level module which depends on views, and components
-    app.config(['$routeProvider', '$mdThemingProvider', '$locationProvider', '$mdIconProvider', '$httpProvider',
-        function ($routeProvider, $mdThemingProvider, $locationProvider, $mdIconProvider, $httpProvider) {
-
-            // $locationProvider.html5Mode(true);
+    app.config(['$routeProvider', '$mdThemingProvider', '$locationProvider', '$mdIconProvider', '$httpProvider', 'IdleProvider',
+        function ($routeProvider, $mdThemingProvider, $locationProvider, $mdIconProvider, $httpProvider, IdleProvider) {
 
             $routeProvider.otherwise({redirectTo: '/test'});
             $routeProvider.when('/test', {
@@ -35,17 +33,6 @@
             }).when('/loan/loanInfo', {
                 templateUrl: 'views/loanInfo.html',
                 controller: 'loanInfoController'
-
-
-                // }).when('/tableDataList', {
-                //     templateUrl: 'partials/tableDataList.html',
-                //     controller: 'tableDataListController'
-                // }).when('/dataList/:tableName', {
-                //     templateUrl: 'partials/dataList.html',
-                //     controller: 'dataListController'
-                // }).when('/showDataChain/table/:tableName/rowKey/:rowKey/page/:currentPage', {
-                //     templateUrl: 'partials/showDataChain.html',
-                //     controller: 'showDataChainController'
             });
 
             $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -58,9 +45,11 @@
 
             $mdThemingProvider.alwaysWatchTheme(true);
             $mdIconProvider.icon('md-toggle-arrow', 'img/icons/toggle-arrow.svg', 48);
+
+            IdleProvider.idle(1801);
         }]);
 
-    app.run(['auth', '$rootScope', '$location', function (auth, $rootScope, $location) {
+    app.run(['auth', '$rootScope', '$location', 'Idle', function (auth, $rootScope, $location, Idle) {
         function enter() {
             if ($location.path() != auth.loginPath) {
                 auth.path = $location.path();
@@ -79,7 +68,7 @@
         // respectively
         auth.init('/', '/login', '/logout');
 
-
+        Idle.watch();
     }]);
 
 })();
