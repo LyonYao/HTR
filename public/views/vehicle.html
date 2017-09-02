@@ -46,11 +46,19 @@
                 </div>
             </section>
             <section layout="row" layout-sm="column" layout-align="left bottom" layout-wrap>
-                <md-button class="md-raised" ng-click="showNewVehicle($event)">新增</md-button>
-                <md-button class="md-raised md-primary" ng-click="showEditVehicle($event)">修改</md-button>
-                <md-button class="md-raised md-warn" ng-click="removeVehicles($event)">删除</md-button>
-                <md-button class="md-raised md-accent" ng-click="detainVehicles($event)">扣押</md-button>
-                <md-button class="md-raised" ng-click="unDetainVehicles($event)">解除</md-button>
+                <md-button class="md-raised" ng-show="currentButtons.new.show" ng-click="showNewVehicle($event)">
+                    {{currentButtons.new.name}}
+                </md-button>
+                <md-button class="md-raised md-primary" ng-show="currentButtons.update.show"
+                           ng-click="showEditVehicle($event)">{{currentButtons.update.name}}
+                </md-button>
+                <md-button class="md-raised md-warn" ng-show="currentButtons.delete.show"
+                           ng-click="removeVehicles($event)">{{currentButtons.delete.name}}
+                </md-button>
+                <md-button class="md-raised md-accent" ng-show="currentButtons.detain.show"
+                           ng-click="detainVehicles($event)">{{currentButtons.detain.name}}</md-button>
+                <md-button class="md-raised" ng-show="currentButtons.unDetain.show"
+                           ng-click="unDetainVehicles($event)">{{currentButtons.unDetain.name}}</md-button>
                 <div class="label">Raised</div>
             </section>
         </div>

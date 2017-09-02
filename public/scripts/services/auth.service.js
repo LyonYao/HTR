@@ -1,10 +1,10 @@
 (function () {
     'use strict';
 
-    app.factory('auth',[
-            '$rootScope',
-            '$http',
-            '$location',
+    app.factory('auth', [
+        '$rootScope',
+        '$http',
+        '$location',
         function ($rootScope, $http, $location) {
 
             var auth = {
@@ -40,6 +40,23 @@
 
                 },
 
+                checkPermissions: function (subUrl, callback) {
+                    var currentButtons = {};
+                    $http.get('/resource/currentRes', {
+                    }).then(function (response) {
+                        for (var i in response.data) {
+                            for (var j in response.data[i].childrenRes){
+                                if(response.data[i].childrenRes[j].resPath === subUrl.substr(1)) {
+                                    checkButtonsPermission(response.data[i].childrenRes[j], currentButtons);
+                                    callback(currentButtons);
+                                    return;
+                                }
+                            }
+                        }
+                        callback(null);
+                    });
+                },
+
                 clear: function () {
                     $location.path(auth.loginPath);
                     auth.authenticated = false;
@@ -64,6 +81,25 @@
                 }
 
             };
+            
+            function checkButtonsPermission(currentRes, currentButtons) {
+                if (currentRes === null || currentRes.selected !== true){
+                    $location.path(auth.homePath);
+                } else {
+                    angular.forEach(currentRes.childrenRes, function (button) {
+                        if(button.selected){
+                            angular.forEach(button, function (value, key) {
+                                if(key === 'resPath'){
+                                    currentButtons[value] = {
+                                        show:true,
+                                        name:button.resourceName
+                                    };
+                                }
+                            });
+                        }
+                    });
+                }
+            }
 
             return auth;
         }]);

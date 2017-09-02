@@ -36,9 +36,15 @@
                 </div>
             </section>
             <section layout="row" layout-sm="column" layout-align="left bottom" layout-wrap>
-                <md-button class="md-raised" ng-click="showNewPerson($event)">新增</md-button>
-                <md-button class="md-raised md-primary" ng-click="showEditPerson($event)">修改</md-button>
-                <md-button class="md-raised md-warn" ng-click="removePersons($event)">删除</md-button>
+                <md-button class="md-raised" ng-show="currentButtons.new.show" ng-click="showNewPerson($event)">
+                    {{currentButtons.new.name}}
+                </md-button>
+                <md-button class="md-raised md-primary" ng-show="currentButtons.update.show"
+                           ng-click="showEditPerson($event)">{{currentButtons.update.name}}
+                </md-button>
+                <md-button class="md-raised md-warn" ng-show="currentButtons.delete.show"
+                           ng-click="removePersons($event)">{{currentButtons.delete.name}}
+                </md-button>
                 <div class="label">Raised</div>
             </section>
         </div>

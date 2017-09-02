@@ -4,8 +4,13 @@
 (function () {
     'use strict';
 
-    person.controller('personController', ['$scope', '$mdDialog', '$http', '$mdToast',
-        function ($scope, $mdDialog, $http, $mdToast) {
+    person.controller('personController', ['$scope', '$mdDialog', '$http', '$mdToast', '$location', 'auth',
+        function ($scope, $mdDialog, $http, $mdToast, $location, auth) {
+
+            $scope.currentButtons = {};
+            auth.checkPermissions($location.path(), function (currentButtons) {
+                $scope.currentButtons = currentButtons;
+            });
 
             $scope.items = [];
             $scope.selected = [];

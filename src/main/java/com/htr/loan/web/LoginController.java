@@ -18,9 +18,6 @@ public class LoginController {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    @Autowired
-    private UserService userService;
-
     // Match everything without a suffix (so not a static resource)
     @RequestMapping(value = "/{path:[^\\.]*}")
     public String redirect() {
@@ -37,7 +34,7 @@ public class LoginController {
     @RequestMapping("/sessionUser")
     @ResponseBody
     public User getCurrentUser(HttpSession session) {
-        User user = (User)session.getAttribute("loginUser");
+        User user = (User) session.getAttribute("loginUser");
         return user;
     }
 }

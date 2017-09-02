@@ -46,11 +46,19 @@
                 </div>
             </section>
             <section layout="row" layout-sm="column" layout-align="left bottom" layout-wrap>
-                <md-button class="md-raised" ng-click="showNewLoanInfo($event)">新增</md-button>
-                <md-button class="md-raised md-warn" ng-click="removeLoanInfos($event)">删除</md-button>
-                <md-button class="md-raised md-primary" ng-click="showRepayment($event)">还款</md-button>
-                <md-button class="md-raised md-accent" ng-click="showDetailLoanInfo($event)">查看档案详情</md-button>
-                <md-button class="md-raised md-accent" ng-click="showDetailLoanRecords($event)">查看还款明细</md-button>
+                <md-button class="md-raised" ng-show="currentButtons.new.show" ng-click="showNewLoanInfo($event)">
+                    {{currentButtons.new.name}}
+                </md-button>
+                <md-button class="md-raised md-warn" ng-show="currentButtons.delete.show"
+                           ng-click="removeLoanInfos($event)">{{currentButtons.delete.name}}
+                </md-button>
+
+                <md-button class="md-raised md-primary" ng-show="currentButtons.repayment.show"
+                           ng-click="showRepayment($event)">{{currentButtons.repayment.name}}</md-button>
+                <md-button class="md-raised md-accent" ng-show="currentButtons.loanInfoDetail.show"
+                           ng-click="showDetailLoanInfo($event)">{{currentButtons.loanInfoDetail.name}}</md-button>
+                <md-button class="md-raised md-accent" ng-show="currentButtons.loanRecordDetail.show"
+                           ng-click="showDetailLoanRecords($event)">{{currentButtons.loanRecordDetail.name}}</md-button>
                 <div class="label">Raised</div>
             </section>
         </div>

@@ -4,8 +4,13 @@
 (function () {
     'use strict';
 
-    role.controller('roleController', ['$scope', '$mdDialog', '$http', '$mdToast',
-        function ($scope, $mdDialog, $http, $mdToast) {
+    role.controller('roleController', ['$scope', '$mdDialog', '$http', '$mdToast', '$location', 'auth',
+        function ($scope, $mdDialog, $http, $mdToast, $location, auth) {
+
+            $scope.currentButtons = {};
+            auth.checkPermissions($location.path(), function (currentButtons) {
+                $scope.currentButtons = currentButtons;
+            });
 
             $scope.items = [];
             $scope.selected = [];
@@ -118,7 +123,7 @@
                 if ($scope.selected.length == 0) {
                     $mdToast.show(
                         $mdToast.simple()
-                            .textContent('请先选择要禁用的银行卡!')
+                            .textContent('请先选择要禁用的记录!')
                             .position('top right')
                             .hideDelay(2000)
                     );
@@ -130,7 +135,7 @@
                     });
 
                     var confirm = $mdDialog.confirm()
-                        .title('确定要禁用已选择的银行卡吗?')
+                        .title('确定要禁用已选择的记录吗?')
                         .textContent(names.substr(0, names.length - 2))
                         .ariaLabel('remove peron')
                         .targetEvent(ev)
@@ -160,7 +165,7 @@
                 if ($scope.selected.length == 0) {
                     $mdToast.show(
                         $mdToast.simple()
-                            .textContent('请先选择要启用的的银行卡!')
+                            .textContent('请先选择要启用的的记录!')
                             .position('top right')
                             .hideDelay(2000)
                     );
@@ -172,7 +177,7 @@
                     });
 
                     var confirm = $mdDialog.confirm()
-                        .title('确定要启用已选择的银行卡吗?')
+                        .title('确定要启用已选择的记录吗?')
                         .textContent(names.substr(0, names.length - 2))
                         .ariaLabel('remove peron')
                         .targetEvent(ev)

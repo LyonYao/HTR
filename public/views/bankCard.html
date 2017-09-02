@@ -7,10 +7,18 @@
     <md-card-header>
         <div layout="row" layout-wrap>
             <section layout="row" layout-sm="column" layout-align="left bottom" layout-wrap>
-                <md-button class="md-raised" ng-click="showNewBankCard($event)">新增</md-button>
-                <md-button class="md-raised md-primary" ng-click="showEditBankCard($event)">修改</md-button>
-                <md-button class="md-raised md-warn" ng-click="removeBankCards($event)">禁用</md-button>
-                <md-button class="md-raised md-accent" ng-click="activeBankCards($event)">启用</md-button>
+                <md-button class="md-raised" ng-show="currentButtons.new.show" ng-click="showNewBankCard($event)">
+                    {{currentButtons.new.name}}
+                </md-button>
+                <md-button class="md-raised md-primary" ng-show="currentButtons.update.show"
+                           ng-click="showEditBankCard($event)">{{currentButtons.update.name}}
+                </md-button>
+                <md-button class="md-raised md-warn" ng-show="currentButtons.stop.show"
+                           ng-click="removeBankCards($event)">{{currentButtons.stop.name}}
+                </md-button>
+                <md-button class="md-raised md-accent" ng-show="currentButtons.active.show"
+                           ng-click="activeBankCards($event)">{{currentButtons.active.name}}
+                </md-button>
                 <div class="label">Raised</div>
             </section>
         </div>
@@ -19,12 +27,16 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th><md-checkbox aria-label="Select All"
+                <th>
+                    <md-checkbox aria-label="Select All"
                                  ng-checked="isChecked()"
                                  md-indeterminate="isIndeterminate()"
                                  ng-click="toggleAll()">
-                </md-checkbox></th>
-                <th><div class="">#</div></th>
+                    </md-checkbox>
+                </th>
+                <th>
+                    <div class="">#</div>
+                </th>
                 <th class="col-sm-2">卡号</th>
                 <th class="col-sm-1">户主</th>
                 <th class="col-sm-3">开户行</th>
@@ -37,8 +49,11 @@
             </thead>
             <tbody>
             <tr ng-repeat="bankCard in items">
-                <td><md-checkbox aria-label="Select one" ng-checked="exists(bankCard, selected)" ng-click="toggle(bankCard, selected)">
-                </md-checkbox></td>
+                <td>
+                    <md-checkbox aria-label="Select one" ng-checked="exists(bankCard, selected)"
+                                 ng-click="toggle(bankCard, selected)">
+                    </md-checkbox>
+                </td>
                 <td>{{$index + 1}}</td>
                 <td>{{bankCard.cardNumber}}</td>
                 <td>{{bankCard.cardHolder}}</td>

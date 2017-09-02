@@ -4,8 +4,13 @@
 (function () {
     'use strict';
 
-    systemLog.controller('systemLogController', ['$scope', '$mdDialog', '$http', '$mdToast',
-        function ($scope, $mdDialog, $http) {
+    systemLog.controller('systemLogController', ['$scope', '$mdDialog', '$http', '$location', 'auth',
+        function ($scope, $mdDialog, $http, $location, auth) {
+
+            $scope.currentButtons = {};
+            auth.checkPermissions($location.path(), function (currentButtons) {
+                $scope.currentButtons = currentButtons;
+            });
 
             $scope.items = [];
 
