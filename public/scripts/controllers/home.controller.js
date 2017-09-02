@@ -19,7 +19,9 @@
         function ($scope,$timeout, $mdDialog, $mdSidenav, menu, auth, $location, $rootScope, $http, sectionsData, $window) {
 
             $scope.$on('IdleStart', function() {
-                $window.location.reload();
+                if($location.path() !== auth.loginPath){
+                    $window.location.reload();
+                }
             });
 
                 var self = this;
