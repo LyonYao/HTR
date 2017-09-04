@@ -12,7 +12,29 @@
     <md-dialog-content>
         <div class="md-dialog-content">
             <div class="row"></div>
-            <loan-records></loan-records>
+            <!--<loan-records></loan-records>-->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th class="col-sm-1">期数</th>
+                    <th class="col-sm-1">金额</th>
+                    <th class="col-sm-1">还款时间</th>
+                    <th class="col-sm-2">银行卡</th>
+                    <th class="col-sm-1">收款人</th>
+                    <th class="col-sm-4">备注说明</th>
+                </tr>
+                </thead>
+                <tr ng-repeat="subLoanRecord in subLoanRecords">
+                    <td>第 {{subLoanRecord.loanRecord.loanNum}} 期</td>
+                    <td>{{subLoanRecord.receipts | currency:'¥'}}</td>
+                    <td>{{subLoanRecord.receiptDate }}</td>
+                    <td>{{subLoanRecord.bankCard.cardNumber }}</td>
+                    <td>{{subLoanRecord.payee.userName}}</td>
+                    <td>{{subLoanRecord.description}}</td>
+                </tr>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">

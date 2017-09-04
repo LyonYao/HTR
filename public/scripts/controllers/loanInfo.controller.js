@@ -116,7 +116,7 @@
                 }
 
                 $mdDialog.show({
-                    controller: 'repaymentController',
+                    controller: 'showLoanRecordDetailController',
                     templateUrl: 'views/detail.loanRecords.html',
                     parent: angular.element(document.body),
                     targetEvent: ev,
@@ -430,6 +430,28 @@
             };
         }]);
 
+    loanInfo.controller('showLoanRecordDetailController', ['$scope', '$mdDialog', '$http', 'loanInfo',
+        function ($scope, $mdDialog, $http, loanInfo) {
+
+            $scope.loanInfo = loanInfo ? angular.copy(loanInfo) : {};
+
+            $scope.subLoanRecords = [];
+            function fundAllSubLoanRecords() {
+                var req = {
+                    method: 'GET',
+                    url: '/subLoanRecord/loanInfoID/' + $scope.loanInfo.uuid
+                };
+                $http(req).then(function (response) {
+                    $scope.subLoanRecords = response.data;
+                });
+            }
+            fundAllSubLoanRecords();
+
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+        }]);
+
     loanInfo.controller('repaymentController', ['$scope', '$mdDialog', '$http', '$timeout', '$q', 'loanInfo',
         function ($scope, $mdDialog, $http, $timeout, $q, loanInfo) {
 
@@ -440,11 +462,12 @@
             };
 
             $scope.saveLoanInfo = function () {
-                $scope.loanInfo.nextRepay.subLoanRecords.push($scope.subLoanRecord);
+                $scope.subLoanRecord.loanInfo = $scope.loanInfo;
+                $scope.subLoanRecord.loanRecord = $scope.loanInfo.nextRepay;
                 var req = {
                     method: 'POST',
-                    url: '/loanInfo/repayment',
-                    data: $scope.loanInfo
+                    url: '/subLoanRecord/repayment',
+                    data: $scope.subLoanRecord
                 };
                 $http(req).then(function () {
                     $mdDialog.hide('success');

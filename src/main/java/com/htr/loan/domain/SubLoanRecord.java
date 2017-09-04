@@ -5,6 +5,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import java.util.Date;
 
@@ -20,6 +21,10 @@ public class SubLoanRecord extends BaseDomain {
     private Date receiptDate; //收款时间
     @OneToOne
     private BankCard bankCard; //收款银行卡
+    @ManyToOne
+    private LoanInfo loanInfo; //档案信息
+    @ManyToOne
+    private LoanRecord loanRecord;
     private String description; //备注
 
     public User getPayee() {
@@ -56,6 +61,22 @@ public class SubLoanRecord extends BaseDomain {
 
     public String getDescription() {
         return description;
+    }
+
+    public LoanInfo getLoanInfo() {
+        return loanInfo;
+    }
+
+    public void setLoanInfo(LoanInfo loanInfo) {
+        this.loanInfo = loanInfo;
+    }
+
+    public LoanRecord getLoanRecord() {
+        return loanRecord;
+    }
+
+    public void setLoanRecord(LoanRecord loanRecord) {
+        this.loanRecord = loanRecord;
     }
 
     public void setDescription(String description) {

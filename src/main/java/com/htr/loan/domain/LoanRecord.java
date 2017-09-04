@@ -1,6 +1,7 @@
 package com.htr.loan.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(value = {"subLoanRecords"})
 public class LoanRecord extends BaseDomain {
     private Integer loanNum; //贷款期数
     @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd")
@@ -23,7 +25,6 @@ public class LoanRecord extends BaseDomain {
     private Long overdueDays; //逾期天数
     private boolean completed; //是否已还款完成
     @OneToMany
-    @Cascade(CascadeType.ALL)
     private List<SubLoanRecord> subLoanRecords; //多次还款记录
     private String description; //备注
 

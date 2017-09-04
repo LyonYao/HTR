@@ -42,19 +42,6 @@ public class LoanInfoController {
         return loanInfoService.saveLoanInfo(loanInfo);
     }
 
-    @RequestMapping(value = "repayment", method = RequestMethod.POST)
-    public LoanInfo repayment(@RequestBody LoanInfo loanInfo, HttpSession session){
-        User user = (User)session.getAttribute(Constants.SESSION_USER_KEY);
-        LoanRecord nextRepay = loanInfo.getNextRepay();
-        nextRepay.getSubLoanRecords().forEach(subLoanRecord -> {
-            if (subLoanRecord.getUuid() == null) {
-                subLoanRecord.setPayee(user);
-            }
-        });
-        loanInfo.setNextRepay(nextRepay);
-        return loanInfoService.repayment(loanInfo);
-    }
-
     @RequestMapping(value = "delete", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> removeLoanInfo(@RequestBody List<LoanInfo> loanInfos){

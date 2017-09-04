@@ -33,13 +33,16 @@
             }).when('/loan/loanInfo', {
                 templateUrl: 'views/loanInfo.html',
                 controller: 'loanInfoController'
+            }).when('/loan/subLoanRecord', {
+                templateUrl: 'views/subLoanRecord.html',
+                controller: 'subLoanRecordController'
             });
 
             $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
             $mdThemingProvider.theme('default')
                 .primaryPalette('blue')
-                .accentPalette('teal')
+                .accentPalette('green')
                 .warnPalette('red')
                 .backgroundPalette('grey');
 

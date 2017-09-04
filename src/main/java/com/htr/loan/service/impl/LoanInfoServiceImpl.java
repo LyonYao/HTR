@@ -11,6 +11,7 @@ import com.htr.loan.domain.LoanRecord;
 import com.htr.loan.domain.SubLoanRecord;
 import com.htr.loan.domain.SystemLog;
 import com.htr.loan.domain.repository.LoanInfoRepository;
+import com.htr.loan.domain.repository.SubLoanRecordRepository;
 import com.htr.loan.domain.repository.SystemLogRepository;
 import com.htr.loan.service.LoanInfoService;
 import org.slf4j.Logger;
@@ -36,6 +37,9 @@ public class LoanInfoServiceImpl implements LoanInfoService {
     private LoanInfoRepository loanInfoRepository;
 
     @Autowired
+    private SubLoanRecordRepository subLoanRecordRepository;
+
+    @Autowired
     private SystemLogRepository systemLogRepository;
 
     @Override
@@ -59,103 +63,16 @@ public class LoanInfoServiceImpl implements LoanInfoService {
     }
 
     @Override
-    public LoanInfo repayment(LoanInfo loanInfo) {
-        try {
-            SystemLog log = new SystemLog(Constants.MODULE_LOANINFO, loanInfo.getLoanInfoNum(), loanInfo.getUuid(), Constants.OPERATYPE_REPAYMENT);
-
-            LoanRecord nextRepay = loanInfo.getNextRepay();
-            double total = 0d;
-            Date repayDate = null;
-            for (SubLoanRecord subLoanRecord : nextRepay.getSubLoanRecords()) {
-                total = MoneyCalculator.add(total, subLoanRecord.getReceipts());
-                //获取最后一次还款日期
-                if (subLoanRecord.getUuid() == null) {
-                    repayDate = subLoanRecord.getReceiptDate();
-                }
-            }
-            //总还款等于本期所有还款次和加上期结余额
-            total = MoneyCalculator.add(total, loanInfo.getRemainder() == null ? 0d : loanInfo.getRemainder());
-
-            boolean isExecute = false;
-            //多次还款叠加大于本期需要还款的钱数
-            while (total >= nextRepay.getExpectMoney()) {
-                isExecute = true;
-                total = MoneyCalculator.subtract(total, nextRepay.getExpectMoney());
-                nextRepay.setCompleted(true);
-                nextRepay.setActualDate(repayDate);
-                nextRepay.setOverdueDays(DateUtils.between(nextRepay.getExpectDate(), repayDate));
-                loanInfo.setBalance(total);
-                loanInfo.setRemainder(total);
-
-                //从列表中找出这次还款记录并替换
-                List<LoanRecord> loanRecords = loanInfo.getLoanRecords();
-                for (int i = 0; i < loanRecords.size(); i++) {
-                    if (loanRecords.get(i).getUuid().equals(nextRepay.getUuid())) {
-                        loanRecords.set(i, nextRepay);
-                        break;
-                    }
-                }
-
-                loanInfo.setLoanRecords(loanRecords);
-
-                nextRepay = LoanInfoHelper.checkTheNextRepay(loanInfo);
-                if (null == nextRepay) {
-                    loanInfo.setCompleted(true);
-                    loanInfo.setNextRepay(null);
-                    break;
-                } else {
-                    loanInfo.setNextRepay(nextRepay);
-                }
-            }
-
-            if (!isExecute) {
-                loanInfo.setBalance(total);
-                //从列表中找出这次还款记录并替换
-                List<LoanRecord> loanRecords = loanInfo.getLoanRecords();
-                for (int i = 0; i < loanRecords.size(); i++) {
-                    if (loanRecords.get(i).getUuid().equals(nextRepay.getUuid())) {
-                        loanRecords.set(i, nextRepay);
-                        break;
-                    }
-                }
-            }
-
-            //计算应还款总额
-            double totalBalance = loanInfo.getTotalRepayment();
-            for (LoanRecord loanRecord : loanInfo.getLoanRecords()) {
-                if (loanRecord.isCompleted()) {
-                    totalBalance = MoneyCalculator.subtract(totalBalance, loanRecord.getExpectMoney());
-                }
-            }
-            loanInfo.setTotalBalance(MoneyCalculator.subtract(totalBalance, loanInfo.getBalance()));
-
-            //计算下期还款天数
-            if (loanInfo.isCompleted()) {
-                loanInfo.setLeftDays(0);
-            } else {
-                loanInfo.setLeftDays(DateUtils.between(loanInfo.getNextRepay().getExpectDate(), LocalDate.now()));
-            }
-            loanInfo = loanInfoRepository.save(loanInfo);
-            systemLogRepository.save(log);
-            return loanInfo;
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOG.error("repayment LoanInfo" + loanInfo.getLoanInfoNum() + " fail!");
-        }
-        return null;
-    }
-
-    @Override
     public boolean removeLoanInfos(List<LoanInfo> loanInfoList) {
         try {
             SystemLog log;
             for (LoanInfo loanInfo : loanInfoList) {
                 log = new SystemLog(Constants.MODULE_LOANINFO, loanInfo.getLoanInfoNum(), loanInfo.getUuid(), Constants.OPERATYPE_DELETE);
                 loanInfo.setActive(false);
-                loanInfo.getLoanRecords().forEach(loanRecord -> {
-                    loanRecord.setActive(false);
-                    loanRecord.getSubLoanRecords().forEach(subLoanRecord -> subLoanRecord.setActive(false));
-                });
+                loanInfo.getLoanRecords().forEach(loanRecord -> loanRecord.setActive(false));
+                List<SubLoanRecord> subLoanRecords = subLoanRecordRepository.findAllByLoanInfoAndActiveTrue(loanInfo);
+                subLoanRecords.forEach(subLoanRecord -> subLoanRecord.setActive(false));
+                subLoanRecordRepository.save(subLoanRecords);
                 loanInfoRepository.save(loanInfo);
                 systemLogRepository.save(log);
             }

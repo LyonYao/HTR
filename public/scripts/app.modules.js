@@ -14,6 +14,7 @@ var app = angular.module('app', [
     'bankCard',
     'systemLog',
     'loanInfo',
+    'subLoanRecord',
     'ngIdle'
 ]);
 var test = angular.module('test', []);
@@ -26,3 +27,4 @@ var person = angular.module('person', []);
 var bankCard = angular.module('bankCard', []);
 var systemLog = angular.module('systemLog', []);
 var loanInfo = angular.module('loanInfo', []);
+var subLoanRecord = angular.module('subLoanRecord', []);
