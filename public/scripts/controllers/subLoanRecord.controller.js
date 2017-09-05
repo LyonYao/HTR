@@ -39,7 +39,6 @@
             }
 
             $scope.searchSubLoanRecords = findAllSubLoanRecord;
-            findAllSubLoanRecord();
 
             $scope.openDatePopup = function(popup) {
                 $scope.datePopup[popup] = true;

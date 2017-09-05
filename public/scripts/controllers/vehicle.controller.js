@@ -253,7 +253,6 @@
             };
 
             $scope.searchVehicles = findAllVehicle;
-            findAllVehicle();
 
             $scope.openDatePopup = function(popup) {
                 $scope.datePopup[popup] = true;

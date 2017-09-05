@@ -169,8 +169,6 @@
             };
 
             $scope.searchPersons = findAllPerson;
-            findAllPerson();
-
         }])
         .controller('newPersonController', ['$scope', '$mdDialog', '$http', 'person', function ($scope, $mdDialog, $http, person) {
 

@@ -241,7 +241,6 @@
             };
 
             $scope.searchLoanInfos = findAllLoanInfo;
-            findAllLoanInfo();
 
             $scope.openDatePopup = function (popup) {
                 $scope.datePopup[popup] = true;

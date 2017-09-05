@@ -46,7 +46,6 @@
             }
 
             $scope.searchSystemLogs = findAllSystemLog;
-            findAllSystemLog();
 
             $scope.openDatePopup = function(popup) {
                 $scope.datePopup[popup] = true;
