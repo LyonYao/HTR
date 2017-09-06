@@ -9,5 +9,4 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface PersonRepository extends JpaRepository<Person, String>, JpaSpecificationExecutor<Person> {
 
-    Person save(Person person);
 }

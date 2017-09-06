@@ -1,0 +1,159 @@
+<md-dialog aria-label="新建北斗档案数据">
+    <form name="newBeidouRecordForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>新建北斗档案数据</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div class="md-block"></div>
+                <md-input-container class="md-block">
+                    <label>档案编号</label>
+                    <input md-maxlength="18" required md-no-asterisk name="beidouRecordNum" ng-model="beidouRecord.beidouRecordNum">
+                    <div ng-messages="newBeidouRecordForm.beidouRecordNum.$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                        <div ng-message="md-maxlength">不能超过18个字!</div>
+                    </div>
+                </md-input-container>
+                <div layout="row">
+                    <md-autocomplete flex required
+                                     md-input-name="surety"
+                                     md-selected-item="beidouRecord.surety"
+                                     md-search-text="searchPerson"
+                                     md-items="item in querySearchPerson(searchPerson)"
+                                     md-item-text="item.name"
+                                     md-require-match
+                                     md-floating-label="担保人">
+                        <md-item-template>
+                            <span md-highlight-text="searchPerson">{{item.name}}</span>
+                        </md-item-template>
+                        <div ng-messages="newBeidouRecordForm.surety.$error">
+                            <div ng-message="required">你 <b>必须</b> 选择一个车主.</div>
+                            <div ng-message="md-require-match">请选择一个已存在的车主.</div>
+                        </div>
+                    </md-autocomplete>
+                    <section layout-align="left bottom">
+                        <md-button class="md-icon-button" ng-click="addNewPerson()">
+                            <md-icon md-svg-icon="img/icons/plus.svg"></md-icon>
+                        </md-button>
+                    </section>
+
+                    <md-autocomplete flex required
+                                     md-input-name="vehicle"
+                                     md-selected-item="beidouRecord.vehicle"
+                                     md-search-text="searchVehicle"
+                                     md-items="item in querySearchVehicle(searchVehicle)"
+                                     md-item-text="item.licensePlate"
+                                     md-require-match
+                                     md-floating-label="车牌号">
+                        <md-item-template>
+                            <span md-highlight-text="searchVehicle">{{item.licensePlate}}</span>
+                        </md-item-template>
+                        <div ng-messages="newBeidouRecordForm.vehicle.$error">
+                            <div ng-message="required">你 <b>必须</b> 选择一个车主.</div>
+                            <div ng-message="md-require-match">请选择一个已存在的车主.</div>
+                        </div>
+                    </md-autocomplete>
+                    <section layout-align="left bottom">
+                        <md-button class="md-icon-button" ng-click="addNewVehicle()">
+                            <md-icon md-svg-icon="img/icons/plus.svg"></md-icon>
+                        </md-button>
+                    </section>
+                </div>
+
+                <div layout="row">
+                    <md-input-container flex="70">
+                        <label>银行卡</label>
+                        <md-select name="bankCard" ng-model="beidouRecord.bankCard" required>
+                            <md-option ng-repeat="bankCard in bankCards" ng-value="bankCard">{{bankCard.cardNumber}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="newBeidouRecordForm.bankCard.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div layout="row">
+                    <md-input-container>
+                        <label>贷款额</label>
+                        <input type="number" required md-no-asterisk name="loanAmount" ng-model="beidouRecord.loanAmount">
+                        <div ng-messages="newBeidouRecordForm.loanAmount.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>应还款总额</label>
+                        <input type="number" required md-no-asterisk name="totalRepayment"
+                               ng-model="beidouRecord.totalRepayment">
+                        <div ng-messages="newBeidouRecordForm.totalRepayment.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div layout="row">
+                    <md-input-container>
+                        <label>放款日期</label>
+                        <input required md-no-asterisk uib-datepicker-popup name="loanDate" ng-model="beidouRecord.loanDate"
+                               ng-click="openDatePopup('loanDate')" is-open="datePopup.loanDate"
+                               show-button-bar="false"/>
+                        <div ng-messages="newBeidouRecordForm.loanDate.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>贷款期数</label>
+                        <input required md-no-asterisk name="loansNum" ng-model="beidouRecord.loansNum">
+                        <div ng-messages="newBeidouRecordForm.loansNum.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div layout="row" ng-repeat="item in beidouRecord.loanRecords">
+                    <md-input-container>
+                        <label>贷款期数</label>
+                        <input type="number" required md-no-asterisk name="loanNum{{$index}}" ng-model="item.loanNum">
+                        <div ng-messages="newBeidouRecordForm['loanNum'+$index].$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>应还款时间</label>
+                        <input required md-no-asterisk uib-datepicker-popup name="expectDate{{$index}}"
+                               ng-model="item.expectDate"
+                               ng-click="openDatePopup('expectDate', $index)" is-open="datePopup.expectDate[$index]"
+                               show-button-bar="false"/>
+                        <div ng-messages="newBeidouRecordForm['expectDate'+$index].$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>应还款额</label>
+                        <input required md-no-asterisk name="expectMoney{{$index}}" ng-model="item.expectMoney">
+                        <div ng-messages="newBeidouRecordForm['expectMoney'+$index].$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised md-primary" type="submit"
+                       ng-click="newBeidouRecordForm.$valid && saveBeidouRecord()">
+                保存
+            </md-button>
+            <md-button class="md-raised md-warn" ng-click="cancel()">
+                取消
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -36,6 +36,9 @@
             }).when('/loan/subLoanRecord', {
                 templateUrl: 'views/subLoanRecord.html',
                 controller: 'subLoanRecordController'
+            }).when('/beidou/beidouRecord', {
+                templateUrl: 'views/beidouRecord.html',
+                controller: 'beidouRecordController'
             });
 
             $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

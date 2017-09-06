@@ -13,7 +13,5 @@ public interface UserRepository extends JpaRepository<User, String>, PagingAndSo
 
     User findByUserAccountAndActiveTrue(String userAccount);
 
-    User save(User user);
-
     List<User> findAllByActiveTrue();
 }

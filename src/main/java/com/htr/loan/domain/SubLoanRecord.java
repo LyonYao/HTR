@@ -6,20 +6,19 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import java.util.Date;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class SubLoanRecord extends BaseDomain {
 
-    @OneToOne
+    @ManyToOne
     private User payee;  //收款人
     private Double receipts; //收到的金额
 
     @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd")
     private Date receiptDate; //收款时间
-    @OneToOne
+    @ManyToOne
     private BankCard bankCard; //收款银行卡
     @ManyToOne
     private LoanInfo loanInfo; //档案信息

@@ -1,9 +1,9 @@
 package com.htr.loan.domain.repository;
 
-import com.htr.loan.domain.SystemLog;
+import com.htr.loan.domain.BeidouRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface SystemLogRepository extends JpaRepository<SystemLog, String>, JpaSpecificationExecutor<SystemLog> {
+public interface BeidouRecordRepository extends JpaRepository<BeidouRecord, String>, JpaSpecificationExecutor<BeidouRecord> {
 
 }

@@ -139,25 +139,45 @@ public class BaseTest extends LoanApplicationTests {
 //        subResource4.setResPath("loan/bankCard");
 //        subResource4.setParentRes(resource);
 //        subResource4 = resourceService.saveResource(subResource4);
+
+//        Resource subResource5 = new Resource();
+//        subResource5.setResourceName("还款记录查询");
+//        subResource5.setResPath("loan/subLoanRecord");
+//        subResource5.setParentRes(resource);
+//        subResource5 = resourceService.saveResource(subResource5);
 //
 //
-//        resource.setChildrenRes(Arrays.asList(subResource1,subResource2,subResource3,subResource4));
+//        resource.setChildrenRes(Arrays.asList(subResource1,subResource2,subResource3,subResource4,subResource5));
 //        resource = resourceService.saveResource(resource);
 //        System.out.println(resource.getUuid());
 
 
 
-        Resource resource = resourceService.findByResourceName("贷款管理");
-        Resource subResource5 = new Resource();
-        subResource5.setResourceName("还款记录查询");
-        subResource5.setResPath("loan/subLoanRecord");
-        subResource5.setParentRes(resource);
-        subResource5 = resourceService.saveResource(subResource5);
-        List<Resource> resourceList = resource.getChildrenRes();
-        resourceList.add(subResource5);
-        resource.setChildrenRes(resourceList);
-        resource = resourceService.saveResource(resource);
-        System.out.println(resource.getUuid());
+//        Resource resource = new Resource();
+//        resource.setResourceName("北斗业务管理");
+//        resource = resourceService.saveResource(resource);
+//
+//        Resource subResource1 = new Resource();
+//        subResource1.setResourceName("北斗档案管理");
+//        subResource1.setResPath("beidou/beidouRecord");
+//        subResource1.setParentRes(resource);
+//        subResource1 = resourceService.saveResource(subResource1);
+//
+//        Resource subResource2 = new Resource();
+//        subResource2.setResourceName("续费记录查询");
+//        subResource2.setResPath("beidou/beidouRenewal");
+//        subResource2.setParentRes(resource);
+//        subResource2 = resourceService.saveResource(subResource2);
+//
+//        Resource subResource3 = new Resource();
+//        subResource3.setResourceName("维修记录查询");
+//        subResource3.setResPath("beidou/beidouRepair");
+//        subResource3.setParentRes(resource);
+//        subResource3 = resourceService.saveResource(subResource3);
+//
+//        resource.setChildrenRes(Arrays.asList(subResource1,subResource2,subResource3));
+//        resource = resourceService.saveResource(resource);
+//        System.out.println(resource.getUuid());
 
 
 
@@ -343,5 +363,39 @@ public class BaseTest extends LoanApplicationTests {
 //        resource24_button4.setResPath("active");
 //        resource24.setChildrenRes(Arrays.asList(resource24_button1, resource24_button2, resource24_button3, resource24_button4));
 //        resourceService.saveResource(resource24);
+
+        Resource resource31 = resourceService.findByResourceName("北斗档案管理");
+        Resource resource31_button1 = new Resource();
+        resource31_button1.setParentRes(resource31);
+        resource31_button1.setResourceType(Constants.RESOURCE_TYPE_BUTTON);
+        resource31_button1.setResourceName("新增");
+        resource31_button1.setResPath("new");
+
+        Resource resource31_button2 = new Resource();
+        resource31_button2.setParentRes(resource31);
+        resource31_button2.setResourceType(Constants.RESOURCE_TYPE_BUTTON);
+        resource31_button2.setResourceName("删除");
+        resource31_button2.setResPath("delete");
+
+        Resource resource31_button3 = new Resource();
+        resource31_button3.setParentRes(resource31);
+        resource31_button3.setResourceType(Constants.RESOURCE_TYPE_BUTTON);
+        resource31_button3.setResourceName("续费");
+        resource31_button3.setResPath("renewal");
+
+        Resource resource31_button4 = new Resource();
+        resource31_button4.setParentRes(resource31);
+        resource31_button4.setResourceType(Constants.RESOURCE_TYPE_BUTTON);
+        resource31_button4.setResourceName("查看续费记录");
+        resource31_button4.setResPath("renewalDetail");
+
+        Resource resource31_button5 = new Resource();
+        resource31_button5.setParentRes(resource31);
+        resource31_button5.setResourceType(Constants.RESOURCE_TYPE_BUTTON);
+        resource31_button5.setResourceName("查看维修记录");
+        resource31_button5.setResPath("repairDetail");
+
+        resource31.setChildrenRes(Arrays.asList(resource31_button1, resource31_button2, resource31_button3, resource31_button4, resource31_button5));
+        resourceService.saveResource(resource31);
     }
 }

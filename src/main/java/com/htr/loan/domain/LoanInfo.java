@@ -6,6 +6,7 @@ import org.hibernate.annotations.CascadeType;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.util.Date;
@@ -19,7 +20,7 @@ public class LoanInfo extends BaseDomain {
     private Person surety; //担保人
     @OneToOne
     private Vehicle vehicle; //车辆信息
-    @OneToOne
+    @ManyToOne
     private BankCard bankCard; //银行卡
     private Double loanAmount; //贷款额
     private Double totalRepayment; //应还款总额

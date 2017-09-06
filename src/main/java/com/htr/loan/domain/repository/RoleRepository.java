@@ -10,7 +10,5 @@ public interface RoleRepository extends JpaRepository<Role, String>, JpaSpecific
 
     Role findByRoleNameAndActiveTrue(String roleName);
 
-    Role save(Role role);
-
     List<Role> findAllByActiveTrue();
 }

@@ -8,8 +8,5 @@ import java.util.List;
 
 public interface VehicleRepository extends JpaRepository<Vehicle, String>, JpaSpecificationExecutor<Vehicle> {
 
-    Vehicle save(Vehicle vehicle);
-
     List<Vehicle> findAllByActiveTrue();
-
 }
