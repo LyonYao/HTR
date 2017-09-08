@@ -44,6 +44,12 @@
       "main": [
         "angular-locale_zh-cn.js"
       ]
+    },
+    "moment": {
+      "main": [
+        "min/moment.min.js",
+        "locale/zh-cn.js"
+      ]
     }
   }
 }

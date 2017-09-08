@@ -17,8 +17,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Component
-public class SystemScheduler {
-    private static final Logger LOG = LoggerFactory.getLogger(SystemScheduler.class);
+public class LoanSystemScheduler {
+    private static final Logger LOG = LoggerFactory.getLogger(LoanSystemScheduler.class);
 
     @Autowired
     private LoanInfoRepository loanInfoRepository;

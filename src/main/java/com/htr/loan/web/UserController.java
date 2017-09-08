@@ -34,7 +34,9 @@ public class UserController {
     public List<User> findAllUser(@PathVariable int active){
         if (active == 0){
             return userService.findAllUser();
-        } else return userService.findAllByActiveTrue();
+        } else if(active == 1){
+            return userService.findAllByActiveTrue();
+        } else return userService.findAllInstaller();
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)

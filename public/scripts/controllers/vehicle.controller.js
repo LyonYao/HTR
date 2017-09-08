@@ -268,6 +268,12 @@
             function ($scope, $mdDialog, $http, $timeout, $q, vehicle) {
                 $scope.vehicle = vehicle ? angular.copy(vehicle) : {};
 
+                if(angular.isDefined($scope.vehicle.registrationDate)){
+                    $scope.vehicle.registrationDate = moment($scope.vehicle.registrationDate).toDate();
+                    $scope.vehicle.startInsuranceTime = moment($scope.vehicle.startInsuranceTime).toDate();
+                    $scope.vehicle.endInsuranceTime = moment($scope.vehicle.endInsuranceTime).toDate();
+                }
+
                 $scope.persons = [];
                 $scope.searchText = null;
                 $scope.querySearch = querySearch;

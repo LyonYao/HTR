@@ -37,23 +37,19 @@ public class SearchFilter {
                 throw new IllegalArgumentException(entry.getKey() + " is not a valid search filter name");
             }
             if (names.length == 3) {
-                if ("SHORTDATE".equals(names[2])) {
-                    String fieldValue = (String) value;
-                    if (StringUtils.isNotEmpty(fieldValue)) {
-                        Date date = DateUtils.parseDate(value.toString());
-                        value = DateUtils.addOneDays(date, DateUtils.YYYYlMMlDD);
-                    }
+                if ("SHORTDATE".equals(names[2]) && !ObjectUtils.isEmpty(value)) {
+                    long fieldValue = (long) value;
+                    Date date = new Date(fieldValue);
+                    value = DateUtils.formatDate(date, DateUtils.YYYYlMMlDD);
                 }
-                if ("DATE".equals(names[2])) {
-                    String fieldValue = (String) value;
-                    if (StringUtils.isNotEmpty(fieldValue)) {
-                        if ("LTE".equals(names[0])) {
-                            Date date = DateUtils.parseDate(value.toString());
-                            value = DateUtils.addOneDays(date, DateUtils.YYYYLMMLDD_BIG);
-                        } else if ("GTE".equals(names[0])) {
-                            Date date = DateUtils.parseDate(value.toString());
-                            value = DateUtils.addOneDays(date, DateUtils.YYYYLMMLDD_SMALL);
-                        }
+                if ("DATE".equals(names[2]) && !ObjectUtils.isEmpty(value)) {
+                    long fieldValue = (long) value;
+                    if ("LTE".equals(names[0])) {
+                        Date date = new Date(fieldValue);
+                        value = DateUtils.formatDate(date, DateUtils.YYYYLMMLDD_BIG);
+                    } else if ("GTE".equals(names[0])) {
+                        Date date = new Date(fieldValue);
+                        value = DateUtils.formatDate(date, DateUtils.YYYYLMMLDD_SMALL);
                     }
                 }
             }

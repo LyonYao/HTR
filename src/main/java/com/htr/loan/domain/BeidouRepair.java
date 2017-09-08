@@ -1,5 +1,6 @@
 package com.htr.loan.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Entity;
@@ -23,6 +24,7 @@ public class BeidouRepair extends BaseDomain {
     @ManyToOne
     private BeidouBranch beidouBranch; //维修点
     private User payee; //维修人
+    @JsonFormat
     private Date repairDate; //维修日期
 
     public BeidouRecord getBeidouRecord() {

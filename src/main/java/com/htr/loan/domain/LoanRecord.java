@@ -17,10 +17,10 @@ import java.util.List;
 @JsonIgnoreProperties(value = {"subLoanRecords"})
 public class LoanRecord extends BaseDomain {
     private Integer loanNum; //贷款期数
-    @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd")
+    @JsonFormat
     private Date expectDate; //应还款时间
     private Double expectMoney; //应还款额
-    @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd")
+    @JsonFormat
     private Date actualDate; //实际还款时间(本期还款最后完成日期)
     private Long overdueDays; //逾期天数
     private boolean completed; //是否已还款完成

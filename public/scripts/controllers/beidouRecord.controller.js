@@ -16,7 +16,7 @@
             $scope.selected = [];
 
             $scope.facet = {};
-            $scope.completeds = [{completed: '', name: '全部'}, {completed: 0, name: '进行中'}, {completed: 1, name: '已完结'}];
+            $scope.installTypes = ['新装', '并网', '挂平台'];
 
             $scope.paging = {
                 total: 0,
@@ -58,12 +58,12 @@
                 });
             };
 
-            $scope.showRepayment = function (ev) {
+            $scope.showEditBeidouRecord = function (ev) {
 
                 if ($scope.selected.length != 1) {
                     var editMessage = '';
                     if ($scope.selected.length == 0) {
-                        editMessage = '请选择一项档案还款!';
+                        editMessage = '请选择一项档案修改!';
                     }
                     if ($scope.selected.length > 1) {
                         editMessage = '只能选择一项!';
@@ -79,8 +79,45 @@
                 }
 
                 $mdDialog.show({
-                    controller: 'repaymentController',
-                    templateUrl: 'views/repayment.html',
+                    controller: 'newBeidouRecordController',
+                    templateUrl: 'views/new.beidouRecord.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: false,
+                    locals: {
+                        beidouRecord: $scope.selected[0]
+                    }
+                }).then(function (answer) {
+                    if ('success' == answer) {
+                        findAllBeidouRecord();
+                    }
+                }, function () {
+                });
+            };
+
+            $scope.showRenewal = function (ev) {
+
+                if ($scope.selected.length != 1) {
+                    var editMessage = '';
+                    if ($scope.selected.length == 0) {
+                        editMessage = '请选择一项档案续费!';
+                    }
+                    if ($scope.selected.length > 1) {
+                        editMessage = '只能选择一项!';
+                    }
+
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent(editMessage)
+                            .position('top right')
+                            .hideDelay(2000)
+                    );
+                    return;
+                }
+
+                $mdDialog.show({
+                    controller: 'renewalController',
+                    templateUrl: 'views/renewal.html',
                     parent: angular.element(document.body),
                     targetEvent: ev,
                     clickOutsideToClose: false,
@@ -179,7 +216,7 @@
 
                     var names = '';
                     angular.forEach($scope.selected, function (beidouRecord) {
-                        names += beidouRecord.beidouRecordNum + ', ';
+                        names += beidouRecord.licensePlate + ', ';
                     });
 
                     var confirm = $mdDialog.confirm()
@@ -247,8 +284,8 @@
             };
 
             $scope.datePopup = {
-                GTE_loanDate: false,
-                LTE_loanDate: false
+                GTE_expireTime: false,
+                LTE_expireTime: false
             };
         }]);
 
@@ -256,6 +293,47 @@
         function ($scope, $mdDialog, $http, $timeout, $q, beidouRecord) {
 
             $scope.beidouRecord = beidouRecord ? angular.copy(beidouRecord) : {};
+
+            if(angular.isUndefined($scope.beidouRecord.joinTime)){
+                $scope.beidouRecord.joinTime = new Date();
+                $scope.beidouRecord.expireTime = moment($scope.beidouRecord.joinTime).add(1, 'years').toDate();
+            } else {
+                $scope.beidouRecord.joinTime = moment($scope.beidouRecord.joinTime).toDate();
+            }
+
+            $scope.$watch('beidouRecord.joinTime', function (newValue) {
+                $scope.beidouRecord.expireTime = moment(newValue).add(1, 'years').toDate();
+            });
+
+            $scope.installTypes = ['新装', '并网', '挂平台'];
+
+            $scope.beidouBranchs = [];
+            function findAllBeidouBranchs() {
+                var url = '/beidouBranch/1';
+                var req = {
+                    method: 'GET',
+                    url: url
+                };
+
+                $http(req).then(function (responseData) {
+                    $scope.beidouBranchs = responseData.data;
+                });
+            }
+            findAllBeidouBranchs();
+
+            $scope.installers = [];
+            function findAllInstallers() {
+                var url = '/user/2';
+                var req = {
+                    method: 'GET',
+                    url: url
+                };
+
+                $http(req).then(function (responseData) {
+                    $scope.installers = responseData.data;
+                });
+            }
+            findAllInstallers();
 
             $scope.saveBeidouRecord = function () {
                 var req = {
@@ -269,159 +347,13 @@
 
             };
 
-            $scope.persons = [];
-            $scope.searchPerson = null;
-            $scope.querySearchPerson = querySearchPerson;
-
-            function findAllPerson() {
-                var url = '/person/1/' + 10000000;
-                url += '?jsonFilter=' + encodeURIComponent(JSON.stringify({'search_EQ_surety': '1'}));
-                var req = {
-                    method: 'GET',
-                    url: url
-                };
-
-                $http(req).then(function (responseData) {
-                    $scope.persons = responseData.data.content;
-                });
-            }
-
-            findAllPerson();
-
-            function querySearchPerson(query) {
-                var results = query ? $scope.persons.filter(createFilterForPerson(query)) : $scope.persons;
-                var deferred = $q.defer();
-                $timeout(function () {
-                    deferred.resolve(results);
-                }, Math.random() * 1000, false);
-                return deferred.promise;
-            }
-
-            function createFilterForPerson(query) {
-                return function filterFn(person) {
-                    return (person.name.indexOf(query) >= 0);
-                };
-            }
-
-            $scope.addNewPerson = function (ev) {
-                $mdDialog.show({
-                    multiple: true,
-                    controller: 'newPersonController',
-                    templateUrl: 'views/new.person.html',
-                    parent: angular.element(document.body),
-                    targetEvent: ev,
-                    clickOutsideToClose: false,
-                    locals: {
-                        person: {}
-                    }
-                }).then(function (answer) {
-                    if ('success' == answer) {
-                        findAllPerson();
-                    }
-                }, function () {
-                });
-            };
-
-            $scope.vehicles = [];
-            $scope.searchVehicle = null;
-            $scope.querySearchVehicle = querySearchVehicle;
-
-            function findAllVehicle() {
-                var url = '/vehicle/1/' + 10000000;
-                var req = {
-                    method: 'GET',
-                    url: url
-                };
-
-                $http(req).then(function (responseData) {
-                    $scope.vehicles = responseData.data.content;
-                });
-            }
-
-            findAllVehicle();
-
-            function querySearchVehicle(query) {
-                var results = query ? $scope.vehicles.filter(createFilterForVehicle(query)) : $scope.vehicles;
-                var deferred = $q.defer();
-                $timeout(function () {
-                    deferred.resolve(results);
-                }, Math.random() * 1000, false);
-                return deferred.promise;
-            }
-
-            function createFilterForVehicle(query) {
-                return function filterFn(vehicle) {
-                    return (vehicle.licensePlate.indexOf(query) >= 0);
-                };
-            }
-
-            $scope.addNewVehicle = function (ev) {
-                $mdDialog.show({
-                    multiple: true,
-                    controller: 'newVehicleController',
-                    templateUrl: 'views/new.vehicle.html',
-                    parent: angular.element(document.body),
-                    targetEvent: ev,
-                    clickOutsideToClose: false,
-                    locals: {
-                        vehicle: {}
-                    }
-                }).then(function (answer) {
-                    if ('success' == answer) {
-                        findAllVehicle();
-                    }
-                }, function () {
-                });
-            };
-
-            $scope.beidouRecord.loanRecords = [];
-            $scope.$watchGroup(['beidouRecord.loansNum', 'beidouRecord.loanDate'], function (newValues) {
-                if (newValues[0] > 0) {
-                    if (newValues[0] > 36) {
-                        alert('还款期数不能大于36个月!!');
-                        $scope.beidouRecord.loanRecords = [];
-                    } else {
-                        $scope.beidouRecord.loanRecords = [];
-                        $scope.datePopup.expectDate = [];
-                        for (var i = 0; i < $scope.beidouRecord.loansNum; i++) {
-                            var endDateMoment = moment(newValues[1]).add(i + 1, 'months');
-                            $scope.beidouRecord.loanRecords.push({
-                                loanNum: i + 1,
-                                expectDate: endDateMoment.toDate(),
-                                expectMoney: ''
-                            });
-                            $scope.datePopup.expectDate.push(false);
-                        }
-                    }
-                }
-            });
-
-            $scope.bankCards = [];
-            function findAllBankCards() {
-                var url = '/bankCard/1';
-                var req = {
-                    method: 'GET',
-                    url: url
-                };
-
-                $http(req).then(function (responseData) {
-                    $scope.bankCards = responseData.data;
-                });
-            }
-
-            findAllBankCards();
-
-            $scope.openDatePopup = function (popup, index) {
-                if (index != undefined) {
-                    $scope.datePopup[popup][index] = true;
-                } else {
-                    $scope.datePopup[popup] = true;
-                }
+            $scope.openDatePopup = function (popup) {
+                $scope.datePopup[popup] = true;
             };
 
             $scope.datePopup = {
-                loanDate: false,
-                expectDate: []
+                joinTime: false,
+                expireTime: false
             };
 
             $scope.cancel = function () {

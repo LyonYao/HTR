@@ -100,7 +100,7 @@ public class WebUtil {
 			for (String key : map.keySet()) {
 				if (key.startsWith(prefix)) {
 					String unprefixed = key.substring(prefix.length());
-					String value = map.get(key);
+					Object value = map.get(key);
 					searchParams.put(unprefixed, value);
 				}
 			}

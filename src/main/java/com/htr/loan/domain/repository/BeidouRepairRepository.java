@@ -1,5 +1,6 @@
 package com.htr.loan.domain.repository;
 
+import com.htr.loan.domain.BeidouBranch;
 import com.htr.loan.domain.BeidouRecord;
 import com.htr.loan.domain.BeidouRepair;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,4 +11,6 @@ import java.util.List;
 public interface BeidouRepairRepository extends JpaRepository<BeidouRepair, String>, JpaSpecificationExecutor<BeidouRepair> {
 
     List<BeidouRepair> findAllByBeidouRecordAndActiveTrue(BeidouRecord beidouRecord);
+
+    List<BeidouRepair> findAllByBeidouBranchAndActiveTrue(BeidouBranch beidouBranch);
 }

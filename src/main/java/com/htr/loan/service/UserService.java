@@ -15,4 +15,6 @@ public interface UserService {
     List<User> findAllByActiveTrue();
 
     boolean activeOrStopUsers(List<User> users, boolean flag);
+
+    List<User> findAllInstaller();
 }

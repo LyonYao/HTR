@@ -27,7 +27,7 @@ public class LoanInfo extends BaseDomain {
     private Double balance; //当前已还款额
     private Double remainder; //上期多还的金额
     private Double totalBalance; //总余额
-    @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd")
+    @JsonFormat
     private Date loanDate; //放款日期
     private Integer loansNum; //贷款期数
     @OneToMany

@@ -1,5 +1,6 @@
 package com.htr.loan.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Entity;
@@ -27,9 +28,12 @@ public class BeidouRecord extends BaseDomain {
     @ManyToOne
     private User installer; //安装人
     private String installType; //安装类型
+    @JsonFormat
     private Date joinTime;  //入网时间
+    @JsonFormat
     private Date expireTime;  //失效时间
     private Double installationFee; //安装费
+    private long leftDays;//剩余还款天数(可以不要这个属性,在前台动态计算. 但是不要这个属性不好实现按逾期天数排序)
     private String description; //备注
 
     public String getLicensePlate() {
@@ -166,6 +170,14 @@ public class BeidouRecord extends BaseDomain {
 
     public void setInstallationFee(Double installationFee) {
         this.installationFee = installationFee;
+    }
+
+    public long getLeftDays() {
+        return leftDays;
+    }
+
+    public void setLeftDays(long leftDays) {
+        this.leftDays = leftDays;
     }
 
     public String getDescription() {

@@ -8,36 +8,41 @@
         <div layout="row" layout-wrap>
             <section flex="100" layout="row" layout-sm="column" layout-align="center bottom" layout-wrap>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label>档案号</label>
-                    <input ng-model="facet.search_LIKE_beidouRecordNum">
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
                     <label>车牌号</label>
-                    <input ng-model="facet['search_LIKE_vehicle.licensePlate']">
+                    <input ng-model="facet.search_LIKE_licensePlate">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label>贷款人</label>
-                    <input ng-model="facet['search_LIKE_vehicle.holder.name']">
+                    <label>业户</label>
+                    <input ng-model="facet['search_LIKE_businessOwner']">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label>担保人</label>
-                    <input ng-model="facet['search_LIKE_surety.name']">
+                    <label>车主</label>
+                    <input ng-model="facet['search_LIKE_owner']">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>电话</label>
+                    <input ng-model="facet['search_LIKE_phoneNum']">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>卡号</label>
+                    <input ng-model="facet['search_LIKE_newCardNum']">
                 </md-input-container>
                 <md-input-container>
-                    <label>贷款日期从</label>
-                    <input md-no-asterisk uib-datepicker-popup ng-model="facet.search_GTE_loanDate_SHORTDATE"
-                           ng-click="openDatePopup('GTE_loanDate')" is-open="datePopup.GTE_loanDate" show-button-bar="false"/>
+                    <label>到期从</label>
+                    <input md-no-asterisk uib-datepicker-popup ng-model="facet.search_GTE_expireTime_DATE"
+                           ng-click="openDatePopup('GTE_expireTime')" is-open="datePopup.GTE_expireTime" show-button-bar="false"/>
                 </md-input-container>
                 <md-input-container>
                     <label>到</label>
-                    <input md-no-asterisk uib-datepicker-popup ng-model="facet.search_LTE_loanDate_SHORTDATE"
-                           ng-click="openDatePopup('LTE_loanDate')" is-open="datePopup.LTE_loanDate" show-button-bar="false"/>
+                    <input md-no-asterisk uib-datepicker-popup ng-model="facet.search_LTE_expireTime_DATE"
+                           ng-click="openDatePopup('LTE_expireTime')" is-open="datePopup.LTE_expireTime" show-button-bar="false"/>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label>状态</label>
-                    <md-select ng-model="facet.search_EQ_completed">
-                        <md-option ng-repeat="completed in completeds" value="{{completed.completed}}">
-                            {{completed.name}}
+                    <label>安装类型</label>
+                    <md-select ng-model="facet.search_EQ_installType">
+                        <md-option value="">全部</md-option>
+                        <md-option ng-repeat="installType in installTypes" ng-value="installType">
+                            {{installType}}
                         </md-option>
                     </md-select>
                 </md-input-container>
@@ -49,16 +54,19 @@
                 <md-button class="md-raised" ng-show="currentButtons.new.show" ng-click="showNewBeidouRecord($event)">
                     {{currentButtons.new.name}}
                 </md-button>
+                <md-button class="md-raised md-primary" ng-show="currentButtons.update.show"
+                           ng-click="showEditBeidouRecord($event)">{{currentButtons.update.name}}
+                </md-button>
                 <md-button class="md-raised md-warn" ng-show="currentButtons.delete.show"
                            ng-click="removeBeidouRecords($event)">{{currentButtons.delete.name}}
                 </md-button>
 
-                <md-button class="md-raised md-primary" ng-show="currentButtons.repayment.show"
-                           ng-click="showRepayment($event)">{{currentButtons.repayment.name}}</md-button>
-                <md-button class="md-raised md-accent" ng-show="currentButtons.beidouRecordDetail.show"
-                           ng-click="showDetailBeidouRecord($event)">{{currentButtons.beidouRecordDetail.name}}</md-button>
-                <md-button class="md-raised md-accent" ng-show="currentButtons.loanRecordDetail.show"
-                           ng-click="showDetailLoanRecords($event)">{{currentButtons.loanRecordDetail.name}}</md-button>
+                <md-button class="md-raised md-primary" ng-show="currentButtons.renewal.show"
+                           ng-click="showRenewal($event)">{{currentButtons.renewal.name}}</md-button>
+                <md-button class="md-raised md-accent" ng-show="currentButtons.renewalDetail.show"
+                           ng-click="showDetailBeidouRecord($event)">{{currentButtons.renewalDetail.name}}</md-button>
+                <md-button class="md-raised md-accent" ng-show="currentButtons.repairDetail.show"
+                           ng-click="showDetailLoanRecords($event)">{{currentButtons.repairDetail.name}}</md-button>
                 <div class="label">Raised</div>
             </section>
         </div>
@@ -73,21 +81,17 @@
                                  ng-click="toggleAll()">
                 </md-checkbox></th>
                 <th><div class="">#</div></th>
-                <th class="col-sm-1">档案号</th>
                 <th class="col-sm-1">车牌号</th>
-                <th class="col-sm-1">贷款人</th>
-                <th class="col-sm-1">担保人</th>
-                <th class="col-sm-1">总期数</th>
-                <th class="col-sm-1">当前期数</th>
-                <th class="col-sm-1">应还款额</th>
-                <th class="col-sm-1">已还款额</th>
-                <th class="col-sm-1">还款日期</th>
-                <th class="col-sm-1">距离还款天数</th>
-                <th class="col-sm-1">贷款日期</th>
-                <!--<th class="col-sm-1">总余额</th>-->
-                <!--<th class="col-sm-1">贷款总额</th>-->
-                <!--<th class="col-sm-1">应还款总额</th>-->
-                <th class="col-sm-1">状态</th>
+                <th class="col-sm-1">大架号</th>
+                <th class="col-sm-2">业户</th>
+                <th class="col-sm-1">车主</th>
+                <th class="col-sm-1">电话</th>
+                <th class="col-sm-1">终端</th>
+                <th class="col-sm-1">卡号</th>
+                <th class="col-sm-1">入网时间</th>
+                <th class="col-sm-1">到期时间</th>
+                <th class="col-sm-1">距离到期天数</th>
+                <th class="col-sm-1">安装类型</th>
             </tr>
             </thead>
             <tbody>
@@ -95,21 +99,17 @@
                 <td><md-checkbox aria-label="Select one" ng-checked="exists(beidouRecord, selected)" ng-click="toggle(beidouRecord, selected)">
                 </md-checkbox></td>
                 <td>{{$index + 1}}</td>
-                <td>{{beidouRecord.beidouRecordNum}}</td>
-                <td>{{beidouRecord.vehicle.licensePlate}}</td>
-                <td>{{beidouRecord.vehicle.holder.name}}</td>
-                <td>{{beidouRecord.surety.name }}</td>
-                <td>{{beidouRecord.loansNum}}</td>
-                <td>{{beidouRecord.nextRepay.loanNum | currentLoanNum}}</td>
-                <td>{{beidouRecord.nextRepay.expectMoney | currency:'¥'}}</td>
-                <td>{{beidouRecord.balance | currency:'¥' }}</td>
-                <td>{{beidouRecord.nextRepay.expectDate}}</td>
+                <td>{{beidouRecord.licensePlate}}</td>
+                <td>{{beidouRecord.frameNumber}}</td>
+                <td>{{beidouRecord.businessOwner}}</td>
+                <td>{{beidouRecord.owner }}</td>
+                <td>{{beidouRecord.phoneNum}}</td>
+                <td>{{beidouRecord.terminalNum}}</td>
+                <td>{{beidouRecord.newCardNum}}</td>
+                <td>{{beidouRecord.joinTime }}</td>
+                <td>{{beidouRecord.expireTime}}</td>
                 <td>{{beidouRecord.leftDays | isOverdue}}</td>
-                <td>{{beidouRecord.loanDate}}</td>
-                <!--<td>{{beidouRecord.totalBalance | currency:'¥'}}</td>-->
-                <!--<td>{{beidouRecord.loanAmount | currency:'¥'}}</td>-->
-                <!--<td>{{beidouRecord.totalRepayment | currency:'¥'}}</td>-->
-                <td>{{beidouRecord.completed | isCompleted }}</td>
+                <td>{{beidouRecord.installType}}</td>
             </tr>
             </tbody>
         </table>

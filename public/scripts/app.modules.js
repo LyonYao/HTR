@@ -16,7 +16,8 @@ var app = angular.module('app', [
     'loanInfo',
     'subLoanRecord',
     'ngIdle',
-    'beidouRecord'
+    'beidouRecord',
+    'beidouBranch'
 ]);
 var test = angular.module('test', []);
 var auth = angular.module('auth', []);
@@ -30,3 +31,4 @@ var systemLog = angular.module('systemLog', []);
 var loanInfo = angular.module('loanInfo', []);
 var subLoanRecord = angular.module('subLoanRecord', []);
 var beidouRecord = angular.module('beidouRecord', []);
+var beidouBranch = angular.module('beidouBranch', []);

@@ -39,6 +39,9 @@
             }).when('/beidou/beidouRecord', {
                 templateUrl: 'views/beidouRecord.html',
                 controller: 'beidouRecordController'
+            }).when('/beidou/beidouBranch', {
+                templateUrl: 'views/beidouBranch.html',
+                controller: 'beidouBranchController'
             });
 
             $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

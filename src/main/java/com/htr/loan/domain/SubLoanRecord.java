@@ -16,7 +16,7 @@ public class SubLoanRecord extends BaseDomain {
     private User payee;  //收款人
     private Double receipts; //收到的金额
 
-    @JsonFormat(timezone = "GMT+8:00", pattern="yyyy-MM-dd")
+    @JsonFormat
     private Date receiptDate; //收款时间
     @ManyToOne
     private BankCard bankCard; //收款银行卡

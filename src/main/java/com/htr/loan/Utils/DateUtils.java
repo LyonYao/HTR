@@ -94,6 +94,16 @@ public abstract class DateUtils {
 		return sdf.format(org.apache.commons.lang3.time.DateUtils.addDays(date, 1));
 	}
 
+	/**
+	 * 格式化日期
+	 * @param date
+	 * @param sdf
+	 * @return
+	 */
+	public static String formatDate(final Date date, SimpleDateFormat sdf) {
+		return sdf.format(date);
+	}
+
 	public static Date parseDate(final String str) {
 		Date date = null;
 		try {

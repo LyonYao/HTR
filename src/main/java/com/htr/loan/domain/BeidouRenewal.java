@@ -1,5 +1,6 @@
 package com.htr.loan.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Entity;
@@ -24,6 +25,7 @@ public class BeidouRenewal extends BaseDomain {
     private BeidouBranch beidouBranch; //续费点
     private User payee; //续费人
     private Integer months; //续费月数
+    @JsonFormat
     private Date renewalDate; //续期日期
 
     public BeidouRecord getBeidouRecord() {

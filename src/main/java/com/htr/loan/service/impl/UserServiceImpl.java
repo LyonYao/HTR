@@ -1,8 +1,10 @@
 package com.htr.loan.service.impl;
 
 import com.htr.loan.Utils.Constants;
+import com.htr.loan.domain.Role;
 import com.htr.loan.domain.SystemLog;
 import com.htr.loan.domain.User;
+import com.htr.loan.domain.repository.RoleRepository;
 import com.htr.loan.domain.repository.SystemLogRepository;
 import com.htr.loan.domain.repository.UserRepository;
 import com.htr.loan.service.UserService;
@@ -14,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -31,6 +34,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private SystemLogRepository systemLogRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Override
     public User findUserByUserAccount(String userAccount) {
@@ -72,6 +78,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAllByActiveTrue() {
         return userRepository.findAllByActiveTrue();
+    }
+
+    @Override
+    public List<User> findAllInstaller() {
+        return userRepository.findAllByActiveTrueAndRoles_RoleName(Constants.INIT_ROLE_INSTALLER);
     }
 
     @Override

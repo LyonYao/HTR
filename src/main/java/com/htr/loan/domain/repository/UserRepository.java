@@ -1,5 +1,6 @@
 package com.htr.loan.domain.repository;
 
+import com.htr.loan.domain.Role;
 import com.htr.loan.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -14,4 +15,6 @@ public interface UserRepository extends JpaRepository<User, String>, PagingAndSo
     User findByUserAccountAndActiveTrue(String userAccount);
 
     List<User> findAllByActiveTrue();
+
+    List<User> findAllByActiveTrueAndRoles_RoleName(String roleName);
 }

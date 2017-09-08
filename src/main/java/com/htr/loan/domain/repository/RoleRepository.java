@@ -10,5 +10,7 @@ public interface RoleRepository extends JpaRepository<Role, String>, JpaSpecific
 
     Role findByRoleNameAndActiveTrue(String roleName);
 
+    Role findByRoleName(String roleName);
+
     List<Role> findAllByActiveTrue();
 }

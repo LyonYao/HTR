@@ -1,6 +1,7 @@
 package com.htr.loan.service.impl;
 
 import com.htr.loan.Utils.Constants;
+import com.htr.loan.Utils.DateUtils;
 import com.htr.loan.Utils.DynamicSpecifications;
 import com.htr.loan.Utils.SearchFilter;
 import com.htr.loan.domain.BeidouRecord;
@@ -20,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +51,7 @@ public class BeidouRecordServiceImpl implements BeidouRecordService {
             //新装设置新卡号和老卡号相同
             beidouRecord.setOldCardNum(beidouRecord.getNewCardNum());
             beidouRecord = beidouRecordRepository.save(beidouRecord);
+            beidouRecord.setLeftDays(DateUtils.between(beidouRecord.getExpireTime(), LocalDate.now()));
             log.setRecordId(beidouRecord.getUuid());
             systemLogRepository.save(log);
             return beidouRecord;

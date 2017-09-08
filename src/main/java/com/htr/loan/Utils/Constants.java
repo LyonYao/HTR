@@ -17,6 +17,9 @@ public interface Constants {
 
     public static final String SESSION_USER_KEY="loginUser";
 
+
+    public static final String INIT_ROLE_INSTALLER="安装员";
+
     /**
      * 资源类型
      */
@@ -43,6 +46,7 @@ public interface Constants {
     public static final String MODULE_VEHICLE = "vehicle";
     public static final String MODULE_LOANINFO = "loanInfo";
     public static final String MODULE_BEIDOURECORD = "beidouRecord";
+    public static final String MODULE_BEIDOUBRANCH = "beidouBranch";
     public static final String MODULE_SUBLOANRECORD = "subLoanRecord";
     public static final String MODULE_LOANRECORD = "loanRecord";
     public static final String MODULE_USER = "user";
