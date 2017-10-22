@@ -20,7 +20,7 @@ public class BeidouRecord extends BaseDomain {
     private String owner;  //车主
     private String phoneNum; //电话号码
     private String terminalNum; //终端号
-    private String oldCardNum;  //原卡号
+    private String oldCardNum;  //原始卡号
     private String newCardNum;  //卡号
     private Boolean borrowCardFlow; //是否借流量
     @ManyToOne

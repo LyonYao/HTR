@@ -47,6 +47,8 @@ public interface Constants {
     public static final String MODULE_LOANINFO = "loanInfo";
     public static final String MODULE_BEIDOURECORD = "beidouRecord";
     public static final String MODULE_BEIDOUBRANCH = "beidouBranch";
+    public static final String MODULE_BEIDOURENEWAL = "beidouRenewal";
+    public static final String MODULE_BEIDOUREPAIR = "beidouRepair";
     public static final String MODULE_SUBLOANRECORD = "subLoanRecord";
     public static final String MODULE_LOANRECORD = "loanRecord";
     public static final String MODULE_USER = "user";

@@ -383,49 +383,95 @@
             };
         }]);
 
-    beidouRecord.controller('repaymentController', ['$scope', '$mdDialog', '$http', '$timeout', '$q', 'beidouRecord',
+    beidouRecord.controller('renewalController', ['$scope', '$mdDialog', '$http', '$timeout', '$q', 'beidouRecord',
         function ($scope, $mdDialog, $http, $timeout, $q, beidouRecord) {
 
             $scope.beidouRecord = beidouRecord ? angular.copy(beidouRecord) : {};
 
-            $scope.subLoanRecord = {
-                receiptDate: new Date()
+            $scope.beidouRenewal = {
+                renewalDate: new Date(),
+                renewalFee:840,
+                months:12
             };
 
-            $scope.saveBeidouRecord = function () {
-                $scope.subLoanRecord.beidouRecord = $scope.beidouRecord;
-                $scope.subLoanRecord.loanRecord = $scope.beidouRecord.nextRepay;
+            $scope.saveBeidouRenewal = function () {
+                if($scope.cardType <= 0){
+                    $scope.beidouRenewal.changeCard = true;
+                    if($scope.cardType < 0){
+                        $scope.beidouRecord.borrowCardFlow = true;
+                    }
+                } else {
+                    $scope.beidouRenewal.changeCard = false;
+                }
+                $scope.beidouRenewal.beidouRecord = $scope.beidouRecord;
                 var req = {
                     method: 'POST',
-                    url: '/subLoanRecord/repayment',
-                    data: $scope.subLoanRecord
+                    url: '/beidouRenewal/renewal',
+                    data: $scope.beidouRenewal
                 };
                 $http(req).then(function () {
                     $mdDialog.hide('success');
                 });
             };
 
-            $scope.bankCards = [];
-            function findAllBankCards() {
-                var url = '/bankCard/1';
+            $scope.cardType = 2;
+            $scope.cardTypes = [{
+                name:"未换直接续",
+                value:2
+            },{
+                name:"换新卡",
+                value:0
+            },{
+                name:"借流量",
+                value:-1
+            }];
+
+            $scope.beidouBranchs = [];
+            function findAllBeidouBranchs() {
+                var url = '/beidouBranch/1';
                 var req = {
                     method: 'GET',
                     url: url
                 };
 
                 $http(req).then(function (responseData) {
-                    $scope.bankCards = responseData.data;
+                    $scope.beidouBranchs = responseData.data;
                 });
             }
+            findAllBeidouBranchs();
 
-            findAllBankCards();
+            $scope.installers = [];
+            function findAllInstallers() {
+                var url = '/user/2';
+                var req = {
+                    method: 'GET',
+                    url: url
+                };
+
+                $http(req).then(function (responseData) {
+                    $scope.installers = responseData.data;
+                });
+            }
+            findAllInstallers();
+
+            $scope.saveBeidouRecord = function () {
+                var req = {
+                    method: 'POST',
+                    url: '/beidouRecord/save',
+                    data: $scope.beidouRecord
+                };
+                $http(req).then(function () {
+                    $mdDialog.hide('success');
+                });
+
+            };
 
             $scope.openDatePopup = function (popup) {
                 $scope.datePopup[popup] = true;
             };
 
             $scope.datePopup = {
-                receiptDate: false
+                renewalDate: false
             };
 
             $scope.cancel = function () {

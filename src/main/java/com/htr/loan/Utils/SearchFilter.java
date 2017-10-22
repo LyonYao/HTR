@@ -28,7 +28,7 @@ public class SearchFilter {
     }
 
     public static Map<String, SearchFilter> parse(Map<String, Object> filterParams) {
-        Map<String, SearchFilter> filters = new HashMap<String, SearchFilter>();
+        Map<String, SearchFilter> filters = new HashMap<>();
 
         for (Entry<String, Object> entry : filterParams.entrySet()) {
             String[] names = entry.getKey().split("_");

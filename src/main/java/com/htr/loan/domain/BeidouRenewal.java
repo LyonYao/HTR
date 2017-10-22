@@ -14,10 +14,10 @@ public class BeidouRenewal extends BaseDomain {
 
     @ManyToOne
     private BeidouRecord beidouRecord; //档案
-    private Boolean changeTerminal; //是否换终端
+    private boolean changeTerminal; //是否换终端
     private String oldTerminal;  //原终端
     private String newTerminal;  //新终端号
-    private Boolean changeCard; //是否换卡
+    private boolean changeCard; //是否换卡
     private String oldCardNum;  //原卡号
     private String newCardNum;  //卡号
     private Double renewalFee;  //续费金额
@@ -27,6 +27,7 @@ public class BeidouRenewal extends BaseDomain {
     private Integer months; //续费月数
     @JsonFormat
     private Date renewalDate; //续期日期
+    private String description; //备注
 
     public BeidouRecord getBeidouRecord() {
         return beidouRecord;
@@ -36,11 +37,11 @@ public class BeidouRenewal extends BaseDomain {
         this.beidouRecord = beidouRecord;
     }
 
-    public Boolean getChangeTerminal() {
+    public boolean getChangeTerminal() {
         return changeTerminal;
     }
 
-    public void setChangeTerminal(Boolean changeTerminal) {
+    public void setChangeTerminal(boolean changeTerminal) {
         this.changeTerminal = changeTerminal;
     }
 
@@ -60,11 +61,11 @@ public class BeidouRenewal extends BaseDomain {
         this.newTerminal = newTerminal;
     }
 
-    public Boolean getChangeCard() {
+    public boolean getChangeCard() {
         return changeCard;
     }
 
-    public void setChangeCard(Boolean changeCard) {
+    public void setChangeCard(boolean changeCard) {
         this.changeCard = changeCard;
     }
 
@@ -122,5 +123,13 @@ public class BeidouRenewal extends BaseDomain {
 
     public void setRenewalDate(Date renewalDate) {
         this.renewalDate = renewalDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

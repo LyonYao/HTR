@@ -14,10 +14,10 @@ public class BeidouRepair extends BaseDomain {
 
     @ManyToOne
     private BeidouRecord beidouRecord; //档案
-    private Boolean changeTerminal; //是否换终端
+    private boolean changeTerminal; //是否换终端
     private String oldTerminal;  //原终端
     private String newTerminal;  //新终端号
-    private Boolean changeCard; //是否换卡
+    private boolean changeCard; //是否换卡
     private String oldCardNum;  //原卡号
     private String newCardNum;  //卡号
     private Double repairFee;  //续费金额
@@ -26,6 +26,7 @@ public class BeidouRepair extends BaseDomain {
     private User payee; //维修人
     @JsonFormat
     private Date repairDate; //维修日期
+    private String description; //备注
 
     public BeidouRecord getBeidouRecord() {
         return beidouRecord;
@@ -35,11 +36,11 @@ public class BeidouRepair extends BaseDomain {
         this.beidouRecord = beidouRecord;
     }
 
-    public Boolean getChangeTerminal() {
+    public boolean getChangeTerminal() {
         return changeTerminal;
     }
 
-    public void setChangeTerminal(Boolean changeTerminal) {
+    public void setChangeTerminal(boolean changeTerminal) {
         this.changeTerminal = changeTerminal;
     }
 
@@ -59,11 +60,11 @@ public class BeidouRepair extends BaseDomain {
         this.newTerminal = newTerminal;
     }
 
-    public Boolean getChangeCard() {
+    public boolean getChangeCard() {
         return changeCard;
     }
 
-    public void setChangeCard(Boolean changeCard) {
+    public void setChangeCard(boolean changeCard) {
         this.changeCard = changeCard;
     }
 
@@ -113,5 +114,13 @@ public class BeidouRepair extends BaseDomain {
 
     public void setRepairDate(Date repairDate) {
         this.repairDate = repairDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
