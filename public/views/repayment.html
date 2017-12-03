@@ -1,0 +1,71 @@
+<md-dialog aria-label="还款">
+    <form name="repaymentForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>还款</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div class="row"></div>
+                <div layout="row">
+                    <md-input-container>
+                        <label>金额</label>
+                        <input type="number" required md-no-asterisk name="receipts" ng-model="subLoanRecord.receipts">
+                        <div ng-messages="repaymentForm.receipts.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>还款日期</label>
+                        <input required md-no-asterisk uib-datepicker-popup name="receiptDate"
+                               ng-model="subLoanRecord.receiptDate"
+                               ng-click="openDatePopup('receiptDate')" is-open="datePopup.receiptDate"
+                               show-button-bar="false"/>
+                        <div ng-messages="repaymentForm.loanDate.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <md-input-container class="md-block">
+                    <label>收据编号</label>
+                    <input required md-no-asterisk name="receiptNumber" ng-model="subLoanRecord.receiptNumber">
+                    <div ng-messages="repaymentForm.receiptNumber.$error">
+                        <div ng-messages-include="views/common/required.message.html"></div>
+                    </div>
+                </md-input-container>
+                <div layout="row">
+                    <md-input-container flex="70">
+                        <label>还款到银行卡</label>
+                        <md-select name="bankCard" ng-model="subLoanRecord.bankCard" required>
+                            <md-option ng-repeat="bankCard in bankCards" ng-value="bankCard">{{bankCard.cardNumber}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="repaymentForm.bankCard.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <md-input-container class="md-block">
+                    <label>备注说明</label>
+                    <textarea ng-model="subLoanRecord.description" md-maxlength="150" rows="5"></textarea>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised md-primary" type="submit"
+                       ng-click="repaymentForm.$valid && saveLoanInfo()">
+                保存
+            </md-button>
+            <md-button class="md-raised md-warn" ng-click="cancel()">
+                取消
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

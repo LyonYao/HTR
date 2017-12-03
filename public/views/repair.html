@@ -1,0 +1,118 @@
+<md-dialog aria-label="北斗维修">
+    <form name="newBeidouRepairForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>北斗维修</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div class="md-block"></div>
+                <div layout="row">
+                    <md-input-container>
+                        <label>车牌号</label>
+                        <input required md-no-asterisk name="licensePlate" readonly ng-model="beidouRecord.licensePlate">
+                        <div ng-messages="newBeidouRepairForm.licensePlate.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>业户</label>
+                        <input required md-no-asterisk name="businessOwner" readonly ng-model="beidouRecord.businessOwner">
+                        <div ng-messages="newBeidouRepairForm.businessOwner.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>车主</label>
+                        <input required md-no-asterisk name="owner" readonly ng-model="beidouRecord.owner">
+                        <div ng-messages="newBeidouRepairForm.owner.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="30">
+                        <label>卡号</label>
+                        <md-select required name="changeCardType" ng-model="beidouRepair.changeCardType">
+                            <md-option ng-repeat="changeCardType in changeCardTypes" ng-value="changeCardType.value">{{changeCardType.name}}</md-option>
+                        </md-select>
+                        <div ng-messages="newBeidouRepairForm.changeCardType.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container ng-show="beidouRepair.changeCardType < 2">
+                        <input md-no-asterisk name="newCardNum" aria-label="新卡号" ng-model="beidouRepair.newCardNum">
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container class="md-block">
+                        <md-checkbox name="changeCard" ng-model="beidouRepair.changeTerminal">
+                            是否跟换终端
+                        </md-checkbox>
+                    </md-input-container>
+                    <md-input-container ng-show="beidouRepair.changeTerminal">
+                        <input md-no-asterisk name="newTerminal" aria-label="新终端号" ng-model="beidouRepair.newTerminal">
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container>
+                        <label>维修金额</label>
+                        <input required md-no-asterisk name="repairFee" ng-model="beidouRepair.repairFee">
+                        <div ng-messages="newBeidouRepairForm.repairFee.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>维修日期</label>
+                        <input required md-no-asterisk uib-datepicker-popup="yyyy-MM-dd" name="expireTime" ng-model="beidouRepair.repairDate"
+                               ng-click="openDatePopup('repairDate')" is-open="datePopup.repairDate"
+                               show-button-bar="false"/>
+                        <div ng-messages="newBeidouRepairForm.repairDate.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="30">
+                        <label>维修点</label>
+                        <md-select required name="beidouBranch" ng-model="beidouRepair.beidouBranch" ng-model-options="{trackBy: '$value.uuid'}">
+                            <md-option ng-repeat="beidouBranch in beidouBranchs" ng-value="beidouBranch">{{beidouBranch.branchName}}</md-option>
+                        </md-select>
+                        <div ng-messages="newBeidouRepairForm.beidouBranch.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex="30">
+                        <label>维修人</label>
+                        <md-select required name="payee" ng-model="beidouRepair.payee" ng-model-options="{trackBy: '$value.uuid'}">
+                            <md-option ng-repeat="payee in installers" ng-value="payee">{{payee.userName}}</md-option>
+                        </md-select>
+                        <div ng-messages="newBeidouRepairForm.payee.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <md-input-container class="md-block">
+                    <label>备注</label>
+                    <textarea ng-model="beidouRepair.description" md-maxlength="150" rows="3"></textarea>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised md-primary" type="submit"
+                       ng-click="newBeidouRepairForm.$valid && saveBeidouRepair()">
+                保存
+            </md-button>
+            <md-button class="md-raised md-warn" ng-click="cancel()">
+                取消
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

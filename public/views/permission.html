@@ -1,0 +1,49 @@
+<md-dialog aria-label="权限分配">
+    <form name="permissionForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>权限分配</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <span ng-repeat="resource in resources">
+                    <div layout="row" class="md-block" style="min-width: 750px">
+                        <md-checkbox ng-checked="resource.selected" ng-click="setSelected(resource)">{{resource.resourceName}}</md-checkbox>
+                    </div>
+                    <hr />
+                    <span ng-repeat="menu in resource.childrenRes">
+                        <div layout="row" class="md-block">
+                            <span flex="5"></span>
+                            <md-checkbox ng-checked="menu.selected" ng-click="setSelected(menu)">{{menu.resourceName}}</md-checkbox>
+                        </div>
+                        <hr />
+                        <div layout="row" class="md-block">
+                            <span flex="10"></span>
+                            <div ng-repeat="button in menu.childrenRes">
+                                <md-checkbox ng-checked="button.selected" ng-click="setSelected(button)">{{button.resourceName}}&nbsp;&nbsp;&nbsp;&nbsp;
+                                </md-checkbox>
+                            </div>
+                        </div>
+                        <hr />
+                    </span>
+                </span>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised md-primary" type="submit"
+                       ng-click="permissionForm.$valid && saveRole()">
+                保存
+            </md-button>
+            <md-button class="md-raised md-warn" ng-click="cancel()">
+                取消
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

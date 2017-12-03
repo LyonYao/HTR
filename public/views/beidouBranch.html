@@ -1,0 +1,68 @@
+<md-card class="_md">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">分部管理</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-header>
+        <div layout="row" layout-wrap>
+            <section layout="row" layout-sm="column" layout-align="left bottom" layout-wrap>
+                <md-button class="md-raised" ng-show="currentButtons.new.show" ng-click="showNewBeidouBranch($event)">
+                    {{currentButtons.new.name}}
+                </md-button>
+                <md-button class="md-raised md-primary" ng-show="currentButtons.update.show"
+                           ng-click="showEditBeidouBranch($event)">{{currentButtons.update.name}}
+                </md-button>
+                <md-button class="md-raised md-warn" ng-show="currentButtons.stop.show"
+                           ng-click="removeBeidouBranchs($event)">{{currentButtons.stop.name}}
+                </md-button>
+                <md-button class="md-raised md-accent" ng-show="currentButtons.active.show"
+                           ng-click="activeBeidouBranchs($event)">{{currentButtons.active.name}}
+                </md-button>
+                <div class="label">Raised</div>
+            </section>
+        </div>
+    </md-card-header>
+    <md-card-content>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>
+                    <md-checkbox aria-label="Select All"
+                                 ng-checked="isChecked()"
+                                 md-indeterminate="isIndeterminate()"
+                                 ng-click="toggleAll()">
+                    </md-checkbox>
+                </th>
+                <th>
+                    <div class="">#</div>
+                </th>
+                <th class="col-sm-2">分部名称</th>
+                <th class="col-sm-3">备注</th>
+                <th class="col-sm-1">日收入</th>
+                <th class="col-sm-1">月收入</th>
+                <th class="col-sm-1">年收入</th>
+                <th class="col-sm-2">总收入</th>
+                <th class="col-sm-1">状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="beidouBranch in items">
+                <td>
+                    <md-checkbox aria-label="Select one" ng-checked="exists(beidouBranch, selected)"
+                                 ng-click="toggle(beidouBranch, selected)">
+                    </md-checkbox>
+                </td>
+                <td>{{$index + 1}}</td>
+                <td>{{beidouBranch.branchName}}</td>
+                <td>{{beidouBranch.description}}</td>
+                <td>{{beidouBranch.dailyIncome | currency:'￥'}}</td>
+                <td>{{beidouBranch.monthlyIncome | currency:'￥'}}</td>
+                <td>{{beidouBranch.annualIncome | currency:'￥'}}</td>
+                <td>{{beidouBranch.totalIncome | currency:'￥'}}</td>
+                <td>{{beidouBranch.active | isActive }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </md-card-content>
+</md-card>

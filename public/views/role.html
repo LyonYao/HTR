@@ -1,0 +1,57 @@
+<md-card class="_md">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">角色管理</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-header>
+        <div layout="row" layout-wrap>
+            <section layout="row" layout-sm="column" layout-align="left bottom" layout-wrap>
+                <md-button class="md-raised" ng-show="currentButtons.new.show" ng-click="showNewRole($event)">
+                    {{currentButtons.new.name}}
+                </md-button>
+                <md-button class="md-raised md-primary" ng-show="currentButtons.update.show"
+                           ng-click="showEditRole($event)">{{currentButtons.update.name}}
+                </md-button>
+                <md-button class="md-raised md-warn" ng-show="currentButtons.stop.show"
+                           ng-click="removeRoles($event)">{{currentButtons.stop.name}}
+                </md-button>
+                <md-button class="md-raised md-accent" ng-show="currentButtons.active.show"
+                           ng-click="activeRoles($event)">{{currentButtons.active.name}}
+                </md-button>
+                <md-button class="md-raised md-primary" ng-show="currentButtons.permission.show"
+                           ng-click="assignPermissions($event)">{{currentButtons.permission.name}}</md-button>
+                <div class="label">Raised</div>
+            </section>
+        </div>
+    </md-card-header>
+    <md-card-content>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="col-sm-1"><md-checkbox aria-label="Select All"
+                                 ng-checked="isChecked()"
+                                 md-indeterminate="isIndeterminate()"
+                                 ng-click="toggleAll()">
+                </md-checkbox></th>
+                <th class="col-sm-1"><div class="">#</div></th>
+                <th class="col-sm-1">角色名称</th>
+                <th class="col-sm-4">描述</th>
+                <th class="col-sm-1">状态</th>
+                <th class="col-sm-6"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="role in items">
+                <td><md-checkbox aria-label="Select one" ng-checked="exists(role, selected)" ng-click="toggle(role, selected)">
+                </md-checkbox></td>
+                <td>{{$index + 1}}</td>
+                <td>{{role.roleName}}</td>
+                <td>{{role.description}}</td>
+                <td>{{role.active | isActive }}</td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </md-card-content>
+</md-card>

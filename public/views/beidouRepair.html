@@ -1,0 +1,76 @@
+<md-card class="_md">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">维修记录查询</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-header>
+        <div layout="row" layout-wrap>
+            <section flex="100" layout="row" layout-sm="column" layout-align="center bottom" layout-wrap>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>车牌号</label>
+                    <input ng-model="facet['search_LIKE_beidouRecord.licensePlate']">
+                </md-input-container>
+                <md-input-container>
+                    <label>还款日期从</label>
+                    <input md-no-asterisk uib-datepicker-popup ng-model="facet.search_GTE_repairDate_DATE"
+                           ng-click="openDatePopup('GTE_repairDate')" is-open="datePopup.GTE_repairDate" show-button-bar="false"/>
+                </md-input-container>
+                <md-input-container>
+                    <label>到</label>
+                    <input md-no-asterisk uib-datepicker-popup ng-model="facet.search_LTE_repairDate_DATE"
+                           ng-click="openDatePopup('LTE_repairDate')" is-open="datePopup.LTE_repairDate" show-button-bar="false"/>
+                </md-input-container>
+                <div class="md-block" flex-gt-sm>
+                    <md-button class="md-raised" ng-click="searchBeidouRepairs()">查询</md-button>
+                </div>
+            </section>
+        </div>
+    </md-card-header>
+    <md-card-content>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th><div class="">#</div></th>
+                <th class="col-sm-1">车牌号</th>
+                <!--<th class="col-sm-1">业户</th>-->
+                <!--<th class="col-sm-1">车主</th>-->
+                <th class="col-sm-1">是否换终端</th>
+                <th class="col-sm-1">原终端</th>
+                <th class="col-sm-1">新终端</th>
+                <th class="col-sm-1">是否换卡</th>
+                <th class="col-sm-1">原卡号</th>
+                <th class="col-sm-1">新卡号</th>
+                <th class="col-sm-1">维修金额</th>
+                <th class="col-sm-1">维修时间</th>
+                <th class="col-sm-1">维修点</th>
+                <th class="col-sm-1">维修人</th>
+                <th class="col-sm-1">备注说明</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="beidouRepair in items">
+                <td>{{$index + 1}}</td>
+                <td>{{beidouRepair.beidouRecord.licensePlate}}</td>
+                <!--<td>{{beidouRepair.beidouRecord.businessOwner}}</td>-->
+                <!--<td>{{beidouRepair.beidouRecord.owner}}</td>-->
+                <td>{{beidouRepair.changeTerminal | isChangeTerminal}}</td>
+                <td>{{beidouRepair.oldTerminal}}</td>
+                <td>{{beidouRepair.newTerminal}}</td>
+                <td>{{beidouRepair.changeCardType | isChangeCard }}</td>
+                <td>{{beidouRepair.oldCardNum}}</td>
+                <td>{{beidouRepair.newCardNum}}</td>
+                <td>{{beidouRepair.repairFee | currency:'¥'}}</td>
+                <td>{{beidouRepair.repairDate }}</td>
+                <td>{{beidouRepair.beidouBranch.branchName }}</td>
+                <td>{{beidouRepair.payee.userName }}</td>
+                <td>{{beidouRepair.description}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <section layout="row" layout-align="end end">
+            <cl-paging flex cl-pages="paging.total" , cl-steps="6" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"></cl-paging>
+            总共 {{paging.totalElements}} 条记录
+        </section>
+    </md-card-content>
+</md-card>

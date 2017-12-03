@@ -1,0 +1,158 @@
+<md-dialog aria-label="新建北斗档案数据">
+    <form name="newBeidouRecordForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>新建北斗档案数据</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div class="md-block"></div>
+                <div layout="row">
+                    <md-input-container>
+                        <label>车牌号</label>
+                        <input required md-no-asterisk name="licensePlate" ng-model="beidouRecord.licensePlate">
+                        <div ng-messages="newBeidouRecordForm.licensePlate.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>大架号</label>
+                        <input required md-no-asterisk name="frameNumber" ng-model="beidouRecord.frameNumber">
+                        <div ng-messages="newBeidouRecordForm.frameNumber.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>车辆型号</label>
+                        <input required md-no-asterisk name="vehicleNum" ng-model="beidouRecord.vehicleNum">
+                        <div ng-messages="newBeidouRecordForm.vehicleNum.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container>
+                        <label>车辆类型</label>
+                        <input required md-no-asterisk name="vehicleType" ng-model="beidouRecord.vehicleType">
+                        <div ng-messages="newBeidouRecordForm.vehicleType.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>业户</label>
+                        <input required md-no-asterisk name="businessOwner" ng-model="beidouRecord.businessOwner">
+                        <div ng-messages="newBeidouRecordForm.businessOwner.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>车主</label>
+                        <input required md-no-asterisk name="owner" ng-model="beidouRecord.owner">
+                        <div ng-messages="newBeidouRecordForm.owner.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container>
+                        <label>电话</label>
+                        <input required md-no-asterisk name="phoneNum" ng-model="beidouRecord.phoneNum">
+                        <div ng-messages="newBeidouRecordForm.phoneNum.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>终端号</label>
+                        <input required md-no-asterisk name="terminalNum" ng-model="beidouRecord.terminalNum">
+                        <div ng-messages="newBeidouRecordForm.terminalNum.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>卡号</label>
+                        <input required md-no-asterisk name="newCardNum" ng-model="beidouRecord.newCardNum">
+                        <div ng-messages="newBeidouRecordForm.newCardNum.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="30">
+                        <label>安装类型</label>
+                        <md-select required name="installType" ng-model="beidouRecord.installType">
+                            <md-option ng-repeat="installType in installTypes" ng-value="installType">{{installType}}</md-option>
+                        </md-select>
+                        <div ng-messages="newBeidouRecordForm.installType.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex="30">
+                        <label>安装点</label>
+                        <md-select required name="beidouBranch" ng-model="beidouRecord.beidouBranch" ng-model-options="{trackBy: '$value.uuid'}">
+                            <md-option ng-repeat="beidouBranch in beidouBranchs" ng-value="beidouBranch">{{beidouBranch.branchName}}</md-option>
+                        </md-select>
+                        <div ng-messages="newBeidouRecordForm.beidouBranch.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex="30">
+                        <label>安装人</label>
+                        <md-select required name="installer" ng-model="beidouRecord.installer" ng-model-options="{trackBy: '$value.uuid'}">
+                            <md-option ng-repeat="installer in installers" ng-value="installer">{{installer.userName}}</md-option>
+                        </md-select>
+                        <div ng-messages="newBeidouRecordForm.installer.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container>
+                        <label>安装费</label>
+                        <input required md-no-asterisk name="installationFee" ng-model="beidouRecord.installationFee">
+                        <div ng-messages="newBeidouRecordForm.installationFee.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>入网时间</label>
+                        <input required md-no-asterisk uib-datepicker-popup="yyyy-MM-dd" name="joinTime" ng-model="beidouRecord.joinTime"
+                               ng-click="openDatePopup('joinTime')" is-open="datePopup.joinTime"
+                               show-button-bar="false"/>
+                        <div ng-messages="newBeidouRecordForm.joinTime.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>失效时间</label>
+                        <input required md-no-asterisk uib-datepicker-popup="yyyy-MM-dd" name="expireTime" ng-model="beidouRecord.expireTime"
+                               ng-click="openDatePopup('expireTime')" is-open="datePopup.expireTime"
+                               show-button-bar="false"/>
+                        <div ng-messages="newBeidouRecordForm.expireTime.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <md-input-container class="md-block">
+                    <label>备注</label>
+                    <textarea ng-model="beidouRecord.description" md-maxlength="150" rows="3"></textarea>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised md-primary" type="submit"
+                       ng-click="newBeidouRecordForm.$valid && saveBeidouRecord()">
+                保存
+            </md-button>
+            <md-button class="md-raised md-warn" ng-click="cancel()">
+                取消
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

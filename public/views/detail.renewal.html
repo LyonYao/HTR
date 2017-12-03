@@ -1,0 +1,57 @@
+<md-dialog aria-label="续费明细">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>续费明细</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <div class="row"></div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th class="col-sm-1">车牌号</th>
+                    <th class="col-sm-1">是否换终端</th>
+                    <th class="col-sm-1">原终端</th>
+                    <th class="col-sm-1">新终端</th>
+                    <th class="col-sm-1">是否换卡</th>
+                    <th class="col-sm-1">原卡号</th>
+                    <th class="col-sm-1">新卡号</th>
+                    <th class="col-sm-1">续费金额</th>
+                    <th class="col-sm-1">续费时间</th>
+                    <th class="col-sm-1">续费点</th>
+                    <th class="col-sm-1">续费人</th>
+                    <th class="col-sm-4">备注说明</th>
+                </tr>
+                </thead>
+                <tr ng-repeat="beidouRenewal in beidouRenewals">
+                    <td>{{beidouRenewal.beidouRecord.licensePlate}}</td>
+                    <td>{{beidouRenewal.changeTerminal | isChangeTerminal}}</td>
+                    <td>{{beidouRenewal.oldTerminal}}</td>
+                    <td>{{beidouRenewal.newTerminal}}</td>
+                    <td>{{beidouRenewal.changeCardType | isChangeCard }}</td>
+                    <td>{{beidouRenewal.oldCardNum}}</td>
+                    <td>{{beidouRenewal.newCardNum}}</td>
+                    <td>{{beidouRenewal.renewalFee | currency:'¥'}}</td>
+                    <td>{{beidouRenewal.renewalDate }}</td>
+                    <td>{{beidouRenewal.beidouBranch.branchName }}</td>
+                    <td>{{beidouRenewal.payee.userName }}</td>
+                    <td>{{beidouRenewal.description}}</td>
+                </tr>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button class="md-raised" ng-click="cancel()">
+            完成
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

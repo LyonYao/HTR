@@ -1,0 +1,55 @@
+{
+  "name": "htr",
+  "description": "htr's loan project",
+  "main": "gulpfile.js",
+  "authors": [
+    "xinlin"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.5",
+    "bootstrap": "^3.3.7",
+    "angular-route": "^1.6.5",
+    "angular-material": "^1.1.4",
+    "angular-animate": "^1.6.5",
+    "material-angular-paging": "*",
+    "moment": "^2.18.1",
+    "angular-bootstrap": "^2.5.0",
+    "angular-i18n": "^1.6.6",
+    "ng-idle": "^1.3.2"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/js/bootstrap.js",
+        "dist/css/bootstrap.css",
+        "dist/css/bootstrap-theme.css",
+        "dist/fonts/*.*"
+      ]
+    },
+    "material-angular-paging": {
+      "main": [
+        "build/dist.min.js"
+      ]
+    },
+    "angular-i18n": {
+      "main": [
+        "angular-locale_zh-cn.js"
+      ]
+    },
+    "moment": {
+      "main": [
+        "min/moment.min.js",
+        "locale/zh-cn.js"
+      ]
+    }
+  }
+}

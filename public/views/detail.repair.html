@@ -1,0 +1,57 @@
+<md-dialog aria-label="维修明细">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>维修明细</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <div class="row"></div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th class="col-sm-1">车牌号</th>
+                    <th class="col-sm-1">是否换终端</th>
+                    <th class="col-sm-1">原终端</th>
+                    <th class="col-sm-1">新终端</th>
+                    <th class="col-sm-1">是否换卡</th>
+                    <th class="col-sm-1">原卡号</th>
+                    <th class="col-sm-1">新卡号</th>
+                    <th class="col-sm-1">维修金额</th>
+                    <th class="col-sm-1">维修时间</th>
+                    <th class="col-sm-1">维修点</th>
+                    <th class="col-sm-1">维修人</th>
+                    <th class="col-sm-4">备注说明</th>
+                </tr>
+                </thead>
+                <tr ng-repeat="beidouRepair in beidouRepairs">
+                    <td>{{beidouRepair.beidouRecord.licensePlate}}</td>
+                    <td>{{beidouRepair.changeTerminal | isChangeTerminal}}</td>
+                    <td>{{beidouRepair.oldTerminal}}</td>
+                    <td>{{beidouRepair.newTerminal}}</td>
+                    <td>{{beidouRepair.changeCardType | isChangeCard }}</td>
+                    <td>{{beidouRepair.oldCardNum}}</td>
+                    <td>{{beidouRepair.newCardNum}}</td>
+                    <td>{{beidouRepair.repairFee | currency:'¥'}}</td>
+                    <td>{{beidouRepair.repairDate }}</td>
+                    <td>{{beidouRepair.beidouBranch.branchName }}</td>
+                    <td>{{beidouRenewal.payee.userName }}</td>
+                    <td>{{beidouRepair.description}}</td>
+                </tr>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button class="md-raised" ng-click="cancel()">
+            完成
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

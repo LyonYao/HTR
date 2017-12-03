@@ -1,0 +1,125 @@
+<md-card class="_md">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">北斗档案管理</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-header>
+        <div layout="row" layout-wrap>
+            <section flex="100" layout="row" layout-sm="column" layout-align="center bottom" layout-wrap>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>车牌号</label>
+                    <input ng-model="facet.search_LIKE_licensePlate">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>业户</label>
+                    <input ng-model="facet['search_LIKE_businessOwner']">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>车主</label>
+                    <input ng-model="facet['search_LIKE_owner']">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>电话</label>
+                    <input ng-model="facet['search_LIKE_phoneNum']">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>卡号</label>
+                    <input ng-model="facet['search_LIKE_newCardNum']">
+                </md-input-container>
+                <md-input-container>
+                    <label>到期从</label>
+                    <input md-no-asterisk uib-datepicker-popup ng-model="facet.search_GTE_expireTime_DATE"
+                           ng-click="openDatePopup('GTE_expireTime')" is-open="datePopup.GTE_expireTime" show-button-bar="false"/>
+                </md-input-container>
+                <md-input-container>
+                    <label>到</label>
+                    <input md-no-asterisk uib-datepicker-popup ng-model="facet.search_LTE_expireTime_DATE"
+                           ng-click="openDatePopup('LTE_expireTime')" is-open="datePopup.LTE_expireTime" show-button-bar="false"/>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>安装类型</label>
+                    <md-select ng-model="facet.search_EQ_installType">
+                        <md-option value="">全部</md-option>
+                        <md-option ng-repeat="installType in installTypes" ng-value="installType">
+                            {{installType}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <div class="md-block" flex-gt-sm>
+                    <md-button class="md-raised" ng-click="searchBeidouRecords()">查询</md-button>
+                </div>
+            </section>
+            <section layout="row" layout-sm="column" layout-align="left bottom" layout-wrap>
+                <md-button class="md-raised" ng-show="currentButtons.new.show" ng-click="showNewBeidouRecord($event)">
+                    {{currentButtons.new.name}}
+                </md-button>
+                <md-button class="md-raised md-primary" ng-show="currentButtons.update.show"
+                           ng-click="showEditBeidouRecord($event)">{{currentButtons.update.name}}
+                </md-button>
+                <md-button class="md-raised md-warn" ng-show="currentButtons.delete.show"
+                           ng-click="removeBeidouRecords($event)">{{currentButtons.delete.name}}
+                </md-button>
+
+                <md-button class="md-raised md-primary" ng-show="currentButtons.renewal.show"
+                           ng-click="showRenewal($event)">{{currentButtons.renewal.name}}</md-button>
+
+                <md-button class="md-raised md-primary" ng-show="currentButtons.repair.show"
+                           ng-click="showRepair($event)">{{currentButtons.repair.name}}</md-button>
+
+                <md-button class="md-raised md-accent" ng-show="currentButtons.renewalDetail.show"
+                           ng-click="showRenewalDetail($event)">{{currentButtons.renewalDetail.name}}</md-button>
+                <md-button class="md-raised md-accent" ng-show="currentButtons.repairDetail.show"
+                           ng-click="showRepairDetail($event)">{{currentButtons.repairDetail.name}}</md-button>
+                <div class="label">Raised</div>
+            </section>
+        </div>
+    </md-card-header>
+    <md-card-content>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th><md-checkbox aria-label="Select All"
+                                 ng-checked="isChecked()"
+                                 md-indeterminate="isIndeterminate()"
+                                 ng-click="toggleAll()">
+                </md-checkbox></th>
+                <th><div class="">#</div></th>
+                <th class="col-sm-1">车牌号</th>
+                <th class="col-sm-1">大架号</th>
+                <th class="col-sm-2">业户</th>
+                <th class="col-sm-1">车主</th>
+                <th class="col-sm-1">电话</th>
+                <th class="col-sm-1">终端</th>
+                <th class="col-sm-1">卡号</th>
+                <th class="col-sm-1">入网时间</th>
+                <th class="col-sm-1">到期时间</th>
+                <th class="col-sm-1">距离到期天数</th>
+                <th class="col-sm-1">安装类型</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="beidouRecord in items">
+                <td><md-checkbox aria-label="Select one" ng-checked="exists(beidouRecord, selected)" ng-click="toggle(beidouRecord, selected)">
+                </md-checkbox></td>
+                <td>{{$index + 1}}</td>
+                <td>{{beidouRecord.licensePlate}}</td>
+                <td>{{beidouRecord.frameNumber}}</td>
+                <td>{{beidouRecord.businessOwner}}</td>
+                <td>{{beidouRecord.owner }}</td>
+                <td>{{beidouRecord.phoneNum}}</td>
+                <td>{{beidouRecord.terminalNum}}</td>
+                <td>{{beidouRecord | showCardNum }}</td>
+                <td>{{beidouRecord.joinTime }}</td>
+                <td>{{beidouRecord.expireTime}}</td>
+                <td>{{beidouRecord.leftDays | isOverdue}}</td>
+                <td>{{beidouRecord.installType}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <section layout="row" layout-align="end end">
+            <cl-paging flex cl-pages="paging.total" , cl-steps="6" , cl-page-changed="paging.onPageChanged()" , cl-align="center center" , cl-current-page="paging.current"></cl-paging>
+            总共 {{paging.totalElements}} 条记录
+        </section>
+    </md-card-content>
+</md-card>

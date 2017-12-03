@@ -1,0 +1,125 @@
+<md-dialog aria-label="北斗续费">
+    <form name="newBeidouRenewalForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>北斗续费</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div class="md-block"></div>
+                <div layout="row">
+                    <md-input-container>
+                        <label>车牌号</label>
+                        <input required md-no-asterisk name="licensePlate" readonly ng-model="beidouRecord.licensePlate">
+                        <div ng-messages="newBeidouRenewalForm.licensePlate.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>业户</label>
+                        <input required md-no-asterisk name="businessOwner" readonly ng-model="beidouRecord.businessOwner">
+                        <div ng-messages="newBeidouRenewalForm.businessOwner.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>车主</label>
+                        <input required md-no-asterisk name="owner" readonly ng-model="beidouRecord.owner">
+                        <div ng-messages="newBeidouRenewalForm.owner.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="30">
+                        <label>卡号</label>
+                        <md-select required name="changeCardType" ng-model="beidouRenewal.changeCardType">
+                            <md-option ng-repeat="changeCardType in changeCardTypes" ng-value="changeCardType.value">{{changeCardType.name}}</md-option>
+                        </md-select>
+                        <div ng-messages="newBeidouRenewalForm.changeCardType.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container ng-show="beidouRenewal.changeCardType < 2">
+                        <input md-no-asterisk name="newCardNum" aria-label="新卡号" ng-model="beidouRenewal.newCardNum">
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container class="md-block">
+                        <md-checkbox name="changeCard" ng-model="beidouRenewal.changeTerminal">
+                            是否跟换终端
+                        </md-checkbox>
+                    </md-input-container>
+                    <md-input-container ng-show="beidouRenewal.changeTerminal">
+                        <input md-no-asterisk name="newTerminal" aria-label="新终端号" ng-model="beidouRenewal.newTerminal">
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container>
+                        <label>续费金额</label>
+                        <input required md-no-asterisk name="renewalFee" ng-model="beidouRenewal.renewalFee">
+                        <div ng-messages="newBeidouRenewalForm.renewalFee.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>续费月数</label>
+                        <input required md-no-asterisk name="months" ng-model="beidouRenewal.months">
+                        <div ng-messages="newBeidouRenewalForm.months.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>续费日期</label>
+                        <input required md-no-asterisk uib-datepicker-popup="yyyy-MM-dd" name="expireTime" ng-model="beidouRenewal.renewalDate"
+                               ng-click="openDatePopup('renewalDate')" is-open="datePopup.renewalDate"
+                               show-button-bar="false"/>
+                        <div ng-messages="newBeidouRenewalForm.renewalDate.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <md-input-container flex="30">
+                        <label>续费点</label>
+                        <md-select required name="beidouBranch" ng-model="beidouRenewal.beidouBranch" ng-model-options="{trackBy: '$value.uuid'}">
+                            <md-option ng-repeat="beidouBranch in beidouBranchs" ng-value="beidouBranch">{{beidouBranch.branchName}}</md-option>
+                        </md-select>
+                        <div ng-messages="newBeidouRenewalForm.beidouBranch.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex="30">
+                        <label>续费人</label>
+                        <md-select required name="payee" ng-model="beidouRenewal.payee" ng-model-options="{trackBy: '$value.uuid'}">
+                            <md-option ng-repeat="payee in installers" ng-value="payee">{{payee.userName}}</md-option>
+                        </md-select>
+                        <div ng-messages="newBeidouRenewalForm.payee.$error">
+                            <div ng-messages-include="views/common/required.message.html"></div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <md-input-container class="md-block">
+                    <label>备注</label>
+                    <textarea ng-model="beidouRenewal.description" md-maxlength="150" rows="3"></textarea>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised md-primary" type="submit"
+                       ng-click="newBeidouRenewalForm.$valid && saveBeidouRenewal()">
+                保存
+            </md-button>
+            <md-button class="md-raised md-warn" ng-click="cancel()">
+                取消
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
