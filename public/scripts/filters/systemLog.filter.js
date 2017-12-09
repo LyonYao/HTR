@@ -18,7 +18,21 @@
                     case 'vehicle':
                         return '车辆';
                     case 'loanInfo':
-                        return '档案';
+                        return '贷款档案';
+                    case 'beidouBranch':
+                        return '分部';
+                    case 'beidouRecord':
+                        return '北斗档案';
+                    case 'beidouRenewal':
+                        return '北斗续费';
+                    case 'beidouRepair':
+                        return '北斗维修';
+                    case 'phoneInfo':
+                        return '电话';
+                    case 'resource':
+                        return '权限';
+                    case 'subLoanRecord':
+                        return '贷款还款';
                     // default:
                     //     return '未知模块';
                 }

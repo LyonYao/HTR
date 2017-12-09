@@ -12,4 +12,6 @@ public interface LoanInfoRepository extends JpaRepository<LoanInfo, String>, Jpa
     LoanInfo save(LoanInfo loanInfo);
 
     List<LoanInfo> findAllByActiveTrueAndCompletedFalse();
+
+    List<LoanInfo> findAllByActiveTrue();
 }

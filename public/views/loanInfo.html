@@ -60,9 +60,9 @@
                 <md-button class="md-raised md-accent" ng-show="currentButtons.loanRecordDetail.show"
                            ng-click="showDetailLoanRecords($event)">{{currentButtons.loanRecordDetail.name}}</md-button>
                 <md-button class="md-raised md-accent" ng-show="currentButtons.exportMonthReport.show"
-                           ng-click="showDetailLoanRecords($event)">{{currentButtons.exportMonthReport.name}}</md-button>
+                           ng-click="exportMonthReport($event)">{{currentButtons.exportMonthReport.name}}</md-button>
                 <md-button class="md-raised md-accent" ng-show="currentButtons.exportLoanInfo.show"
-                           ng-click="showDetailLoanRecords($event)">{{currentButtons.exportLoanInfo.name}}</md-button>
+                           ng-click="exportLoanInfo($event)">{{currentButtons.exportLoanInfo.name}}</md-button>
                 <div class="label">Raised</div>
             </section>
         </div>
@@ -83,8 +83,8 @@
                 <th class="col-sm-1">担保人</th>
                 <th class="col-sm-1">总期数</th>
                 <th class="col-sm-1">当前期数</th>
-                <th class="col-sm-1">应还款额</th>
-                <th class="col-sm-1">已还款额</th>
+                <th class="col-sm-1">本期应还款额</th>
+                <th class="col-sm-1">本期已还款额</th>
                 <th class="col-sm-1">还款日期</th>
                 <th class="col-sm-1">距离还款天数</th>
                 <th class="col-sm-1">贷款日期</th>

@@ -197,6 +197,14 @@
                 }
             };
 
+            $scope.exportMonthReport = function () {
+                window.location.href = "/loanInfo/exportMonthReport";
+            };
+
+            $scope.exportLoanInfo = function () {
+                window.location.href = "/loanInfo/exportLoanInfo";
+            };
+
             function removeLoanInfo() {
                 $http.post('/loanInfo/delete', $scope.selected).then(function () {
                     $mdToast.show(
